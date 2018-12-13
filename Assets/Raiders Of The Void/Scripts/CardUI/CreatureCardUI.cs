@@ -3,17 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[ExecuteInEditMode]
 public class CreatureCardUI : BaseCardUI
 {
     public CreatureCardData creatureCardData;
+
+    GameController gameController;
 
     public Text attackText;
 
     public Button button;
 
+    AudioSource audioSource;
+
+    public AudioClip cardSound;
+
     private void Start()
     {
-        //CreatureCardData data = Instantiate(creatureCardData);
+        audioSource = GetComponent<AudioSource>();
+        gameController = (GameController)FindObjectOfType(typeof(GameController)); //finds the gamecontroller
         UICreatureCard(cardNameText, ability1Text, ability2Text, hpText, artImage, attackText);
     }
 

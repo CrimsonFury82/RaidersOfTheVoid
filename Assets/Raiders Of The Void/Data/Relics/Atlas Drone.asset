@@ -8,11 +8,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd386b2b6af320e469cf167571a27bd2, type: 3}
-  m_Name: Hero2
+  m_Script: {fileID: 11500000, guid: dfeffeb476f7fc349994e4a479e15104, type: 3}
+  m_Name: Atlas Drone
   m_EditorClassIdentifier: 
-  cardName: Hero 2
-  ability1: Test 2
+  cardName: Atlas Drone
+  ability1: Zoom
   ability2: 
-  hp: 30
-  artSprite: {fileID: 0}
+  hp: 5
+  artSprite: {fileID: 21300000, guid: 659c301c5960c974cb97eb61a4656bf1, type: 3}
+  audio1: {fileID: 0}
+  attack: 0
+  cooldown: 0

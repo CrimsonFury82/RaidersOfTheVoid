@@ -8,11 +8,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfeffeb476f7fc349994e4a479e15104, type: 3}
-  m_Name: Amulet Of Life
+  m_Script: {fileID: 11500000, guid: cd386b2b6af320e469cf167571a27bd2, type: 3}
+  m_Name: HeroFemale
   m_EditorClassIdentifier: 
-  cardName: Amulet of Life
-  ability1: Mmm health juice
+  cardName: Hero 1
+  ability1: 
   ability2: 
-  hp: 5
-  artSprite: {fileID: 0}
+  hp: 30
+  artSprite: {fileID: 21300000, guid: cbc53a736b881384a92f28cd32ea7cb1, type: 3}
+  audio1: {fileID: 0}
