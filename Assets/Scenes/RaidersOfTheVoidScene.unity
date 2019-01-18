@@ -1948,15 +1948,11 @@ MonoBehaviour:
   turnState: 0
   turnPhase: 0
   p1HP: 99
-  defenderHeroHP: 0
-  turnCount: 3
+  turnsReamaining: 3
   P1Hero: {fileID: 634982550}
   p1HealthText: {fileID: 1768485628}
-  p1BattleTransform: {fileID: 44294895}
   p2BattleTransform: {fileID: 141712104}
-  battleTransform: {fileID: 141712104}
-  p1Deck: []
-  p2Deck:
+  aiDeck:
   - {fileID: 11400000, guid: 975fde177003a6a48b1987a092f7a5f9, type: 2}
   - {fileID: 11400000, guid: 975fde177003a6a48b1987a092f7a5f9, type: 2}
   - {fileID: 11400000, guid: 975fde177003a6a48b1987a092f7a5f9, type: 2}
@@ -1967,12 +1963,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 975fde177003a6a48b1987a092f7a5f9, type: 2}
   - {fileID: 11400000, guid: 975fde177003a6a48b1987a092f7a5f9, type: 2}
   - {fileID: 11400000, guid: 975fde177003a6a48b1987a092f7a5f9, type: 2}
-  deckList: []
-  p1LiveMonsters: []
-  p2LiveMonsters: []
-  deadCreatures: []
   attackers: []
-  defenders: []
   creatureCardTemplate: {fileID: 114737955036837596, guid: aecfe16196e7c394f9e5c6acb11ac9c1,
     type: 2}
   animationController: {fileID: 166944612}

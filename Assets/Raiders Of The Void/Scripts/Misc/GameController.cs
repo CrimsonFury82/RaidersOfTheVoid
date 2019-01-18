@@ -12,21 +12,23 @@ public class GameController : MonoBehaviour {
 
     public phase turnPhase; //State for current game phase
 
-    public int p1HP = 99, defenderHeroHP, turnCount = 3;
+    public int p1HP = 99, turnsRemaining = 3;
 
     public GameObject P1Hero;
 
     public Text p1HealthText; //UI text
 
-    public Transform p1BattleTransform, p2BattleTransform, battleTransform; //Board areas for each players cards
+    public Transform p2BattleTransform; //Board areas for each players cards
 
-    public List<CreatureCardData> p1Deck, p2Deck, deckList; //lists for the carddata of each decks and hand
+    public List<CreatureCardData> aiDeck; //AI deck list list
 
-    public List<GameObject> p1LiveMonsters, p2LiveMonsters, deadCreatures, attackers, defenders; //lists for the card prefabs on the board and dead cards
+    public List<GameObject> attackers; //lists for the card prefabs on the board and dead cards
 
     public CreatureCardUI creatureCardTemplate; //card prefab
 
     public AnimationController animationController;
+
+    float endTurnDelay = 1.75f;
 
     CreatureCardUI creatureCardUI; //script
 
@@ -83,122 +85,80 @@ public class GameController : MonoBehaviour {
         if (turnState == turn.Player1) //checks if currently Player 1's turn
         {
             turnState = turn.Player2;
-            deckList = p2Deck;
-            attackers = p2LiveMonsters;
-            defenders = p1LiveMonsters;
-            
-            if (deckList.Count > 0)
-            {
-                topDeckCard = p2Deck[0];
-            }
-            else
-            {
-                topDeckCard = null;
-            }
-
         }
         else if (turnState == turn.Player2) //checks if currently Player 2's turn
         {
             turnState = turn.Player1;
-            attackers = p1LiveMonsters;
-            defenders = p2LiveMonsters;
         }
 
-        if (deckList.Count > 0 & turnState == turn.Player2)
-        {
-            TurnStart(topDeckCard, deckList, attackers, defenders, defenderHeroHP);
-        }
-        else
-        {
-            TurnStart(null, deckList, attackers, defenders, defenderHeroHP);
-        }
+        TurnStart();
     }
 
-    void TurnStart(CreatureCardData topDeckCard, List<CreatureCardData> deckList, List<GameObject> attackers, List<GameObject> defenders, int defenderHeroHP)
+    void TurnStart()
     {
-        if (attackers.Count == 0 & turnState == turn.Player2) //checks if deck has cards left
+        if (turnState == turn.Player2) //checks if it is AI's turn
         {
-            DealHand();
-            StartCoroutine(HeroAttackPhase(p2LiveMonsters, p1LiveMonsters, p1HP));
+            if(attackers.Count == 0) //checks if AI has creatures on the board
+            {
+                DealHand();
+            }
+            StartCoroutine(HeroAttackPhase()); //starts attack phase
         }
 
-        else if (turnState == turn.Player2)
+        if (turnState == turn.Player1 & turnsRemaining > 1)
         {
-            StartCoroutine(HeroAttackPhase(p2LiveMonsters, p1LiveMonsters, p1HP));
-        }
-
-        if (turnState == turn.Player1 & turnCount > 1)
-        {
-            turnCount--;
-            TurnSwap();
+            turnsRemaining--;
+            Invoke("TurnSwap", endTurnDelay);
         }
     }
 
     public void DealHand()
     {
-        DealCard(topDeckCard, deckList, battleTransform);
-        DealCard(topDeckCard, deckList, battleTransform);
-        DealCard(topDeckCard, deckList, battleTransform);
-        DealCard(topDeckCard, deckList, battleTransform);
+        DealCard();
+        DealCard();
+        DealCard();
+        DealCard();
     }
 
-    public void DealCard(CreatureCardData topDeckCard, List<CreatureCardData> deckList, Transform battleTransform) //deals card to Player
+    public void DealCard() //deals monster card to AI monster area
     {
+        if (aiDeck.Count > 0)
+        {
+            topDeckCard = aiDeck[0];
+        }
+        else
+        {
+            topDeckCard = null;
+        }
+
         CreatureCardData card = Instantiate(topDeckCard); //instantiates an instance of the carddata scriptable object
         CreatureCardUI dealtCard = Instantiate(creatureCardTemplate); //instantiates an instance of the card prefab
-        dealtCard.transform.SetParent(battleTransform.transform, false); //moves card to handzone
+        dealtCard.transform.SetParent(p2BattleTransform.transform, false); //moves card to handzone
         dealtCard.creatureCardData = card; //sets the cards data to the card dealt
-        deckList.Remove(topDeckCard); //removes card from deck list
+        aiDeck.Remove(topDeckCard); //removes card from deck list
         attackers.Add(dealtCard.gameObject);
     }
 
-    //public void PlayCard(GameObject playedCard, CreatureCardData monsterCardData , Button button, AudioSource audioSource) //plays a clicked card to the baord
-    //{
-    //    button.interactable = false; //disables the play card button
-    //    playedCard.transform.SetParent(battleTransform.transform, false); //moves the card to the battlezone
-    //    attackers.Add(playedCard); //adds the card to p1liveMonsters list
-    //    DeckUIUpdate();
-    //    StartCoroutine(CombatPhase(p1LiveMonsters, p2LiveMonsters, p2HP)); //calls AttackRound function and passes it argument parameters
-    //}
-
-    //public void P2PlayCard() //AI plays a random card
-    //{
-    //    int rng = Random.Range(0, p2Hand.Count); //generates random number
-    //    //MonsterCardUI.PlayClickedCard(monsterCard);
-    //    MonsterCardData card = p2Hand[rng]; //assigns the random number to the card to be played.
-    //    MonsterCardUI playedCard = Instantiate(monsterCardTemplate); //instantiates an instance of the card
-    //    playedCard.monsterCardData = (MonsterCardData)card; //sets the cards data to the card played from hand
-    //    playedCard.button.interactable = false; //disables the play card button
-    //    playedCard.transform.SetParent(battleTransform.transform, false); //moves card to battlezone
-    //    p2LiveMonsters.Add(playedCard.gameObject); //adds the card to p2livemonsters list
-    //    p2Hand.Remove(card); //removes the card from hand list
-    //    DeckUIUpdate();
-    //    StartCoroutine(CombatPhase(p2LiveMonsters, p1LiveMonsters, p1HP)); //calls attack function
-    //}
-
-    public IEnumerator HeroAttackPhase(List<GameObject> attackers, List<GameObject> defenders, int defenderHeroHP)
+    public IEnumerator HeroAttackPhase()
     {
-        float endTurnDelay = 1.75f;
         float combatDelay = 1f;
         yield return new WaitForSeconds(combatDelay);
         turnPhase = phase.CombatPhase;
-        if (attackers.Count > defenders.Count) //checks if attack has more monsters than defender
+      
+        for (int i = 0; i < attackers.Count; i++) //loop repeats for each creature fighting the hero
         {
-            for (int i = defenders.Count; i < attackers.Count; i++) //loop repeats for each creature fighting the hero
-            {
-                CreatureCardUI attacker = attackers[i].GetComponent<CreatureCardUI>();
-                animationController.AttackStart(attackers[i], P1Hero);
-                defenderHeroHP -= attacker.creatureCardData.attack;
-            }
+            CreatureCardUI attacker = attackers[i].GetComponent<CreatureCardUI>();
+            animationController.AttackStart(attackers[i], P1Hero);
+            p1HP -= attacker.creatureCardData.attack;
         }
+       
         HeroHPUIUpdate();
 
-        if (defenderHeroHP <= 0) //checks if hero is dead
+        if (p1HP <= 0) //checks if hero is dead
         {
             print("GameOver by 0 HP");
             GameOver();
             CancelInvoke();
-            //return;
         }
         Invoke("TurnSwap", endTurnDelay);
     }
@@ -218,11 +178,5 @@ public class GameController : MonoBehaviour {
     //{
     //    GameOverObject.SetActive(true);
     //    gameoverText.text = "Game Over, Player2 Wins";
-    //}
-
-    //public void Draw()
-    //{
-    //    GameOverObject.SetActive(true);
-    //    gameoverText.text = "Game Over, Tied Game";
     //}
 }
