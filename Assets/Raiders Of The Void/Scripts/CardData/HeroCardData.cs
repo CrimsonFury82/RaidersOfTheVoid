@@ -7,5 +7,5 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "New Hero", menuName = "Card/Hero")]
 public class HeroCardData : BaseCardData
 {
-    //intentionally empty    
+    public int armour;
 }

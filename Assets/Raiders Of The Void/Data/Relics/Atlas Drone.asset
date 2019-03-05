@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Name: Atlas Drone
   m_EditorClassIdentifier: 
   cardName: Atlas Drone
-  ability1: Zoom
+  ability1: 
   ability2: 
-  hp: 5
+  hp: 0
   artSprite: {fileID: 21300000, guid: 659c301c5960c974cb97eb61a4656bf1, type: 3}
   audio1: {fileID: 0}
-  attack: 0
-  cooldown: 0
+  dmg: 7
+  heal: 30
+  cooldown: 2

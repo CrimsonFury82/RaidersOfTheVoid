@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour {
 
     public phase turnPhase; //State for current game phase
 
-    public int p1HP = 99, turnsRemaining = 3;
+    public int p1HP, turnsRemaining;
 
     public GameObject P1Hero;
 
@@ -102,7 +102,7 @@ public class GameController : MonoBehaviour {
             {
                 DealHand();
             }
-            StartCoroutine(HeroAttackPhase()); //starts attack phase
+            //StartCoroutine(HeroAttackPhase()); //starts attack phase
         }
 
         if (turnState == turn.Player1 & turnsRemaining > 1)
@@ -114,6 +114,8 @@ public class GameController : MonoBehaviour {
 
     public void DealHand()
     {
+        DealCard();
+        DealCard();
         DealCard();
         DealCard();
         DealCard();
@@ -149,7 +151,7 @@ public class GameController : MonoBehaviour {
         {
             CreatureCardUI attacker = attackers[i].GetComponent<CreatureCardUI>();
             animationController.AttackStart(attackers[i], P1Hero);
-            p1HP -= attacker.creatureCardData.attack;
+            p1HP -= attacker.creatureCardData.dmg;
         }
        
         HeroHPUIUpdate();

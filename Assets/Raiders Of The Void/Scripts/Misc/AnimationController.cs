@@ -22,7 +22,7 @@ public class AnimationController : MonoBehaviour
         float moveElapsed = 0f; //amount of time passed
         float returnElapsed = 0f; //amount of time passed
 
-        if (gameController.turnPhase == GameController.phase.CombatPhase & attacker != null & defender != null) //checks it is combat phase and card hasn't attacked already
+        if (gameController.turnPhase == GameController.phase.CombatPhase & attacker != null & defender != null) //checks it is combat phase and attacker and defneder exsist
         {
             while (moveElapsed < animationLength) //checks if time passed is less than animation length
             {

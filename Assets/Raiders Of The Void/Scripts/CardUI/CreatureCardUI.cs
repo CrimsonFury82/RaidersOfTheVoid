@@ -10,7 +10,7 @@ public class CreatureCardUI : BaseCardUI
 
     GameController gameController;
 
-    public Text attackText;
+    public Text dmgText;
 
     public Button button;
 
@@ -22,12 +22,12 @@ public class CreatureCardUI : BaseCardUI
     {
         audioSource = GetComponent<AudioSource>();
         gameController = (GameController)FindObjectOfType(typeof(GameController)); //finds the gamecontroller
-        UICreatureCard(cardNameText, ability1Text, ability2Text, hpText, artImage, attackText);
+        UICreatureCard(dmgText);
     }
 
-    public void UICreatureCard(Text cardName, Text ability1, Text ability2, Text hp, Image artImage, Text attack)
+    public void UICreatureCard(Text dmg)
     {
         creatureCardData.BaseCardUpdate(cardNameText, ability1Text, ability2Text, hpText, artImage);
-        attack.text = creatureCardData.attack.ToString();
+        dmg.text = creatureCardData.dmg.ToString(); //updates prefab with values from scriptable object
     }
 }

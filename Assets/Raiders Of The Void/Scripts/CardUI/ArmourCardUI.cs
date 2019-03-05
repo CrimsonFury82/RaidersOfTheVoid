@@ -11,11 +11,10 @@ public class ArmourCardUI : BaseCardUI
 
     private void Start()
     {
-        //ArmourCardData data = Instantiate(armourCardData);
-        UIArmourCard(cardNameText, ability1Text, ability2Text, hpText, artImage);
+        UIArmourCard();
     }
 
-    public void UIArmourCard(Text cardName, Text ability1, Text ability2, Text hp, Image artImage)
+    public void UIArmourCard()
     {
         armourCardData.BaseCardUpdate(cardNameText, ability1Text, ability2Text, hpText, artImage);
     }

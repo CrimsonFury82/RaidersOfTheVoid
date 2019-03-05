@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 222267896374707678}
   - component: {fileID: 114348030387267220}
   m_Layer: 5
-  m_Name: AttackBorder
+  m_Name: DMGBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 222363925932736594}
   - component: {fileID: 114464975675429724}
   m_Layer: 5
-  m_Name: DefenceBorder
+  m_Name: HPBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 222852078081641242}
   - component: {fileID: 114145957421663396}
   m_Layer: 8
-  m_Name: DefenceText
+  m_Name: HPText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 222023752643566520}
   - component: {fileID: 114448718844688910}
   m_Layer: 5
-  m_Name: AttackText
+  m_Name: DMGText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -345,7 +345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.37375522, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -465,7 +465,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -652,8 +652,9 @@ MonoBehaviour:
   ability2Text: {fileID: 114321139654899074}
   hpText: {fileID: 114145957421663396}
   creatureCardData: {fileID: 0}
-  attackText: {fileID: 114448718844688910}
+  dmgText: {fileID: 114448718844688910}
   button: {fileID: 114596738122340142}
+  cardSound: {fileID: 0}
 --- !u!114 &114871599268778368
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1003,7 +1004,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 800, y: -125}
+  m_AnchoredPosition: {x: 92, y: -125}
   m_SizeDelta: {x: 170, y: 230}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224966181535831900

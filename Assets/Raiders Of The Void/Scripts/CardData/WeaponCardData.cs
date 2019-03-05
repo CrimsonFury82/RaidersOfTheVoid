@@ -6,5 +6,5 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "New Weapon", menuName = "Card/Weapon")]
 public class WeaponCardData : BaseCardData
 {
-    public int attack, ammo, cooldown;
+    public int dmg, ap;
 }

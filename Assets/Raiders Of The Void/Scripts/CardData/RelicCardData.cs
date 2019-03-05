@@ -6,5 +6,5 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "New Relic", menuName = "Card/Relic")]
 public class RelicCardData : BaseCardData
 {
-    public int attack, cooldown;
+    public int dmg, heal, cooldown;
 }

@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 222159570452668240}
   - component: {fileID: 114011278843464534}
   m_Layer: 8
-  m_Name: DefenceText
+  m_Name: APText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 222324268518075958}
   - component: {fileID: 114026932162898624}
   m_Layer: 5
-  m_Name: AttackText
+  m_Name: DMGText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 222207218562521240}
   - component: {fileID: 114894016022094840}
   m_Layer: 5
-  m_Name: DefenceBorder
+  m_Name: APBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -211,12 +211,12 @@ GameObject:
   - component: {fileID: 222318959185175186}
   - component: {fileID: 114184238271624360}
   m_Layer: 5
-  m_Name: AttackBorder
+  m_Name: DMGBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1926091157600826
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,7 +364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.35830188, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -451,6 +451,8 @@ MonoBehaviour:
   hpText: {fileID: 114011278843464534}
   weaponCardData: {fileID: 0}
   button: {fileID: 114148218182379690}
+  dmgText: {fileID: 114026932162898624}
+  apText: {fileID: 114011278843464534}
 --- !u!114 &114396997693910986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -997,7 +999,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 92, y: -122}
+  m_AnchoredPosition: {x: 269, y: -359}
   m_SizeDelta: {x: 170, y: 230}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224983491352062422

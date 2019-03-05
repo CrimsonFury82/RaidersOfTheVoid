@@ -9,14 +9,17 @@ public class WeaponCardUI : BaseCardUI
 
     public Button button;
 
+    public Text dmgText, apText;
+
     private void Start()
     {
-        //WeaponCardData data = Instantiate(weaponCardData);
-        UIWeaponCard(cardNameText, ability1Text, ability2Text, hpText, artImage);
+        UIWeaponCard(dmgText, apText);
     }
 
-    public void UIWeaponCard(Text cardName, Text ability1, Text ability2, Text hp, Image artImage)
+    public void UIWeaponCard(Text dmg, Text ap)
     {
         weaponCardData.BaseCardUpdate(cardNameText, ability1Text, ability2Text, hpText, artImage);
+        dmgText.text = weaponCardData.dmg.ToString(); //updates prefab with values from scriptable object
+        apText.text = weaponCardData.ap.ToString(); //updates prefab with values from scriptable object
     }
 }

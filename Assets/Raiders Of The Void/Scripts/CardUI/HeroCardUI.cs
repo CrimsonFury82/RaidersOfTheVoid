@@ -7,14 +7,16 @@ public class HeroCardUI : BaseCardUI
 {
     public HeroCardData heroCardData;
 
+    public Text armourText;
+
     void Start()
     {
-        //HeroCardData card = Instantiate(heroCardData);
-        UIHeroCard(cardNameText, ability1Text, ability2Text, hpText, artImage);
+        UIHeroCard(armourText);
     }
 
-    public void UIHeroCard(Text cardName, Text ability1, Text ability2, Text def, Image artImage)
+    public void UIHeroCard(Text armour)
     {
        heroCardData.BaseCardUpdate(cardNameText, ability1Text, ability2Text, hpText, artImage);
+       armourText.text = heroCardData.armour.ToString(); //updates prefab with values from scriptable object
     }
 }
