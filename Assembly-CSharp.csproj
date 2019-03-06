@@ -77,7 +77,7 @@
     <Compile Include="Assets\Raiders Of The Void\Scripts\CardUI\WeaponCardUI.cs" />
     <Compile Include="Assets\Raiders Of The Void\Scripts\Misc\AnimationController.cs" />
     <Compile Include="Assets\Raiders Of The Void\Scripts\Misc\CardKeywords.cs" />
-    <Compile Include="Assets\Raiders Of The Void\Scripts\Misc\CopiedGameController.cs" />
+    <Compile Include="Assets\Raiders Of The Void\Scripts\Misc\CopiedGameController2.cs" />
     <Compile Include="Assets\Raiders Of The Void\Scripts\Misc\GameController.cs" />
     <Compile Include="Assets\Raiders Of The Void\Scripts\Misc\ShuffleScript.cs" />
     <Reference Include="Unity.2D.PixelPerfect.Editor">

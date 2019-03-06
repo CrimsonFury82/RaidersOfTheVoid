@@ -339,12 +339,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: 7c2334052857be643bf00a84e76a7652, type: 3}
-        m_MethodName: 
+      - m_Target: {fileID: 114392435368565454}
+        m_MethodName: PlayClickedCard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -449,6 +449,7 @@ MonoBehaviour:
   ability1Text: {fileID: 114537592934703866}
   ability2Text: {fileID: 114457334564593302}
   hpText: {fileID: 114011278843464534}
+  gameController: {fileID: 0}
   weaponCardData: {fileID: 0}
   button: {fileID: 114148218182379690}
   dmgText: {fileID: 114026932162898624}

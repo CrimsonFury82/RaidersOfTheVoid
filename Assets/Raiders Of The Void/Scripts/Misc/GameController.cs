@@ -8,23 +8,31 @@ public class GameController : MonoBehaviour {
     public enum turn {Player1, Player2}; //List of states
     public enum phase {MainPhase, CombatPhase}; //List of states
 
+    public Text apText;
+
     public turn turnState; //State for current player turn
 
     public phase turnPhase; //State for current game phase
 
-    public int p1HP, turnsRemaining;
+    int p1HP, turnsRemaining, AP;
 
-    public GameObject P1Hero;
+    public GameObject defenderHero;
 
-    public Text p1HealthText; //UI text
+    public GameObject heroTarget;
 
-    public Transform p2BattleTransform; //Board areas for each players cards
+    public Button endTurnButton;
 
-    public List<CreatureCardData> aiDeck; //AI deck list list
+    public Transform p2BattleTransform, heroTransform; //Board areas for each players cards
 
-    public List<GameObject> attackers; //lists for the card prefabs on the board and dead cards
+    public List<CreatureCardData> aiDeck; //Deck list
+
+    public List<HeroCardData> heroDeck; //Deck list
+
+    public List<GameObject> attackers, liveHeroes; //lists for the card prefabs on the board and dead cards
 
     public CreatureCardUI creatureCardTemplate; //card prefab
+
+    public HeroCardUI heroCardTemplate;
 
     public AnimationController animationController;
 
@@ -33,7 +41,9 @@ public class GameController : MonoBehaviour {
     CreatureCardUI creatureCardUI; //script
 
     CreatureCardData topDeckCard;
-            
+
+    HeroCardUI heroCard;
+
     public void Turns() //function for turn states
     {   switch (turnState)
         {
@@ -68,17 +78,13 @@ public class GameController : MonoBehaviour {
 
     void BeginGame() //function for start of game.
     {
-        HeroHPUIUpdate(); //updates UI text
+        DealHero(heroDeck[0], heroTransform);
+        DealHand();
         turnState = turn.Player1;
-        TurnSwap();
+        APUpdate();
     }
 
-    void HeroHPUIUpdate() //updates Hero HP UI text
-    {
-        p1HealthText.text = p1HP.ToString();
-    }
-   
-    public void TurnSwap() //function for Start of turn
+    public void TurnUpkeep() //function for Start of turn
     {
         turnPhase = phase.MainPhase;
 
@@ -89,9 +95,16 @@ public class GameController : MonoBehaviour {
         else if (turnState == turn.Player2) //checks if currently Player 2's turn
         {
             turnState = turn.Player1;
+            APUpdate();
         }
-
+        print("Turn = " + turnState);
         TurnStart();
+    }
+
+    void APUpdate()
+    {
+        AP = 10;
+        apText.text = "AP = " + AP.ToString();
     }
 
     void TurnStart()
@@ -102,14 +115,21 @@ public class GameController : MonoBehaviour {
             {
                 DealHand();
             }
-            //StartCoroutine(HeroAttackPhase()); //starts attack phase
+            else
+            {
+                StartCoroutine(HeroAttackPhase()); //starts attack phase
+            }
         }
 
         if (turnState == turn.Player1 & turnsRemaining > 1)
         {
             turnsRemaining--;
-            Invoke("TurnSwap", endTurnDelay);
         }
+    }
+
+    public void EndTurn()
+    {
+        TurnUpkeep();
     }
 
     public void DealHand()
@@ -118,8 +138,30 @@ public class GameController : MonoBehaviour {
         DealCard();
         DealCard();
         DealCard();
-        DealCard();
-        DealCard();
+    }
+
+    public void WeaponAttack(GameObject playedCard, WeaponCardData weaponCardData, Button button)
+    {
+        if(AP - weaponCardData.ap <0)
+        {
+            print("Not enough AP");
+        }
+        else { 
+            print("DMG = " + weaponCardData.dmg + " AP = " + weaponCardData.ap);
+            AP -= weaponCardData.ap;
+            apText.text = "AP = " + AP.ToString();
+            print("Select target");
+            //insert target selection code here
+        }
+    }
+
+    public void DealHero(HeroCardData hero, Transform heroTransform) //Deals hero cards at start of game
+    {
+        HeroCardData card = Instantiate(hero);
+        HeroCardUI tempCard = Instantiate(heroCardTemplate); //instantiates an instance of the card prefab
+        tempCard.transform.SetParent(heroTransform.transform, false); //moves card 
+        tempCard.heroCardData = card;
+        liveHeroes.Add(tempCard.gameObject);
     }
 
     public void DealCard() //deals monster card to AI monster area
@@ -146,39 +188,34 @@ public class GameController : MonoBehaviour {
         float combatDelay = 1f;
         yield return new WaitForSeconds(combatDelay);
         turnPhase = phase.CombatPhase;
-      
+
+        HeroCardUI defHero = defenderHero.GetComponent<HeroCardUI>();
+
         for (int i = 0; i < attackers.Count; i++) //loop repeats for each creature fighting the hero
         {
             CreatureCardUI attacker = attackers[i].GetComponent<CreatureCardUI>();
-            animationController.AttackStart(attackers[i], P1Hero);
-            p1HP -= attacker.creatureCardData.dmg;
+            heroTarget = liveHeroes[0];
+            animationController.AttackStart(attackers[i], heroTarget);
+            
+            //The defhero line is bugged and not working. Need to work through code and debug
+
+            //print("hero hp = " + defHero.heroCardData.hp);
+            //defHero.heroCardData.hp -= attacker.creatureCardData.dmg; //creature deals damage
+            //defHero.hpText.text = defHero.heroCardData.hp.ToString(); //updates UI HP text
+            //p1HP = defHero.heroCardData.hp;
         }
-       
-        HeroHPUIUpdate();
 
         if (p1HP <= 0) //checks if hero is dead
         {
             print("GameOver by 0 HP");
             GameOver();
-            CancelInvoke();
+            //CancelInvoke();
         }
-        Invoke("TurnSwap", endTurnDelay);
+        Invoke("TurnUpkeep", endTurnDelay);
     }
 
     public void GameOver() //function for when the game has ended
     {
-        print("Game Over");
+        
     }
-
-    //public void P1Wins()
-    //{
-    //    GameOverObject.SetActive(true);
-    //    gameoverText.text = "Game Over, Player1 Wins";
-    //}
-
-    //public void P2Wins()
-    //{
-    //    GameOverObject.SetActive(true);
-    //    gameoverText.text = "Game Over, Player2 Wins";
-    //}
 }

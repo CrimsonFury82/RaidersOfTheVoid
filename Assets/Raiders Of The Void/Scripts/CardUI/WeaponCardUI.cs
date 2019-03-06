@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class WeaponCardUI : BaseCardUI
 {
+    public GameController gameController;
+
     public WeaponCardData weaponCardData;
 
     public Button button;
@@ -13,6 +15,7 @@ public class WeaponCardUI : BaseCardUI
 
     private void Start()
     {
+        gameController = (GameController)FindObjectOfType(typeof(GameController)); //finds the gamecontroller
         UIWeaponCard(dmgText, apText);
     }
 
@@ -21,5 +24,10 @@ public class WeaponCardUI : BaseCardUI
         weaponCardData.BaseCardUpdate(cardNameText, ability1Text, ability2Text, hpText, artImage);
         dmgText.text = weaponCardData.dmg.ToString(); //updates prefab with values from scriptable object
         apText.text = weaponCardData.ap.ToString(); //updates prefab with values from scriptable object
+    }
+
+    public void PlayClickedCard() //plays the clicked card from your hand area to the battlezone
+    {
+        gameController.WeaponAttack(this.gameObject, weaponCardData, button);
     }
 }
