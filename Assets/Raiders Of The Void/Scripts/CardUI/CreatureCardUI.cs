@@ -14,6 +14,8 @@ public class CreatureCardUI : BaseCardUI
 
     public Button button;
 
+    public GameObject buttonObject;
+
     AudioSource audioSource;
 
     public AudioClip cardSound;
