@@ -26,8 +26,8 @@ public class WeaponCardUI : BaseCardUI
         apText.text = weaponCardData.ap.ToString(); //updates prefab with values from scriptable object
     }
 
-    public void PlayClickedCard() //plays the clicked card from your hand area to the battlezone
+    public void UsedClickedGear() //plays the clicked card from your hand area to the battlezone
     {
-        gameController.WeaponAttack(this.gameObject, weaponCardData, button);
+        gameController.WeaponTarget(weaponCardData, button);
     }
 }

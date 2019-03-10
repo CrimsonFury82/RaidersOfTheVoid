@@ -1850,12 +1850,28 @@ MonoBehaviour:
   enemyTransform: {fileID: 141712104}
   heroTransform: {fileID: 44294895}
   aiDeck:
+  - {fileID: 11400000, guid: 35190eaafdae6674b86fdcdb054c4cdb, type: 2}
+  - {fileID: 11400000, guid: 35190eaafdae6674b86fdcdb054c4cdb, type: 2}
+  - {fileID: 11400000, guid: 35190eaafdae6674b86fdcdb054c4cdb, type: 2}
+  - {fileID: 11400000, guid: 35190eaafdae6674b86fdcdb054c4cdb, type: 2}
+  - {fileID: 11400000, guid: 35190eaafdae6674b86fdcdb054c4cdb, type: 2}
+  - {fileID: 11400000, guid: 35190eaafdae6674b86fdcdb054c4cdb, type: 2}
+  - {fileID: 11400000, guid: 975fde177003a6a48b1987a092f7a5f9, type: 2}
+  - {fileID: 11400000, guid: 975fde177003a6a48b1987a092f7a5f9, type: 2}
+  - {fileID: 11400000, guid: 975fde177003a6a48b1987a092f7a5f9, type: 2}
+  - {fileID: 11400000, guid: 975fde177003a6a48b1987a092f7a5f9, type: 2}
+  - {fileID: 11400000, guid: 975fde177003a6a48b1987a092f7a5f9, type: 2}
+  - {fileID: 11400000, guid: 975fde177003a6a48b1987a092f7a5f9, type: 2}
+  - {fileID: 11400000, guid: 975fde177003a6a48b1987a092f7a5f9, type: 2}
+  - {fileID: 11400000, guid: 975fde177003a6a48b1987a092f7a5f9, type: 2}
   - {fileID: 11400000, guid: 975fde177003a6a48b1987a092f7a5f9, type: 2}
   - {fileID: 11400000, guid: 42deae3532d541042a6d701d6d8a8123, type: 2}
-  - {fileID: 11400000, guid: 975fde177003a6a48b1987a092f7a5f9, type: 2}
-  - {fileID: 11400000, guid: 35190eaafdae6674b86fdcdb054c4cdb, type: 2}
-  - {fileID: 11400000, guid: 35190eaafdae6674b86fdcdb054c4cdb, type: 2}
-  - {fileID: 11400000, guid: 35190eaafdae6674b86fdcdb054c4cdb, type: 2}
+  - {fileID: 11400000, guid: 42deae3532d541042a6d701d6d8a8123, type: 2}
+  - {fileID: 11400000, guid: 42deae3532d541042a6d701d6d8a8123, type: 2}
+  - {fileID: 11400000, guid: 42deae3532d541042a6d701d6d8a8123, type: 2}
+  - {fileID: 11400000, guid: 42deae3532d541042a6d701d6d8a8123, type: 2}
+  - {fileID: 11400000, guid: 42deae3532d541042a6d701d6d8a8123, type: 2}
+  - {fileID: 11400000, guid: 42deae3532d541042a6d701d6d8a8123, type: 2}
   - {fileID: 11400000, guid: 42deae3532d541042a6d701d6d8a8123, type: 2}
   - {fileID: 11400000, guid: 42deae3532d541042a6d701d6d8a8123, type: 2}
   heroDeck:
@@ -1867,6 +1883,7 @@ MonoBehaviour:
   heroCardTemplate: {fileID: 114996385502162220, guid: b822fdea457c3c446a64940425ee6824,
     type: 3}
   animationController: {fileID: 166944612}
+  tempWeapon: {fileID: 0}
 --- !u!4 &1623185361
 Transform:
   m_ObjectHideFlags: 0

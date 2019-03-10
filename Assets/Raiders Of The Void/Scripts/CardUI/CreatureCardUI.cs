@@ -32,4 +32,9 @@ public class CreatureCardUI : BaseCardUI
         creatureCardData.BaseCardUpdate(cardNameText, ability1Text, ability2Text, hpText, artImage);
         dmg.text = creatureCardData.dmg.ToString(); //updates prefab with values from scriptable object
     }
+
+    public void AttackClickedCreature() //plays the clicked card from your hand area to the battlezone
+    {
+        gameController.WeaponAttack(this.gameObject, creatureCardData, button);
+    }
 }

@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour {
 
     public phase turnPhase; //State for current game phase
 
-    int p1HP, turnsRemaining, AP;
+    int turnsRemaining, AP;
 
     GameObject defenderHeroObject;
 
@@ -32,15 +32,27 @@ public class GameController : MonoBehaviour {
 
     public HeroCardUI heroCardTemplate;
 
+    HeroCardUI defHero;
+
     public AnimationController animationController;
+
+    public WeaponCardData tempWeapon;
 
     float endTurnDelay = 1.75f;
 
-    CreatureCardUI creatureCardUI; //script
-
     CreatureCardData topDeckCard;
 
-    HeroCardUI heroCard;
+    void Shuffle(List<CreatureCardData> deck)
+    {
+        for (int i = 0; i < 1000; i++) //shuffles by swapping two random cards and repeating process 1000 times
+        {   //comment text shows an example where rng1 result = 50 and rng2 result = 10
+            int rng1 = Random.Range(0, deck.Count);
+            int rng2 = Random.Range(0, deck.Count);
+            CreatureCardData tempcard = deck[rng1]; //tempcard = card 50
+            deck[rng1] = deck[rng2]; //card 50 = card 10
+            deck[rng2] = tempcard; //card 10 = card 50
+        }
+    }
 
     public void Turns() //function for turn states
     {   switch (turnState)
@@ -76,7 +88,9 @@ public class GameController : MonoBehaviour {
 
     void BeginGame() //function for start of game.
     {
+        Shuffle(aiDeck);
         DealHero(heroDeck[0], heroTransform);
+        defHero = liveHeroes[0].GetComponent<HeroCardUI>();
         DealHand();
         turnState = turn.Player1;
         APUpdate();
@@ -84,6 +98,12 @@ public class GameController : MonoBehaviour {
 
     public void TurnUpkeep() //function for Start of turn
     {
+        if (attackers.Count == 0 && aiDeck.Count == 0)
+        {
+            Victory();
+            return;
+        }
+
         turnPhase = phase.MainPhase;
 
         if (turnState == turn.Player1) //checks if currently Player 1's turn
@@ -112,6 +132,7 @@ public class GameController : MonoBehaviour {
             if(attackers.Count == 0) //checks if AI has creatures on the board
             {
                 DealHand();
+                TurnUpkeep();
             }
             else
             {
@@ -132,42 +153,65 @@ public class GameController : MonoBehaviour {
 
     public void DealHand()
     {
-        DealCard();
-        DealCard();
-        DealCard();
-        DealCard();
+        for(int i = 0; i < 4; i++)
+        {
+            if (aiDeck.Count > 0)
+            {
+                DealCard();
+            }
+        }
     }
 
-    public void WeaponAttack(GameObject playedCard, WeaponCardData weaponCardData, Button button)
+    public void WeaponTarget(WeaponCardData weaponCardData, Button button)
     {
         if(AP - weaponCardData.ap <0)
         {
             print("Not enough AP");
         }
-        else { 
-            print("DMG = " + weaponCardData.dmg + " AP = " + weaponCardData.ap);
-            AP -= weaponCardData.ap;
-            apText.text = "AP = " + AP.ToString();
+        else {
+            tempWeapon = weaponCardData; //assigns the weapon clicked as the tempweapon
             print("Select target");
-            //insert target selection code here
-
-            for (int i = 0; i < attackers.Count; i++) //loop repeats for each creature fighting the hero
+            for (int i = 0; i < attackers.Count; i++) //loop repeats for each creature on the board
             {
                 CreatureCardUI attacker = attackers[i].GetComponent<CreatureCardUI>();
-                attacker.buttonObject.SetActive(true);
+                attacker.buttonObject.SetActive(true); //enables buttons on all the creature cards
             }
+        }
+    }
+
+    public void WeaponAttack(GameObject creature, CreatureCardData creatureCard, Button button)
+    {
+        print(creatureCard.name + " HP = " + creatureCard.hp);
+        print(tempWeapon.name + " DMG = " + tempWeapon.dmg + " AP = " + tempWeapon.ap);
+        AP -= tempWeapon.ap; //updates AP remaining
+        creatureCard.hp -= tempWeapon.dmg; //deals dmg to creature
+        print(creatureCard.name + " HP = " + creatureCard.hp);
+        apText.text = "AP = " + AP.ToString(); //updates UI text
+        CreatureCardUI defCreature = creature.GetComponent<CreatureCardUI>(); //creatures a reference to the creature
+        defCreature.hpText.text = defCreature.creatureCardData.hp.ToString(); //updates UI text
+
+        if (creatureCard.hp <= 0) //checks if creature is dead
+        {
+            CreatureCardUI deadCreature = creature.GetComponent<CreatureCardUI>();
+            GameObject deadGameObject = deadCreature.gameObject;
+            GameObject.Destroy(deadGameObject); //destroys the creature
+            attackers.Remove(deadCreature.gameObject); //removes destroyed creature from attackers list
+        }
+
+        for (int i = 0; i < attackers.Count; i++) //loop repeats for each creature on the board
+        {
+            CreatureCardUI attacker = attackers[i].GetComponent<CreatureCardUI>();
+            attacker.buttonObject.SetActive(false); //disables buttons on all creature cards
         }
     }
 
     public void DealHero(HeroCardData hero, Transform heroTransform) //Deals hero cards at start of game
     {
-        HeroCardData card = Instantiate(hero);
+        HeroCardData card = Instantiate(hero); //instantiates instance of scriptable object
         HeroCardUI tempCard = Instantiate(heroCardTemplate); //instantiates an instance of the card prefab
-        tempCard.transform.SetParent(heroTransform.transform, false); //moves card 
-        tempCard.heroCardData = card;
-        liveHeroes.Add(tempCard.gameObject);
-
-        //defenderHero = tempCard;
+        tempCard.transform.SetParent(heroTransform.transform, false); //moves card onto board
+        tempCard.heroCardData = card; //assigns the instance of the scriptable object to the instance of the prefab
+        liveHeroes.Add(tempCard.gameObject); //adds card to hero list
     }
 
     public void DealCard() //deals monster card to AI monster area
@@ -195,33 +239,31 @@ public class GameController : MonoBehaviour {
         yield return new WaitForSeconds(combatDelay);
         turnPhase = phase.CombatPhase;
 
-        HeroCardUI defHero = liveHeroes[0].GetComponent<HeroCardUI>();
-
         for (int i = 0; i < attackers.Count; i++) //loop repeats for each creature fighting the hero
         {
             CreatureCardUI attacker = attackers[i].GetComponent<CreatureCardUI>();
             defenderHeroObject = liveHeroes[0];
             animationController.AttackStart(attackers[i], defenderHeroObject);
-            
-            //The defhero line is bugged and not working. Need to work through code and debug
-
-            print("hero hp = " + defHero.heroCardData.hp);
             defHero.heroCardData.hp -= attacker.creatureCardData.dmg; //creature deals damage
             defHero.hpText.text = defHero.heroCardData.hp.ToString(); //updates UI HP text
-            p1HP = defHero.heroCardData.hp;
+            print("Hero hp = " + defHero.heroCardData.hp);
         }
 
-        if (p1HP <= 0) //checks if hero is dead
+        if (defHero.heroCardData.hp <= 0) //checks if hero is dead
         {
-            print("GameOver by 0 HP");
             GameOver();
             CancelInvoke();
         }
         Invoke("TurnUpkeep", endTurnDelay);
     }
 
-    public void GameOver() //function for when the game has ended
+    public void GameOver() //function for losing the game
     {
-        
+        print("You Lose");
+    }
+
+    public void Victory() //function for winning the game
+    {
+        print("You Win");
     }
 }
