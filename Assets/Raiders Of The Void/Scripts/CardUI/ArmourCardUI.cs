@@ -16,6 +16,6 @@ public class ArmourCardUI : BaseCardUI
 
     public void UIArmourCard()
     {
-        armourCardData.BaseCardUpdate(cardNameText, ability1Text, ability2Text, hpText, artImage);
+        armourCardData.BaseCardUpdate(cardNameText, ability1Text, hpText, artImage);
     }
 }

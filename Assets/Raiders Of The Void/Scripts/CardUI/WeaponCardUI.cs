@@ -21,7 +21,7 @@ public class WeaponCardUI : BaseCardUI
 
     public void UIWeaponCard(Text dmg, Text ap)
     {
-        weaponCardData.BaseCardUpdate(cardNameText, ability1Text, ability2Text, hpText, artImage);
+        weaponCardData.BaseCardUpdate(cardNameText, ability1Text, hpText, artImage);
         dmgText.text = weaponCardData.dmg.ToString(); //updates prefab with values from scriptable object
         apText.text = weaponCardData.ap.ToString(); //updates prefab with values from scriptable object
     }

@@ -10,10 +10,10 @@ public abstract class BaseCardUI : MonoBehaviour
     
     public Image artImage;
 
-    public Text cardNameText, ability1Text, ability2Text, hpText;
+    public Text cardNameText, ability1Text, hpText;
 
     void Start()
     {
-        baseCardData.BaseCardUpdate(cardNameText, ability1Text, ability2Text, hpText, artImage); //updates prefab UI text with values from scriptable object
+        baseCardData.BaseCardUpdate(cardNameText, ability1Text, hpText, artImage); //updates prefab UI text with values from scriptable object
     }
 }

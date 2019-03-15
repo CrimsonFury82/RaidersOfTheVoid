@@ -40,8 +40,10 @@ public class GameController : MonoBehaviour {
 
     float endTurnDelay = 1.75f;
 
-    CreatureCardData topDeckCard;
+    CreatureCardData creatureTopDeck;
 
+    HeroCardData heroTopDeck;
+       
     void Shuffle(List<CreatureCardData> deck)
     {
         for (int i = 0; i < 1000; i++) //shuffles by swapping two random cards and repeating process 1000 times
@@ -89,7 +91,7 @@ public class GameController : MonoBehaviour {
     void BeginGame() //function for start of game.
     {
         Shuffle(aiDeck);
-        DealHero(heroDeck[0], heroTransform);
+        DealHero();
         defHero = liveHeroes[0].GetComponent<HeroCardUI>();
         DealHand();
         turnState = turn.Player1;
@@ -205,12 +207,21 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    public void DealHero(HeroCardData hero, Transform heroTransform) //Deals hero cards at start of game
+    public void DealHero() //Deals hero cards at start of game
     {
-        HeroCardData card = Instantiate(hero); //instantiates instance of scriptable object
+        if (heroDeck.Count > 0)
+        {
+            heroTopDeck = heroDeck[0];
+        }
+        else
+        {
+            heroTopDeck = null;
+        }
+        HeroCardData card = Instantiate(heroTopDeck); //instantiates instance of scriptable object
         HeroCardUI tempCard = Instantiate(heroCardTemplate); //instantiates an instance of the card prefab
         tempCard.transform.SetParent(heroTransform.transform, false); //moves card onto board
         tempCard.heroCardData = card; //assigns the instance of the scriptable object to the instance of the prefab
+        heroDeck.Remove(heroTopDeck);
         liveHeroes.Add(tempCard.gameObject); //adds card to hero list
     }
 
@@ -218,18 +229,18 @@ public class GameController : MonoBehaviour {
     {
         if (aiDeck.Count > 0)
         {
-            topDeckCard = aiDeck[0];
+            creatureTopDeck = aiDeck[0];
         }
         else
         {
-            topDeckCard = null;
+            creatureTopDeck = null;
         }
 
-        CreatureCardData card = Instantiate(topDeckCard); //instantiates an instance of the carddata scriptable object
+        CreatureCardData card = Instantiate(creatureTopDeck); //instantiates an instance of the carddata scriptable object
         CreatureCardUI dealtCard = Instantiate(creatureCardTemplate); //instantiates an instance of the card prefab
         dealtCard.transform.SetParent(enemyTransform.transform, false); //moves card to handzone
         dealtCard.creatureCardData = card; //sets the cards data to the card dealt
-        aiDeck.Remove(topDeckCard); //removes card from deck list
+        aiDeck.Remove(creatureTopDeck); //removes card from deck list
         attackers.Add(dealtCard.gameObject);
     }
 

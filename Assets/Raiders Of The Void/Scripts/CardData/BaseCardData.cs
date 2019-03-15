@@ -7,7 +7,7 @@ using UnityEngine.UI;
 [ExecuteInEditMode]
 public class BaseCardData : ScriptableObject
 {
-    public string cardName, ability1, ability2;
+    public string cardName, ability1;
     
     public int hp;
 
@@ -15,11 +15,10 @@ public class BaseCardData : ScriptableObject
 
     public AudioClip audio1;
 
-    public virtual void BaseCardUpdate(Text cardNameText, Text ability1Text, Text ability2Text, Text hpText, Image artImage)
+    public virtual void BaseCardUpdate(Text cardNameText, Text ability1Text, Text hpText, Image artImage)
     {
         cardNameText.text = cardName;
         ability1Text.text = ability1;
-        ability2Text.text = ability2;
         hpText.text = hp.ToString();
         artImage.sprite = artSprite;
     }

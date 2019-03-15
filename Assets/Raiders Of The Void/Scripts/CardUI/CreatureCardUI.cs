@@ -29,7 +29,7 @@ public class CreatureCardUI : BaseCardUI
 
     public void UICreatureCard(Text dmg)
     {
-        creatureCardData.BaseCardUpdate(cardNameText, ability1Text, ability2Text, hpText, artImage);
+        creatureCardData.BaseCardUpdate(cardNameText, ability1Text, hpText, artImage);
         dmg.text = creatureCardData.dmg.ToString(); //updates prefab with values from scriptable object
     }
 
