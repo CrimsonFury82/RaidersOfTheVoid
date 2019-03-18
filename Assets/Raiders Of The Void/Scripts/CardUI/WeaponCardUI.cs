@@ -11,22 +11,23 @@ public class WeaponCardUI : BaseCardUI
 
     public Button button;
 
-    public Text dmgText, apText;
+    public Text dmgText, apText, rangeText;
 
     private void Start()
     {
         gameController = (GameController)FindObjectOfType(typeof(GameController)); //finds the gamecontroller
-        UIWeaponCard(dmgText, apText);
+        UIWeaponCard(dmgText, apText, rangeText);
     }
 
-    public void UIWeaponCard(Text dmg, Text ap)
+    public void UIWeaponCard(Text dmg, Text ap, Text range)
     {
         weaponCardData.BaseCardUpdate(cardNameText, ability1Text, hpText, artImage);
         dmgText.text = weaponCardData.dmg.ToString(); //updates prefab with values from scriptable object
         apText.text = weaponCardData.ap.ToString(); //updates prefab with values from scriptable object
+        rangeText.text = weaponCardData.range.ToString(); //updates prefab with values from scriptable object
     }
 
-    public void UsedClickedGear() //plays the clicked card from your hand area to the battlezone
+    public void UsedClickedGear() //calls targeting function in gamecontroller
     {
         gameController.WeaponTarget(weaponCardData, button);
     }

@@ -173,10 +173,23 @@ public class GameController : MonoBehaviour {
         else {
             tempWeapon = weaponCardData; //assigns the weapon clicked as the tempweapon
             print("Select target");
+            int range = weaponCardData.range;
+
+            if(attackers.Count < range)
+            {
+                range = attackers.Count;
+            }
+
             for (int i = 0; i < attackers.Count; i++) //loop repeats for each creature on the board
             {
                 CreatureCardUI attacker = attackers[i].GetComponent<CreatureCardUI>();
-                attacker.buttonObject.SetActive(true); //enables buttons on all the creature cards
+                attacker.buttonObject.SetActive(false); //disables buttons on all creature cards
+            }
+
+            for (int i = 0; i < range; i++) //loop repeats for each creature on the board
+            {
+                CreatureCardUI attacker = attackers[i].GetComponent<CreatureCardUI>();
+                attacker.buttonObject.SetActive(true); //enables buttons on creature cards in range
             }
         }
     }
@@ -255,7 +268,7 @@ public class GameController : MonoBehaviour {
             CreatureCardUI attacker = attackers[i].GetComponent<CreatureCardUI>();
             defenderHeroObject = liveHeroes[0];
             animationController.AttackStart(attackers[i], defenderHeroObject);
-            defHero.heroCardData.hp -= attacker.creatureCardData.dmg; //creature deals damage
+            defHero.heroCardData.hp -= (attacker.creatureCardData.dmg - defHero.heroCardData.armour); //creature deals damage
             defHero.hpText.text = defHero.heroCardData.hp.ToString(); //updates UI HP text
             print("Hero hp = " + defHero.heroCardData.hp);
         }
