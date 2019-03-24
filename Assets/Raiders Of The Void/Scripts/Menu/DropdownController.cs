@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DropdownController : MonoBehaviour
 {
+    //this script currently doesn't do anything??? - Aston
 
     public GameObject menu;
     public bool isVisable;

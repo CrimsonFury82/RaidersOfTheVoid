@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//Script written by Aston Olsen
+
 public class AnimationController : MonoBehaviour
 {
     float animationLength = 1f;

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Script written by Aston Olsen
+
 public class ArmourCardUI : BaseCardUI
 {
     public ArmourCardData armourCardData;

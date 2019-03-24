@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Script written by Aston Olsen
+
 [CreateAssetMenu(fileName = "New Keyword Abilities", menuName = "New Keyword Abilities")]
 public class CardKeywords : ScriptableObject
 {

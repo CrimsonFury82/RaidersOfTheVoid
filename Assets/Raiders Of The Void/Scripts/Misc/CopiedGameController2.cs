@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Script written by Aston Olsen
+
 //This file is from my other card game (Shattered Heroes) and for REFERENCE USE ONLY
 
 //public class GameController : MonoBehaviour {
@@ -19,7 +21,7 @@ using UnityEngine.UI;
 //    public GameObject p1HandObject, GameOverObject, GameOverTextObject;
 
 //    GameObject attackTarget, defenderHero;
-    
+
 //    public Text turnText, p1DeckText, p2DeckText, p1HandText, p2HandText, gameoverText; //UI text
 
 //    public Transform p1BattleTransform, p2BattleTransform, p1HandTransform, p2HandTransform, p1HeroTransform, p2HeroTransform; //Board areas for each players cards
@@ -49,7 +51,7 @@ using UnityEngine.UI;
 //    MonsterCardData topDeckCard;
 
 //    bool isPaused;
-            
+
 //    public void Turns() //function for turn states
 //    {   switch (turnState)
 //        {

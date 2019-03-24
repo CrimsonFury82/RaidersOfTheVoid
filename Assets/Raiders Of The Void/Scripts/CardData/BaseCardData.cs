@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
+//Script written by Aston Olsen
+
 [ExecuteInEditMode]
 public class BaseCardData : ScriptableObject
 {

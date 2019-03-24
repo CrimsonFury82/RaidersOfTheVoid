@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Script written by Aston Olsen
+
 [ExecuteInEditMode]
 public abstract class BaseCardUI : MonoBehaviour
 {
