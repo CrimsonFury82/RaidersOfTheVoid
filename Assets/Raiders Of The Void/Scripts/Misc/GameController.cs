@@ -17,7 +17,7 @@ public class GameController : MonoBehaviour {
 
     public phase turnPhase; //State for current game phase
 
-    int turnsRemaining, AP;
+    int AP;
 
     GameObject defenderHeroObject;
         
@@ -25,7 +25,8 @@ public class GameController : MonoBehaviour {
 
     public Button endTurnButton;
 
-    public Transform enemyTransform, heroTransform, relicTransform, weaponTransform, armourTransform; //Board zones for each group of cards
+    //Board zones for each group of cards
+    public Transform enemyTransform, heroTransform, relicTransform, weaponTransform, armourTransform;
 
     //Deck lists
     public List<WeaponCardData> weaponDeck; 
@@ -35,9 +36,10 @@ public class GameController : MonoBehaviour {
     public List<HeroCardData> heroDeck;
 
     //Lists for the card prefabs on the board
-    public List<GameObject> liveWeapons, liveRelic, liveArmour, liveCreatures, liveHero; 
+    public List<GameObject> liveWeapons, liveRelic, liveArmour, liveCreatures, liveHero;
 
-    public CreatureCardUI creatureCardTemplate; //card prefab
+    //card prefabs
+    public CreatureCardUI creatureCardTemplate;
     public HeroCardUI heroCardTemplate;
     public ArmourCardUI armourCardTemplate;
     public RelicCardUI relicCardTemplate;
@@ -53,7 +55,7 @@ public class GameController : MonoBehaviour {
 
     float endTurnDelay = 1.75f;
 
-    //Temp object for top card of each deck
+    //Temp objects for top card of each deck
     CreatureCardData creatureTopDeck;
     HeroCardData heroTopDeck;
     ArmourCardData armourTopDeck;
@@ -85,7 +87,7 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    public void Phases() //function for phase states
+    public void Phases() //function for main\combat phase states
     {
         switch (turnPhase)
         {
@@ -104,7 +106,7 @@ public class GameController : MonoBehaviour {
         BeginGame();
     }
 
-    void BeginGame() //function for start of game.
+    void BeginGame() //function for starting the game.
     {
         Shuffle(aiDeck);
         DealArmour();
@@ -116,7 +118,7 @@ public class GameController : MonoBehaviour {
         APReset();
     }
 
-    public void EndTurn() //function for Start of turn
+    public void EndTurn() //function for end of turn
     {
         if (liveCreatures.Count == 0 && aiDeck.Count == 0)
         {
@@ -149,7 +151,13 @@ public class GameController : MonoBehaviour {
     {
         if (turnState == turn.Player2) //checks if it is AI's turn
         {
-            if(liveCreatures.Count == 0) //checks if AI has creatures on the board
+            for (int i = 0; i < liveWeapons.Count; i++) //loop repeats for each weapon on the board
+            {
+                WeaponCardUI weapon = liveWeapons[i].GetComponent<WeaponCardUI>();
+                weapon.buttonObject.SetActive(false); //disables buttons on all creature cards
+            }
+
+            if (liveCreatures.Count == 0) //checks if AI has creatures on the board
             {
                 DealCreatureHand();
                 EndTurn();
@@ -160,9 +168,13 @@ public class GameController : MonoBehaviour {
             }
         }
 
-        if (turnState == turn.Player1 & turnsRemaining > 1)
+        if (turnState == turn.Player1)
         {
-            turnsRemaining--;
+            for (int i = 0; i < liveWeapons.Count; i++) //loop repeats for each weapon on the board
+            {
+                WeaponCardUI weapon = liveWeapons[i].GetComponent<WeaponCardUI>();
+                weapon.buttonObject.SetActive(true); //enables buttons on all creature cards
+            }
         }
     }
 
@@ -219,11 +231,11 @@ public class GameController : MonoBehaviour {
         RelicCardUI tempCard = Instantiate(relicCardTemplate); //instantiates an instance of the card prefab
         tempCard.transform.SetParent(relicTransform.transform, false); //moves card onto board
         tempCard.relicCardData= card; //assigns the instance of the scriptable object to the instance of the prefab
-        relicDeck.Remove(relicTopDeck);
-        liveRelic.Add(tempCard.gameObject); //adds card to hero list
+        relicDeck.Remove(relicTopDeck); //removes card from list
+        liveRelic.Add(tempCard.gameObject); //adds card to list
     }
 
-    public void DealWeaponHand()
+    public void DealWeaponHand() //Deals multiple weapon cards
     {
         int weaponsDealt = 3; //number of weapons to deal
         for (int i = 0; i < weaponsDealt; i++) //loops number of times equal to weaponsDealt variable
@@ -235,7 +247,7 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    public void DealWeapon() //Deals hero cards at start of game
+    public void DealWeapon() //Deals one weapon card
     {
         if (weaponDeck.Count > 0)
         {
@@ -253,7 +265,7 @@ public class GameController : MonoBehaviour {
         liveWeapons.Add(tempCard.gameObject); //adds card to hero list
     }
 
-    public void DealCreatureHand()
+    public void DealCreatureHand() //Deals multiple creature cards
     {
         int monstersDealt = 4; //number of monsters to deal
         for (int i = 0; i < monstersDealt; i++) //loops number of times equal to monstersDealt variable
@@ -266,7 +278,7 @@ public class GameController : MonoBehaviour {
         monstersText.text = "Monster Deck = " + aiDeck.Count.ToString(); //updates UI text
     }
 
-    public void DealCreature() //deals monster card to AI monster area
+    public void DealCreature() //Deals one creature card
     {
         if (aiDeck.Count > 0)
         {
@@ -285,7 +297,7 @@ public class GameController : MonoBehaviour {
         liveCreatures.Add(dealtCard.gameObject);
     }
 
-    public void WeaponTarget(WeaponCardData weaponCardData, Button button)
+    public void WeaponTarget(WeaponCardData weaponCardData, Button button) //function for selecting weapon target
     {
         if (AP - weaponCardData.ap < 0)
         {
@@ -366,20 +378,16 @@ public class GameController : MonoBehaviour {
             GameOver();
             CancelInvoke();
         }
-        Invoke("TurnUpkeep", endTurnDelay);
+        Invoke("EndTurn", endTurnDelay);
     }
 
     public void GameOver() //function for losing the game
     {
         gameOverText.SetActive(true);
-
-        print("You Lose");
     }
 
     public void Victory() //function for winning the game
     {
         victoryText.SetActive(true);
-
-        print("You Win");
     }
 }

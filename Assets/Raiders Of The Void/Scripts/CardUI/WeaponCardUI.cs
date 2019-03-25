@@ -13,6 +13,8 @@ public class WeaponCardUI : BaseCardUI
 
     public Button button;
 
+    public GameObject buttonObject;
+
     public Text dmgText, apText, rangeText;
 
     private void Start()

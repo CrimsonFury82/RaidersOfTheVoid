@@ -414,6 +414,7 @@ MonoBehaviour:
   gameController: {fileID: 0}
   weaponCardData: {fileID: 0}
   button: {fileID: 114148218182379690}
+  buttonObject: {fileID: 1917522202405050}
   dmgText: {fileID: 114026932162898624}
   apText: {fileID: 114011278843464534}
   rangeText: {fileID: 114763637068909888}
