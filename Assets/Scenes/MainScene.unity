@@ -226,7 +226,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -712.27, y: -0.0970459}
+  m_AnchoredPosition: {x: -712.27, y: -0.09716797}
   m_SizeDelta: {x: 190, y: 236.2}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &44294896
@@ -735,7 +735,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 187.72998, y: 0.38293457}
+  m_AnchoredPosition: {x: 187.72998, y: 0.3828125}
   m_SizeDelta: {x: 190, y: 235.72}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &309956373
@@ -2893,7 +2893,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -385.59, y: -41.1}
+  m_AnchoredPosition: {x: -385.59, y: -41.100098}
   m_SizeDelta: {x: 120.97, y: 30}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1526827242
@@ -3159,8 +3159,8 @@ MonoBehaviour:
   weaponTransform: {fileID: 1928461721}
   armourTransform: {fileID: 1384792240}
   weaponDeck:
-  - {fileID: 11400000, guid: 6c32140ad7b4e3249a005a6a253dcc76, type: 2}
   - {fileID: 11400000, guid: cbedb8b7b409a6a4ea653fe81f2effe6, type: 2}
+  - {fileID: 11400000, guid: 6c32140ad7b4e3249a005a6a253dcc76, type: 2}
   - {fileID: 11400000, guid: 99ca836159ce48248893373982cd461a, type: 2}
   relicDeck:
   - {fileID: 11400000, guid: 181c747c49fb38549a536d9942c5f2f8, type: 2}
@@ -3313,12 +3313,12 @@ PrefabInstance:
     - target: {fileID: 224971133135329806, guid: d72cb5ee704c3034b9e9ff93465b46f3,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 92.30005
+      value: 92.30029
       objectReference: {fileID: 0}
     - target: {fileID: 224971133135329806, guid: d72cb5ee704c3034b9e9ff93465b46f3,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -120.04997
+      value: -120.05005
       objectReference: {fileID: 0}
     - target: {fileID: 224971133135329806, guid: d72cb5ee704c3034b9e9ff93465b46f3,
         type: 3}
