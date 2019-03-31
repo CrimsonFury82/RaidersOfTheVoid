@@ -69,16 +69,16 @@ public class GameController : MonoBehaviour {
     void Shuffle(List<CreatureCardData> deck)
     {
         for (int i = 0; i < 1000; i++) //shuffles by swapping two random cards and repeating process 1000 times
-        {   //comment text shows an example where rng1 result = 50 and rng2 result = 10
-            int rng1 = UnityEngine.Random.Range(0, deck.Count);
-            int rng2 = UnityEngine.Random.Range(0, deck.Count);
-            CreatureCardData tempcard = deck[rng1]; //tempcard = card 50
-            deck[rng1] = deck[rng2]; //card 50 = card 10
-            deck[rng2] = tempcard; //card 10 = card 50
+        {   
+            int rng1 = UnityEngine.Random.Range(0, deck.Count); //first randomly selected card number
+            int rng2 = UnityEngine.Random.Range(0, deck.Count); //second randomly selected card number
+            CreatureCardData tempcard = deck[rng1]; //tempcard to store copy of card 1
+            deck[rng1] = deck[rng2]; //swaps card 2 into card 1's position in list
+            deck[rng2] = tempcard; //swaps temp copy of card 1 into card 2's position in list
         }
     }
 
-    public void Turns() //function for turn states
+    public void Turns() //case switches for turn states
     {   switch (turnState)
         {
             case turn.Player1:
@@ -91,7 +91,7 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    public void Phases() //function for main\combat phase states
+    public void Phases() //case switches for main\combat phase states
     {
         switch (turnPhase)
         {
@@ -125,7 +125,7 @@ public class GameController : MonoBehaviour {
 
     public void EndTurn() //function for end of turn
     {
-        if (liveCreatures.Count == 0 && aiDeck.Count == 0)
+        if (liveCreatures.Count == 0 && aiDeck.Count == 0) //checks if all enemies have been destroy for victory condition.
         {
             Victory();
             return;
@@ -145,7 +145,7 @@ public class GameController : MonoBehaviour {
         TurnStart();
     }
 
-    void PlayerUpkeep()
+    void PlayerUpkeep() //tasks to execute at start of each player's turn
     {
         turnState = turn.Player1;
 
@@ -153,55 +153,57 @@ public class GameController : MonoBehaviour {
         {
             currentRelic.relicCardData.cooldown = RelicMaxCooldown;
             relicUsed = false;
+            RelicUpdate();
         }
         else
         {
             currentRelic.relicCardData.cooldown--;
+            RelicUpdate();
             if (currentRelic.relicCardData.cooldown <= 0)
             {
                 currentRelic.relicCardData.cooldown = 0;
-                currentRelic.buttonObject.SetActive(true);
+                currentRelic.useButton.SetActive(true); //enables button
+                currentRelic.cooldownText.text = "Ready"; //updates card UI text
             }
         }
-        RelicUpdate();
         APReset();
     }
 
-    void APReset()
+    void APReset() //resets action points at start of turn
     {
         AP = 10;
         APUpdate();
     }
 
-    void APUpdate()
+    void APUpdate() //updates UI text
     {
         apText.text = "Action Points = " + AP.ToString();
     }
 
-    void HeroHPUpdate()
+    void HeroHPUpdate() //updates UI text
     {
-        defHero.hpText.text = defHero.heroCardData.hp.ToString(); //updates UI HP text
+        defHero.hpText.text = defHero.heroCardData.hp.ToString();
     }
 
-    void RelicUpdate()
+    void RelicUpdate() //updates UI text
     {
         currentRelic.cooldownText.text = currentRelic.relicCardData.cooldown.ToString(); //updates prefab with values from scriptable object
     }
 
     void TurnStart()
     {
-        if (turnState == turn.Player2) //checks if it is AI's turn
+        if (turnState == turn.Player2) //checks if it is the AI's turn
         {
             for (int i = 0; i < liveWeapons.Count; i++) //loop repeats for each weapon on the board
             {
                 WeaponCardUI weapon = liveWeapons[i].GetComponent<WeaponCardUI>();
-                weapon.buttonObject.SetActive(false); //disables buttons on all weapon cards
+                weapon.useButton.SetActive(false); //disables buttons on all weapon cards during AI turn
             }
 
             if (liveCreatures.Count == 0) //checks if AI has creatures on the board
             {
-                DealCreatureHand();
-                EndTurn();
+                DealCreatureHand(); //Deals new row of creatures
+                EndTurn(); //Ends turn
             }
             else
             {
@@ -209,12 +211,12 @@ public class GameController : MonoBehaviour {
             }
         }
 
-        if (turnState == turn.Player1)
+        if (turnState == turn.Player1) //checks if it is the Players's turn
         {
             for (int i = 0; i < liveWeapons.Count; i++) //loop repeats for each weapon on the board
             {
                 WeaponCardUI weapon = liveWeapons[i].GetComponent<WeaponCardUI>();
-                weapon.buttonObject.SetActive(true); //enables buttons on all creature cards
+                weapon.useButton.SetActive(true); //enables buttons on all weapon cards during player turn
             }
         }
     }
@@ -233,8 +235,8 @@ public class GameController : MonoBehaviour {
         ArmourCardUI tempCard = Instantiate(armourCardTemplate); //instantiates an instance of the card prefab
         tempCard.transform.SetParent(armourTransform.transform, false); //moves card onto board
         tempCard.armourCardData = card; //assigns the instance of the scriptable object to the instance of the prefab
-        armourDeck.Remove(armourTopDeck);
-        liveArmour.Add(tempCard.gameObject); //adds card to hero list
+        armourDeck.Remove(armourTopDeck); //removes the card from the deck
+        liveArmour.Add(tempCard.gameObject); //adds card to live list
         currentArmour = liveArmour[0].GetComponent<ArmourCardUI>();
     }
 
@@ -253,7 +255,7 @@ public class GameController : MonoBehaviour {
         tempCard.transform.SetParent(heroTransform.transform, false); //moves card onto board
         tempCard.heroCardData = card; //assigns the instance of the scriptable object to the instance of the prefab
         heroDeck.Remove(heroTopDeck);
-        liveHero.Add(tempCard.gameObject); //adds card to hero list
+        liveHero.Add(tempCard.gameObject); //adds card to live list
         defHero = liveHero[0].GetComponent<HeroCardUI>();
         defHero.heroCardData.armour = currentArmour.armourCardData.hp;
         heroMaxHP = defHero.heroCardData.hp;
@@ -274,9 +276,9 @@ public class GameController : MonoBehaviour {
         tempCard.transform.SetParent(relicTransform.transform, false); //moves card onto board
         tempCard.relicCardData= card; //assigns the instance of the scriptable object to the instance of the prefab
         relicDeck.Remove(relicTopDeck); //removes card from list
-        liveRelic.Add(tempCard.gameObject); //adds card to list
+        liveRelic.Add(tempCard.gameObject); //adds card to live list
         currentRelic = liveRelic[0].GetComponent<RelicCardUI>();
-        RelicMaxCooldown = currentRelic.relicCardData.cooldown;
+        RelicMaxCooldown = currentRelic.relicCardData.cooldown; //assigns cooldown for reseting relic after use
     }
 
     public void DealWeaponHand() //Deals multiple weapon cards
@@ -306,13 +308,13 @@ public class GameController : MonoBehaviour {
         tempCard.transform.SetParent(weaponTransform.transform, false); //moves card onto board
         tempCard.weaponCardData = card; //assigns the instance of the scriptable object to the instance of the prefab
         weaponDeck.Remove(weaponTopDeck);
-        liveWeapons.Add(tempCard.gameObject); //adds card to hero list
+        liveWeapons.Add(tempCard.gameObject); //adds card to live list
     }
 
     public void DealCreatureHand() //Deals multiple creature cards
     {
-        int monstersDealt = 4; //number of monsters to deal
-        for (int i = 0; i < monstersDealt; i++) //loops number of times equal to monstersDealt variable
+        int dealMonsters = 4; //number of monsters to deal
+        for (int i = 0; i < dealMonsters; i++) //loops number of times equal to dealMonsters variable
         {
             if (aiDeck.Count > 0)
             {
@@ -341,7 +343,7 @@ public class GameController : MonoBehaviour {
         liveCreatures.Add(dealtCard.gameObject);
     }
 
-    public void WeaponTarget(WeaponCardData weaponCardData, Button button) //function for selecting weapon target
+    public void WeaponTarget(WeaponCardData weaponCardData) //function for selecting weapon target
     {
         if (AP - weaponCardData.ap < 0)
         {
@@ -349,6 +351,12 @@ public class GameController : MonoBehaviour {
         }
         else
         {
+            for (int i = 0; i < liveCreatures.Count; i++) //loop repeats for each creature on the board
+            {
+                CreatureCardUI attacker = liveCreatures[i].GetComponent<CreatureCardUI>();
+                attacker.buttonObject.SetActive(false); //disables buttons on all creature card, so if the player changes target, it will disable out of range options.
+            }
+
             tempWeapon = weaponCardData; //assigns the weapon clicked as the tempweapon
             print("Select target");
             int range = weaponCardData.range;
@@ -382,18 +390,15 @@ public class GameController : MonoBehaviour {
 
     public void RelicAttacked()
     {
-        currentRelic.buttonObject.SetActive(false);
+        currentRelic.useButton.SetActive(false); //disables button
         relicUsed = true;
-        currentRelic.cooldownText.text = "Used this turn"; //updates prefab with values from scriptable object
+        currentRelic.cooldownText.text = "Used"; //updates card UI text
     }
 
     public void WeaponAttack(GameObject creature, CreatureCardData creatureCard, Button button)
     {
-        //print(creatureCard.name + " HP = " + creatureCard.hp);
-        //print(tempWeapon.name + " DMG = " + tempWeapon.dmg + " AP = " + tempWeapon.ap);
         AP -= tempWeapon.ap; //updates AP remaining
         creatureCard.hp -= tempWeapon.dmg; //deals dmg to creature
-        //print(creatureCard.name + " HP = " + creatureCard.hp);
         APUpdate();
         CreatureCardUI defCreature = creature.GetComponent<CreatureCardUI>(); //creatures a reference to the creature
         defCreature.hpText.text = defCreature.creatureCardData.hp.ToString(); //updates UI text

@@ -9,17 +9,18 @@ public class WeaponCardUI : BaseCardUI
 {
     public GameController gameController;
 
+    public InventoryController inventoryController;
+
     public WeaponCardData weaponCardData;
 
-    public Button button;
-
-    public GameObject buttonObject;
+    public GameObject useButton, equipButton;
 
     public Text dmgText, apText, rangeText;
 
     private void Start()
     {
         gameController = (GameController)FindObjectOfType(typeof(GameController)); //finds the gamecontroller
+        inventoryController = (InventoryController)FindObjectOfType(typeof(InventoryController)); //finds the inventorycontroller
         UIWeaponCard(dmgText, apText, rangeText);
     }
 
@@ -33,6 +34,11 @@ public class WeaponCardUI : BaseCardUI
 
     public void UsedClickedGear() //calls targeting function in gamecontroller
     {
-        gameController.WeaponTarget(weaponCardData, button);
+        gameController.WeaponTarget(weaponCardData);
+    }
+
+    public void EquipClickedGear() //calls function in inventory controller
+    {
+        inventoryController.EquipWeapon(this.gameObject, weaponCardData, equipButton);
     }
 }

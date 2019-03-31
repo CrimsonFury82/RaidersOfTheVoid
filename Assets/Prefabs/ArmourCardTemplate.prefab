@@ -97,8 +97,9 @@ MonoBehaviour:
   cardNameText: {fileID: 114649403209180976}
   ability1Text: {fileID: 114839628511812954}
   hpText: {fileID: 114862128014350308}
+  inventoryController: {fileID: 0}
   armourCardData: {fileID: 0}
-  button: {fileID: 114920154988270812}
+  equipButton: {fileID: 1668019581844496}
 --- !u!1 &1340278765187266
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,12 +341,12 @@ GameObject:
   - component: {fileID: 114472565054534550}
   - component: {fileID: 114920154988270812}
   m_Layer: 5
-  m_Name: Button
+  m_Name: EquipButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &224673461778729440
 RectTransform:
   m_ObjectHideFlags: 0
@@ -443,12 +444,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: 25efef17aee2c2643b7b46ff25755bfd, type: 3}
-        m_MethodName: 
+      - m_Target: {fileID: 114112948601217292}
+        m_MethodName: EquipClickedGear
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
