@@ -20,12 +20,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 30
-    width: 1680
-    height: 917
-  m_MinSize: {x: 679, y: 348}
-  m_MaxSize: {x: 12004, y: 8048}
+    width: 1500
+    height: 868
+  m_MinSize: {x: 713, y: 498}
+  m_MaxSize: {x: 18008, y: 14048}
   vertical: 0
-  controlID: 19293
+  controlID: 97
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -47,10 +47,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 550
-    y: 22
-    width: 1130
-    height: 893
+    x: 511
+    y: 72
+    width: 987
+    height: 848
   m_PersistentViewDataDictionary: {fileID: 0}
   m_MaximizeOnPlay: 1
   m_Gizmos: 0
@@ -62,10 +62,10 @@ MonoBehaviour:
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -565
-    m_HBaseRangeMax: 565
-    m_VBaseRangeMin: -318
-    m_VBaseRangeMax: 318
+    m_HBaseRangeMin: -246.75
+    m_HBaseRangeMax: 246.75
+    m_VBaseRangeMin: -138.75
+    m_VBaseRangeMax: 138.75
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -83,25 +83,25 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 17
-      width: 1130
-      height: 876
-    m_Scale: {x: 1, y: 1}
-    m_Translation: {x: 565, y: 438}
+      width: 987
+      height: 831
+    m_Scale: {x: 2, y: 2}
+    m_Translation: {x: 493.5, y: 415.5}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -565
-      y: -438
-      width: 1130
-      height: 876
+      x: -246.75
+      y: -207.75
+      width: 493.5
+      height: 415.5
     m_MinimalGUI: 1
-  m_defaultScale: 1
+  m_defaultScale: 2
   m_TargetTexture: {fileID: 0}
   m_CurrentColorSpace: 0
-  m_LastWindowPixelSize: {x: 1130, y: 893}
+  m_LastWindowPixelSize: {x: 1974, y: 1696}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000100000100
@@ -126,11 +126,11 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 232
-    height: 917
-  m_MinSize: {x: 202, y: 348}
-  m_MaxSize: {x: 4002, y: 8048}
+    height: 868
+  m_MinSize: {x: 232, y: 498}
+  m_MaxSize: {x: 10002, y: 14048}
   vertical: 1
-  controlID: 19294
+  controlID: 48
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -179,7 +179,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 73
+    y: 72
     width: 230
     height: 204
   m_PersistentViewDataDictionary: {fileID: 0}
@@ -188,7 +188,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 6edafeffba1dffff002bffff8e59fffff65affffd062ffffe062ffffba6dffff7281ffffa881ffff0483ffff5283ffff6083ffff6286ffff7086ffffa886ffff349affff4aa9ffff62acffff10adffff4eadffff56adffff1eb5ffff2cb5ffff3ab5ffff3cb8ffff38bbffff34beffff30c1ffffa0c4ffffd4c4ffff54cbffff6cd3ffff7ad3ffffeadbffffecdeffffe8e1fffff0e4fffffee4ffffd4f6ffff444000005e400000644900008a490000ae4e0000f44e0000fc620000b0700000e47000001e7600005a76000030850000c885000002b00000
+      m_ExpandedIDs: 4af6ffffcef6ffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -230,15 +230,15 @@ MonoBehaviour:
     x: 0
     y: 224
     width: 232
-    height: 693
-  m_MinSize: {x: 102, y: 124}
-  m_MaxSize: {x: 4002, y: 4024}
-  m_ActualView: {fileID: 8}
+    height: 644
+  m_MinSize: {x: 232, y: 274}
+  m_MaxSize: {x: 10002, y: 10024}
+  m_ActualView: {fileID: 7}
   m_Panes:
   - {fileID: 7}
   - {fileID: 8}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -261,9 +261,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 297
+    y: 296
     width: 230
-    height: 673
+    height: 624
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SearchFilter:
     m_NameFilter: 
@@ -277,19 +277,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Scripts/Menu
   m_ViewMode: 0
   m_StartGridSize: 16
   m_LastFolders: []
   m_LastFoldersGridSize: 16
-  m_LastProjectPath: C:\GitHub\RaidersOfTheVoid
+  m_LastProjectPath: C:\Users\Aston's tablet\Documents\GitHub\RaidersOfTheVoid
   m_LockTracker:
     m_IsLocked: 1
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: f80e0000
     m_LastClickedID: 3832
-    m_ExpandedIDs: ffffffff000000006e2d0000942d0000a22d0000ca2d0000fe2d0000082e00000c2e00000e2e0000122e0000142e0000182e0000742e0000da2e0000362f0000502f0000542f0000782f0000e02f0000ea2f00002e3000004a300000543000009433000096330000983300009a3300009c3300009e330000a0330000a2330000a4330000a6330000a8330000aa330000ac330000ae330000b0330000b2330000b4330000b6330000b8330000ba330000bc330000be330000c0330000c2330000c4330000c6330000c8330000ca330000cc330000ce330000d0330000d2330000d4330000d6330000d8330000
+    m_ExpandedIDs: 00000000f62d00001e2e00002c2e0000542e0000882e0000902e0000942e0000962e00009a2e00009c2e0000a02e0000fc2e0000602f0000bc2f0000d62f0000da2f0000fe2f0000643000006e300000ae300000ca300000d4300000e0320000e2320000e4320000e6320000e8320000ea320000ec320000ee320000f0320000f2320000f4320000f6320000f8320000fa320000fc320000fe32000000330000023300000433000006330000083300000a3300000c3300000e33000010330000123300001433000016330000183300001a3300001c3300001e330000203300002233000024330000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -314,10 +314,10 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_AssetTreeState:
-    scrollPos: {x: 0, y: 261}
-    m_SelectedIDs: 40d40000
-    m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff000000006e2d0000942d0000a22d0000ca2d0000fe2d0000082e00000c2e00000e2e0000122e0000142e0000182e0000742e0000da2e0000362f0000502f0000542f0000782f0000e02f0000ea2f00002e3000004a300000543000009433000096330000983300009a3300009c3300009e330000a0330000a2330000a4330000a6330000a8330000aa330000ac330000ae330000b0330000b2330000b4330000b6330000b8330000ba330000bc330000be330000c0330000c2330000c4330000c6330000c8330000ca330000cc330000ce330000d0330000d2330000d4330000d6330000d8330000
+    scrollPos: {x: 0, y: 358}
+    m_SelectedIDs: 62070000
+    m_LastClickedID: 1890
+    m_ExpandedIDs: ffffffff00000000f62d00001e2e00002c2e0000542e0000882e0000902e0000942e0000962e00009a2e00009c2e0000a02e0000fc2e0000602f0000bc2f0000d62f0000da2f0000fe2f0000643000006e300000ae300000ca300000d4300000e0320000e2320000e4320000e6320000e8320000ea320000ec320000ee320000f0320000f2320000f4320000f6320000f8320000fa320000fc320000fe32000000330000023300000433000006330000083300000a3300000c3300000e33000010330000123300001433000016330000183300001a3300001c3300001e330000203300002233000024330000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -342,8 +342,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 40d40000
-    m_LastClickedInstanceID: 54336
+    m_SelectedInstanceIDs: 62070000
+    m_LastClickedInstanceID: 1890
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
@@ -395,7 +395,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 297
-    width: 230
+    width: 200
     height: 673
   m_PersistentViewDataDictionary: {fileID: 0}
 --- !u!114 &9
@@ -415,10 +415,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 232
     y: 0
-    width: 316
-    height: 917
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+    width: 279
+    height: 868
+  m_MinSize: {x: 279, y: 74}
+  m_MaxSize: {x: 4004, y: 4024}
   m_ActualView: {fileID: 10}
   m_Panes:
   - {fileID: 10}
@@ -446,9 +446,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 232
-    y: 73
-    width: 312
-    height: 897
+    y: 72
+    width: 275
+    height: 848
   m_PersistentViewDataDictionary: {fileID: 0}
   m_ObjectsLockedBeforeSerialization: []
   m_InstanceIDsLockedBeforeSerialization: 
@@ -474,10 +474,10 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 548
+    x: 511
     y: 0
-    width: 1132
-    height: 917
+    width: 989
+    height: 868
   m_MinSize: {x: 202, y: 224}
   m_MaxSize: {x: 4002, y: 4024}
   m_ActualView: {fileID: 2}
@@ -507,10 +507,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 548
-    y: 73
-    width: 1130
-    height: 897
+    x: 511
+    y: 72
+    width: 987
+    height: 848
   m_PersistentViewDataDictionary: {fileID: 0}
   m_WindowGUID: 224eae7fc2a14d841ba90b5ba359d82c
   m_SceneLighting: 1
@@ -518,9 +518,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 571.91846, y: 294.34158, z: -4.15298}
+    m_Target: {x: 585.4099, y: 269.57788, z: -4.4681087}
     speed: 2
-    m_Value: {x: 571.91846, y: 294.34158, z: -4.15298}
+    m_Value: {x: 585.4099, y: 269.57788, z: -4.4681087}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -552,9 +552,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 736.9432
+    m_Target: 768.54614
     speed: 2
-    m_Value: 736.9432
+    m_Value: 768.54614
   m_Ortho:
     m_Target: 1
     speed: 2

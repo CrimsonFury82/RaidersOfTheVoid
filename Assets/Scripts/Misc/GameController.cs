@@ -120,6 +120,14 @@ public class GameController : MonoBehaviour {
         DealWeaponHand();
         DealCreatureHand();
         turnState = turn.Player1;
+        if (turnState == turn.Player1) //checks if it is the Players's turn
+        {
+            for (int i = 0; i < liveWeapons.Count; i++) //loop repeats for each weapon on the board
+            {
+                WeaponCardUI weapon = liveWeapons[i].GetComponent<WeaponCardUI>();
+                weapon.useButton.SetActive(true); //enables buttons on all weapon cards during player turn
+            }
+        }
         APReset();
     }
 
