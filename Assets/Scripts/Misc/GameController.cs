@@ -36,6 +36,7 @@ public class GameController : MonoBehaviour {
     public List<ArmourCardData> armourDeck;
     public List<CreatureCardData> aiDeck;
     public List<HeroCardData> heroDeck;
+    public List<LootCardData> lookDeck;
 
     //Lists for the card prefabs on the board
     public List<GameObject> liveWeapons, liveRelic, liveArmour, liveCreatures, liveHero;
