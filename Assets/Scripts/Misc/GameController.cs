@@ -39,7 +39,7 @@ public class GameController : MonoBehaviour {
     public List<LootCardData> lookDeck;
 
     //Lists for the card prefabs on the board
-    public List<GameObject> liveWeapons, liveRelic, liveArmour, liveCreatures, liveHero;
+    public List<GameObject> liveWeapons, liveRelic, liveArmour, liveCreatures, liveHero, liveLoot;
 
     //card prefabs
     public CreatureCardUI creatureCardTemplate;
@@ -79,6 +79,17 @@ public class GameController : MonoBehaviour {
         }
     }
 
+	void Shuffle(List<LootCardData> deck)
+	{
+		for (int i = 0; i < 1000; i++) //shuffles by swapping two random cards and repeating process 1000 times
+		{   
+			int rng1 = UnityEngine.Random.Range(0, deck.Count); //first randomly selected card number
+			int rng2 = UnityEngine.Random.Range(0, deck.Count); //second randomly selected card number
+			LootCardData tempcard = deck[rng1]; //tempcard to store copy of card 1
+			deck[rng1] = deck[rng2]; //swaps card 2 into card 1's position in list
+			deck[rng2] = tempcard; //swaps temp copy of card 1 into card 2's position in list
+		}
+	}
     public void Turns() //case switches for turn states
     {   switch (turnState)
         {
