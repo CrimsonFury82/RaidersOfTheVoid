@@ -13,10 +13,10 @@ public class AnimationController : MonoBehaviour
         Vector3 startPos, targetPos; //starting position of creature and target position (hero card location)
         startPos = attacker.transform.position; //stores vector of this cards starting position 
         targetPos = defender.transform.position; //stores vector of this cards target position
-        float animationLength = 0.9f; //length of animation
+        float animationLength = 0.8f; //length of animation
         float moveElapsed = 0f; //amount of time passed moving toward target
         float returnElapsed = 0f; //amount of time passed returning to orignal position
-        float speed = 3f; //speed cards move during animation
+        float speed = 10f; //speed cards move during animation
 
         if (gameController.turnPhase == GameController.phase.CombatPhase & attacker != null & defender != null) //checks it is combat phase and attacker and defender exsist
         {
@@ -31,7 +31,7 @@ public class AnimationController : MonoBehaviour
             attacked = true;
         }
 
-        if (gameController.turnPhase == GameController.phase.CombatPhase & attacker != null & defender != null & attacked == true) //checks it is combat phase and attacker and defender exsist
+        if (gameController.turnPhase == GameController.phase.CombatPhase & attacker != null & defender != null & attacked == true) //checks it is combat phase and attacker and defender exsist and creature has attacked
         {
             while (returnElapsed < animationLength & moveElapsed >= animationLength)
             {

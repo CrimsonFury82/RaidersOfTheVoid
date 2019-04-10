@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 //Script written by Aston Olsen
 
-public class WeaponCardUI : BaseCardUI
+public class WeaponCardPrefab : BaseCardPrefab
 {
     public GameController gameController;
 

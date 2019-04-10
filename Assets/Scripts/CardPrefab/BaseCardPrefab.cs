@@ -6,7 +6,7 @@ using UnityEngine.UI;
 //Script written by Aston Olsen
 
 [ExecuteInEditMode]
-public abstract class BaseCardUI : MonoBehaviour
+public abstract class BaseCardPrefab : MonoBehaviour
 {
     BaseCardData baseCardData;
     

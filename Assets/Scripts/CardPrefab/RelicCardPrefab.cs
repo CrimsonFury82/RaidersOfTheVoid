@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 //Script written by Aston Olsen
 
-public class RelicCardUI : BaseCardUI
+public class RelicCardPrefab : BaseCardPrefab
 {
     public GameController gameController;
 

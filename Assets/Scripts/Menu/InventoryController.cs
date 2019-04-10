@@ -18,16 +18,16 @@ public class InventoryController : MonoBehaviour
     public List<GameObject> weaponSlots, relicSlot, armourSlot, liveRelic, liveWeapons, liveArmour;
 
     //card prefabs
-    public ArmourCardUI armourCardTemplate;
-    public RelicCardUI relicCardTemplate;
-    public WeaponCardUI weaponCardTemplate;
+    public ArmourCardPrefab armourCardTemplate;
+    public RelicCardPrefab relicCardTemplate;
+    public WeaponCardPrefab weaponCardTemplate;
 
     //Temp objects for top card of each deck
     ArmourCardData armourTopDeck;
     WeaponCardData weaponTopDeck;
     RelicCardData relicTopDeck;
 
-    RelicCardUI currentRelic;
+    RelicCardPrefab currentRelic;
 
     void Start()
     {
@@ -59,7 +59,7 @@ public class InventoryController : MonoBehaviour
             armourTopDeck = null;
         }
         ArmourCardData card = Instantiate(armourTopDeck); //instantiates instance of scriptable object
-        ArmourCardUI tempCard = Instantiate(armourCardTemplate); //instantiates an instance of the card prefab
+        ArmourCardPrefab tempCard = Instantiate(armourCardTemplate); //instantiates an instance of the card prefab
         tempCard.transform.SetParent(armourInvTransform.transform, false); //moves card onto board
         tempCard.armourCardData = card; //assigns the instance of the scriptable object to the instance of the prefab
         armourInv.Remove(armourTopDeck); //removes the card from the deck
@@ -105,7 +105,7 @@ public class InventoryController : MonoBehaviour
             relicTopDeck = null;
         }
         RelicCardData card = Instantiate(relicTopDeck); //instantiates instance of scriptable object
-        RelicCardUI tempCard = Instantiate(relicCardTemplate); //instantiates an instance of the card prefab
+        RelicCardPrefab tempCard = Instantiate(relicCardTemplate); //instantiates an instance of the card prefab
         tempCard.transform.SetParent(relicInvTransform.transform, false); //moves card onto board
         tempCard.relicCardData = card; //assigns the instance of the scriptable object to the instance of the prefab
         relicInv.Remove(relicTopDeck); //removes card from list
@@ -151,7 +151,7 @@ public class InventoryController : MonoBehaviour
             weaponTopDeck = null;
         }
         WeaponCardData card = Instantiate(weaponTopDeck); //instantiates instance of scriptable object
-        WeaponCardUI tempCard = Instantiate(weaponCardTemplate); //instantiates an instance of the card prefab
+        WeaponCardPrefab tempCard = Instantiate(weaponCardTemplate); //instantiates an instance of the card prefab
         tempCard.transform.SetParent(weaponInvTransform.transform, false); //moves card onto board
         tempCard.weaponCardData = card; //assigns the instance of the scriptable object to the instance of the prefab
         weaponInv.Remove(weaponTopDeck);

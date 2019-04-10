@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 //Script written by Aston Olsen
 
-public class HeroCardUI : BaseCardUI
+public class HeroCardPrefab : BaseCardPrefab
 {
     public HeroCardData heroCardData;
 

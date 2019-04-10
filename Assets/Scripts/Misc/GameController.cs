@@ -13,7 +13,7 @@ public class GameController : MonoBehaviour {
 
     bool relicUsed;
 
-    public Text apText, monstersText;
+    public Text apText, monstersText, turnText;
 
     public turn turnState; //State for current player turn
 
@@ -36,23 +36,23 @@ public class GameController : MonoBehaviour {
     public List<ArmourCardData> armourDeck;
     public List<CreatureCardData> aiDeck;
     public List<HeroCardData> heroDeck;
-    public List<LootCardData> lookDeck;
+    //public List<LootCardData> lookDeck;
 
     //Lists for the card prefabs on the board
     public List<GameObject> liveWeapons, liveRelic, liveArmour, liveCreatures, liveHero, liveLoot;
 
     //card prefabs
-    public CreatureCardUI creatureCardTemplate;
-    public HeroCardUI heroCardTemplate;
-    public ArmourCardUI armourCardTemplate;
-    public RelicCardUI relicCardTemplate;
-    public WeaponCardUI weaponCardTemplate;
+    public CreatureCardPrefab creatureCardTemplate;
+    public HeroCardPrefab heroCardTemplate;
+    public ArmourCardPrefab armourCardTemplate;
+    public RelicCardPrefab relicCardTemplate;
+    public WeaponCardPrefab weaponCardTemplate;
 
-    HeroCardUI defHero;
+    HeroCardPrefab defHero;
 
-    ArmourCardUI currentArmour;
+    ArmourCardPrefab currentArmour;
 
-    RelicCardUI currentRelic;
+    RelicCardPrefab currentRelic;
 
     public AnimationController animationController;
 
@@ -136,7 +136,7 @@ public class GameController : MonoBehaviour {
         {
             for (int i = 0; i < liveWeapons.Count; i++) //loop repeats for each weapon on the board
             {
-                WeaponCardUI weapon = liveWeapons[i].GetComponent<WeaponCardUI>();
+                WeaponCardPrefab weapon = liveWeapons[i].GetComponent<WeaponCardPrefab>();
                 weapon.useButton.SetActive(true); //enables buttons on all weapon cards during player turn
             }
         }
@@ -156,20 +156,21 @@ public class GameController : MonoBehaviour {
         if (turnState == turn.Player1) //checks if currently Player 1's turn
         {
             turnState = turn.Player2;
+            turnText.text = "Enemy turn";
         }
         else if (turnState == turn.Player2) //checks if currently Player 2's turn
         {
             PlayerUpkeep();
         }
-        print("Turn = " + turnState);
         TurnStart();
     }
 
     void PlayerUpkeep() //tasks to execute at start of each player's turn
     {
         turnState = turn.Player1;
+        turnText.text = "Your turn";
 
-        if(relicUsed == true)
+        if (relicUsed == true)
         {
             currentRelic.relicCardData.cooldown = RelicMaxCooldown;
             relicUsed = false;
@@ -216,7 +217,7 @@ public class GameController : MonoBehaviour {
         {
             for (int i = 0; i < liveWeapons.Count; i++) //loop repeats for each weapon on the board
             {
-                WeaponCardUI weapon = liveWeapons[i].GetComponent<WeaponCardUI>();
+                WeaponCardPrefab weapon = liveWeapons[i].GetComponent<WeaponCardPrefab>();
                 weapon.useButton.SetActive(false); //disables buttons on all weapon cards during AI turn
             }
 
@@ -235,7 +236,7 @@ public class GameController : MonoBehaviour {
         {
             for (int i = 0; i < liveWeapons.Count; i++) //loop repeats for each weapon on the board
             {
-                WeaponCardUI weapon = liveWeapons[i].GetComponent<WeaponCardUI>();
+                WeaponCardPrefab weapon = liveWeapons[i].GetComponent<WeaponCardPrefab>();
                 weapon.useButton.SetActive(true); //enables buttons on all weapon cards during player turn
             }
         }
@@ -252,12 +253,12 @@ public class GameController : MonoBehaviour {
             armourTopDeck = null;
         }
         ArmourCardData card = Instantiate(armourTopDeck); //instantiates instance of scriptable object
-        ArmourCardUI tempCard = Instantiate(armourCardTemplate); //instantiates an instance of the card prefab
+        ArmourCardPrefab tempCard = Instantiate(armourCardTemplate); //instantiates an instance of the card prefab
         tempCard.transform.SetParent(armourTransform.transform, false); //moves card onto board
         tempCard.armourCardData = card; //assigns the instance of the scriptable object to the instance of the prefab
         armourDeck.Remove(armourTopDeck); //removes the card from the deck
         liveArmour.Add(tempCard.gameObject); //adds card to live list
-        currentArmour = liveArmour[0].GetComponent<ArmourCardUI>();
+        currentArmour = liveArmour[0].GetComponent<ArmourCardPrefab>();
     }
 
     public void DealHero() //Deals hero cards at start of game
@@ -271,12 +272,12 @@ public class GameController : MonoBehaviour {
             heroTopDeck = null;
         }
         HeroCardData card = Instantiate(heroTopDeck); //instantiates instance of scriptable object
-        HeroCardUI tempCard = Instantiate(heroCardTemplate); //instantiates an instance of the card prefab
+        HeroCardPrefab tempCard = Instantiate(heroCardTemplate); //instantiates an instance of the card prefab
         tempCard.transform.SetParent(heroTransform.transform, false); //moves card onto board
         tempCard.heroCardData = card; //assigns the instance of the scriptable object to the instance of the prefab
         heroDeck.Remove(heroTopDeck);
         liveHero.Add(tempCard.gameObject); //adds card to live list
-        defHero = liveHero[0].GetComponent<HeroCardUI>();
+        defHero = liveHero[0].GetComponent<HeroCardPrefab>();
         defHero.heroCardData.armour = currentArmour.armourCardData.hp;
         heroMaxHP = defHero.heroCardData.hp;
     }
@@ -292,12 +293,12 @@ public class GameController : MonoBehaviour {
             relicTopDeck = null;
         }
         RelicCardData card = Instantiate(relicTopDeck); //instantiates instance of scriptable object
-        RelicCardUI tempCard = Instantiate(relicCardTemplate); //instantiates an instance of the card prefab
+        RelicCardPrefab tempCard = Instantiate(relicCardTemplate); //instantiates an instance of the card prefab
         tempCard.transform.SetParent(relicTransform.transform, false); //moves card onto board
         tempCard.relicCardData= card; //assigns the instance of the scriptable object to the instance of the prefab
         relicDeck.Remove(relicTopDeck); //removes card from list
         liveRelic.Add(tempCard.gameObject); //adds card to live list
-        currentRelic = liveRelic[0].GetComponent<RelicCardUI>();
+        currentRelic = liveRelic[0].GetComponent<RelicCardPrefab>();
         RelicMaxCooldown = currentRelic.relicCardData.cooldown; //assigns cooldown for reseting relic after use
     }
 
@@ -324,7 +325,7 @@ public class GameController : MonoBehaviour {
             weaponTopDeck = null;
         }
         WeaponCardData card = Instantiate(weaponTopDeck); //instantiates instance of scriptable object
-        WeaponCardUI tempCard = Instantiate(weaponCardTemplate); //instantiates an instance of the card prefab
+        WeaponCardPrefab tempCard = Instantiate(weaponCardTemplate); //instantiates an instance of the card prefab
         tempCard.transform.SetParent(weaponTransform.transform, false); //moves card onto board
         tempCard.weaponCardData = card; //assigns the instance of the scriptable object to the instance of the prefab
         weaponDeck.Remove(weaponTopDeck);
@@ -356,7 +357,7 @@ public class GameController : MonoBehaviour {
         }
 
         CreatureCardData card = Instantiate(creatureTopDeck); //instantiates an instance of the carddata scriptable object
-        CreatureCardUI dealtCard = Instantiate(creatureCardTemplate); //instantiates an instance of the card prefab
+        CreatureCardPrefab dealtCard = Instantiate(creatureCardTemplate); //instantiates an instance of the card prefab
         dealtCard.transform.SetParent(enemyTransform.transform, false); //moves card to handzone
         dealtCard.creatureCardData = card; //sets the cards data to the card dealt
         aiDeck.Remove(creatureTopDeck); //removes card from deck list
@@ -373,7 +374,7 @@ public class GameController : MonoBehaviour {
         {
             for (int i = 0; i < liveCreatures.Count; i++) //loop repeats for each creature on the board
             {
-                CreatureCardUI attacker = liveCreatures[i].GetComponent<CreatureCardUI>();
+                CreatureCardPrefab attacker = liveCreatures[i].GetComponent<CreatureCardPrefab>();
                 attacker.buttonObject.SetActive(false); //disables buttons on all creature card, so if the player changes target, it will disable out of range options.
             }
 
@@ -388,7 +389,7 @@ public class GameController : MonoBehaviour {
 
             for (int i = 0; i < range; i++) //loop repeats for each creature on the board
             {
-                CreatureCardUI attacker = liveCreatures[i].GetComponent<CreatureCardUI>();
+                CreatureCardPrefab attacker = liveCreatures[i].GetComponent<CreatureCardPrefab>();
                 attacker.buttonObject.SetActive(true); //enables buttons on creature cards in range
             }
         }
@@ -420,19 +421,19 @@ public class GameController : MonoBehaviour {
         AP -= tempWeapon.ap; //updates AP remaining
         creatureCard.hp -= tempWeapon.dmg; //deals dmg to creature
         APUpdate();
-        CreatureCardUI defCreature = creature.GetComponent<CreatureCardUI>(); //creatures a reference to the creature
+        CreatureCardPrefab defCreature = creature.GetComponent<CreatureCardPrefab>(); //creatures a reference to the creature
         defCreature.hpText.text = defCreature.creatureCardData.hp.ToString(); //updates UI text
 
         if (creatureCard.hp <= 0) //checks if creature is dead
         {
-            CreatureCardUI deadCreature = creature.GetComponent<CreatureCardUI>();
+            CreatureCardPrefab deadCreature = creature.GetComponent<CreatureCardPrefab>();
             Destroy(deadCreature.gameObject); //destroys the creature
             liveCreatures.Remove(deadCreature.gameObject); //removes destroyed creature from attackers list
         }
 
         for (int i = 0; i < liveCreatures.Count; i++) //loop repeats for each creature on the board
         {
-            CreatureCardUI attacker = liveCreatures[i].GetComponent<CreatureCardUI>();
+            CreatureCardPrefab attacker = liveCreatures[i].GetComponent<CreatureCardPrefab>();
             attacker.buttonObject.SetActive(false); //disables buttons on all creature cards
         }
     }
@@ -440,10 +441,10 @@ public class GameController : MonoBehaviour {
     public IEnumerator HeroAttackPhase()
     {
         turnPhase = phase.CombatPhase;
+        defenderHeroObject = liveHero[0];
         for (int i = 0; i < liveCreatures.Count; i++) //loop repeats for each creature fighting the hero
         {
-            defenderHeroObject = liveHero[0];
-            CreatureCardUI attackCreature = liveCreatures[i].GetComponent<CreatureCardUI>();
+            CreatureCardPrefab attackCreature = liveCreatures[i].GetComponent<CreatureCardPrefab>();
             StartCoroutine(animationController.AttackMove(liveCreatures[i], defenderHeroObject));
             attackCreature.PlaySound();
             if (attackCreature.creatureCardData.dmg > currentArmour.armourCardData.hp) //checks if creature attack is strong enough to pierce armour
@@ -451,9 +452,16 @@ public class GameController : MonoBehaviour {
                 defHero.heroCardData.hp -= attackCreature.creatureCardData.dmg - currentArmour.armourCardData.hp; //creature deals damage
             }
             HeroHPUpdate();
-            print("Hero hp = " + defHero.heroCardData.hp);
-            float combatDelay = 1.4f;
-            yield return new WaitForSeconds(combatDelay);
+            float combatDelay = 1.3f;
+
+            if (i!=liveCreatures.Count-1)
+            {
+                yield return new WaitForSeconds(combatDelay);
+            }
+            else if (i == liveCreatures.Count - 1)
+            {
+                yield return null;
+            }
         }
 
         if (defHero.heroCardData.hp <= 0) //checks if hero is dead

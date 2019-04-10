@@ -6,7 +6,7 @@ using UnityEngine.UI;
 //Script written by Aston Olsen
 
 [ExecuteInEditMode]
-public class CreatureCardUI : BaseCardUI
+public class CreatureCardPrefab : BaseCardPrefab
 {
     public CreatureCardData creatureCardData;
 
@@ -42,7 +42,6 @@ public class CreatureCardUI : BaseCardUI
 
     public void PlaySound() //plays audio clip once
     {
-        print("played sound");
         audioSource = GetComponent<AudioSource>();
         AudioClip attackSound = creatureCardData.audio1;
         audioSource.PlayOneShot(attackSound);

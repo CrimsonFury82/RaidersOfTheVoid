@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 //Script written by Aston Olsen
 
-public class ArmourCardUI : BaseCardUI
+public class ArmourCardPrefab : BaseCardPrefab
 {
     public InventoryController inventoryController;
 
