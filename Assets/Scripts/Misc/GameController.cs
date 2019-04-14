@@ -13,7 +13,7 @@ public class GameController : MonoBehaviour {
 
     bool relicUsed;
 
-    public Text apText, monstersText, turnText;
+    public Text apText, monstersText, turnText; //UI text
 
     public turn turnState; //State for current player turn
 
@@ -21,7 +21,7 @@ public class GameController : MonoBehaviour {
 
     int AP, RelicMaxCooldown, heroMaxHP;
 
-    GameObject defenderHeroObject;
+    //GameObject defenderHeroObject;
         
     public GameObject victoryText, gameOverText;
 
@@ -156,7 +156,8 @@ public class GameController : MonoBehaviour {
         if (turnState == turn.Player1) //checks if currently Player 1's turn
         {
             turnState = turn.Player2;
-            turnText.text = "Enemy turn";
+            turnText.color = Color.red;
+            turnText.text = "Wait - Enemy turn";
         }
         else if (turnState == turn.Player2) //checks if currently Player 2's turn
         {
@@ -168,7 +169,8 @@ public class GameController : MonoBehaviour {
     void PlayerUpkeep() //tasks to execute at start of each player's turn
     {
         turnState = turn.Player1;
-        turnText.text = "Your turn";
+        turnText.color = Color.green;
+        turnText.text = "Go - Your turn";
 
         if (relicUsed == true)
         {
@@ -198,7 +200,7 @@ public class GameController : MonoBehaviour {
 
     void APUpdate() //updates UI text
     {
-        apText.text = "Action Points = " + AP.ToString();
+        apText.text = "Action Points: " + AP.ToString();
     }
 
     void HeroHPUpdate() //updates UI text
@@ -208,7 +210,12 @@ public class GameController : MonoBehaviour {
 
     void RelicUpdate() //updates UI text
     {
-        currentRelic.cooldownText.text = currentRelic.relicCardData.cooldown.ToString(); //updates prefab with values from scriptable object
+        currentRelic.cooldownText.text = currentRelic.relicCardData.cooldown.ToString(); //updates prefab text from scriptable object
+    }
+
+    void MonstersUpdate() //updates UI text
+    {
+        monstersText.text = "Monsters remaining: " + (aiDeck.Count + liveCreatures.Count).ToString(); 
     }
 
     void TurnStart()
@@ -342,7 +349,7 @@ public class GameController : MonoBehaviour {
                 DealCreature();
             }
         }
-        monstersText.text = "Monster Deck = " + aiDeck.Count.ToString(); //updates UI text
+        MonstersUpdate();
     }
 
     public void DealCreature() //Deals one creature card
@@ -429,6 +436,7 @@ public class GameController : MonoBehaviour {
             CreatureCardPrefab deadCreature = creature.GetComponent<CreatureCardPrefab>();
             Destroy(deadCreature.gameObject); //destroys the creature
             liveCreatures.Remove(deadCreature.gameObject); //removes destroyed creature from attackers list
+            MonstersUpdate();
         }
 
         for (int i = 0; i < liveCreatures.Count; i++) //loop repeats for each creature on the board
@@ -441,11 +449,11 @@ public class GameController : MonoBehaviour {
     public IEnumerator HeroAttackPhase()
     {
         turnPhase = phase.CombatPhase;
-        defenderHeroObject = liveHero[0];
+        //defenderHeroObject = liveHero[0];
         for (int i = 0; i < liveCreatures.Count; i++) //loop repeats for each creature fighting the hero
         {
             CreatureCardPrefab attackCreature = liveCreatures[i].GetComponent<CreatureCardPrefab>();
-            StartCoroutine(animationController.AttackMove(liveCreatures[i], defenderHeroObject));
+            StartCoroutine(animationController.AttackMove(liveCreatures[i], liveHero[0]));
             attackCreature.PlaySound();
             if (attackCreature.creatureCardData.dmg > currentArmour.armourCardData.hp) //checks if creature attack is strong enough to pierce armour
             {

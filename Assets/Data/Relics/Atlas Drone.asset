@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Atlas Drone
   m_EditorClassIdentifier: 
   cardName: Atlas Drone
-  ability1: Heal 20
+  ability1: Heal 10
   hp: 0
   artSprite: {fileID: 21300000, guid: 659c301c5960c974cb97eb61a4656bf1, type: 3}
   audio1: {fileID: 0}
   dmg: 0
-  heal: 20
+  heal: 10
   cooldown: 2
   apBonus: 0
