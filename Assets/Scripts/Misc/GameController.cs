@@ -176,22 +176,32 @@ public class GameController : MonoBehaviour {
         {
             currentRelic.relicCardData.cooldown = RelicMaxCooldown;
             relicUsed = false;
+            currentRelic.ultimateText.text = "Ultimate\ncharging"; //updates card UI text
             RelicUpdate();
         }
         else
         {
-            currentRelic.relicCardData.cooldown--;
-            RelicUpdate();
+            currentRelic.relicCardData.cooldown--; //updates cooldown
             if (currentRelic.relicCardData.cooldown <= 0)
             {
                 currentRelic.relicCardData.cooldown = 0;
                 currentRelic.useButton.SetActive(true); //enables button
-                currentRelic.cooldownText.text = "Ready"; //updates card UI text
+                currentRelic.ultimateText.color = Color.green; //changes font colour
+                currentRelic.ultimateText.text = "Ultimate\nReady"; //updates card UI text
             }
         }
+        RelicUpdate();
         APReset();
     }
 
+    public void RelicAttacked()
+    {
+        currentRelic.useButton.SetActive(false); //disables button
+        relicUsed = true;
+        currentRelic.ultimateText.color = Color.red; //changes font colour
+        currentRelic.ultimateText.text = "Ultimate\nUsed"; //updates card UI text
+    }
+    
     void APReset() //resets action points at start of turn
     {
         AP = 10;
@@ -414,13 +424,6 @@ public class GameController : MonoBehaviour {
         }
         HeroHPUpdate();
         RelicAttacked();
-    }
-
-    public void RelicAttacked()
-    {
-        currentRelic.useButton.SetActive(false); //disables button
-        relicUsed = true;
-        currentRelic.cooldownText.text = "Used"; //updates card UI text
     }
 
     public void WeaponAttack(GameObject creature, CreatureCardData creatureCard, Button button)

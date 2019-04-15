@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Spinonsa Reflector Shield
   m_EditorClassIdentifier: 
   cardName: ' Spinonsa Reflector Shield '
-  ability1: Heal 30
+  ability1: Heal 20
   hp: 0
   artSprite: {fileID: 0}
   audio1: {fileID: 0}
   dmg: 0
-  heal: 30
+  heal: 20
   cooldown: 3
   apBonus: 0

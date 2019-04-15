@@ -228,7 +228,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0.000061035156, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1345.2, y: 352.5}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &141712105
@@ -932,7 +932,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0.000061035156, y: 727}
+  m_AnchoredPosition: {x: 0, y: 727}
   m_SizeDelta: {x: 1345.2, y: 352.5}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1382576200
@@ -1270,8 +1270,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b8edf7f1b2d0e8c4cbd5d2cacb6867c5, type: 2}
   - {fileID: 11400000, guid: fd8bbaf899aac274a8b75a7ae4d2b5e9, type: 2}
   armourInv:
-  - {fileID: 11400000, guid: 6e7b548cef771354aaa3176066862a48, type: 2}
   - {fileID: 11400000, guid: 2bba0fcc49769324cb1192213cd414b8, type: 2}
+  - {fileID: 11400000, guid: 6e7b548cef771354aaa3176066862a48, type: 2}
   weaponSlots: []
   relicSlot: []
   armourSlot: []
@@ -1333,7 +1333,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.000061035156, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 280, y: 1079}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1928461722
@@ -1351,8 +1351,8 @@ MonoBehaviour:
   m_Padding:
     m_Left: 7
     m_Right: 7
-    m_Top: 7
-    m_Bottom: 15
+    m_Top: 20
+    m_Bottom: 0
   m_ChildAlignment: 1
   m_Spacing: 30
   m_ChildForceExpandWidth: 0
@@ -1431,7 +1431,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0.000061035156, y: 363}
+  m_AnchoredPosition: {x: 0, y: 363}
   m_SizeDelta: {x: 1345.2, y: 352.5}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &2128396534

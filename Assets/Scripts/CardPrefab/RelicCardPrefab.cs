@@ -15,7 +15,7 @@ public class RelicCardPrefab : BaseCardPrefab
 
     public GameObject useButton, equipButton;
 
-    public Text dmgText, healText, cooldownText;
+    public Text dmgText, healText, cooldownText, ultimateText;
 
     private void Start()
     {
@@ -30,6 +30,8 @@ public class RelicCardPrefab : BaseCardPrefab
         dmgText.text = relicCardData.dmg.ToString(); //updates prefab with values from scriptable object
         healText.text = relicCardData.heal.ToString(); //updates prefab with values from scriptable object
         cooldownText.text = relicCardData.cooldown.ToString(); //updates prefab with values from scriptable object
+        ultimateText.color = Color.red;
+        ultimateText.text = "Ultimate\ncharging"; //updates prefab with values from scriptable object
     }
 
     public void UsedClickedGear() //calls function in gamecontroller
