@@ -22,7 +22,7 @@ e1bbf0ab858085e38fae6b12ebbdcd35 UnityEngine.Timeline.dll:UnityEngine.Timeline.G
 e1bbf0ab858085e38fae6b12ebbdcd35 UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 201e3fde670b00545944bb3db215c80a UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
 e7a73f5f78ba6445195ec23b74a1ce2d Unity.TextMeshPro.dll:TMPro.TMP_ScrollbarEventHandler
-6d746c101d2d9b001cd37827418261ec Assembly-CSharp.dll:.RelicCardPrefab
+e6885f8e07f616ee375c405cd977e543 Assembly-CSharp.dll:.RelicCardPrefab
 cf9f5cf2c3145a37ac07f00e50e460f9 UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
 5fc094978ce3e3591a7500ed380d854a UnityEngine.UI.dll:UnityEngine.UI.Button
@@ -88,7 +88,7 @@ fc108ce7d98c40ac0907e8ca7f500c76 UnityEngine.UI.dll:UnityEngine.UI.Text
 0fd6822f6177297bd0eb4d83cc7a9030 UnityEngine.UI.dll:UnityEngine.UI.ToggleGroup
 abf1930d8126d0b2e00e9449129a0190 UnityEngine.UI.dll:UnityEngine.EventSystems.TouchInputModule
 64e54c0cbb0177c5ea26f340efb9ff85 UnityEngine.UI.dll:UnityEngine.UI.VerticalLayoutGroup
-4106e1d0aab45139a8c978ab644658dd Assembly-CSharp.dll:.GameController
+ed693ebe5f2400e39a8147970603845e Assembly-CSharp.dll:.GameController
 49cdcf3f386a58d665addb6f427273e0 Assembly-CSharp.dll:.WeaponCardData
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 06f0fef534ca4c1d6064fd77a26bf722 UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
@@ -123,11 +123,10 @@ d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.Spa
 303ad70ce203ad874efe2965d0fbcff9 Unity.Analytics.Tracker.dll:UnityEngine.Analytics.AnalyticsEventTracker
 7fb9de8dcf73854b6b328eca1f7a6e6d Unity.Analytics.Tracker.dll:UnityEngine.Analytics.AnalyticsTracker
 dbe751848937a26136c4dc900462f747 Assembly-CSharp.dll:.RelicCardData
-60329688e0b469f2bc653ad0f4321069 Assembly-CSharp.dll:.LootCardData
 c10744bcede72d06315b230d40d5d314 Assembly-CSharp.dll:.WeaponCardPrefab
 94017dcc9f00fe671ea7dc427b4da011 Unity.TextMeshPro.dll:TMPro.TMP_SpriteAsset
 60329688e0b469f2bc653ad0f4321069 Assembly-CSharp.dll:.BaseCardData
-21883c891fa89c1c7cd8d0eb18f0af29 Assembly-CSharp.dll:.InventoryController
+87fba1859971d9e2817a78275929b6fe Assembly-CSharp.dll:.InventoryController
 809380694126c65242628f734ab36d7b Assembly-CSharp.dll:.CreatureCardPrefab
 b3ab2106268377ffe25dd18ac23dca28 Unity.TextMeshPro.dll:TMPro.TMP_Asset
 4875a12672cc3207a4830a2776c8b9fe Assembly-CSharp.dll:.ArmourCardPrefab
@@ -151,7 +150,6 @@ ad9173d3a69d99153f38ed4b62226129 UnityEngine.Networking.dll:UnityEngine.Networki
 510fefd6a544e16a3ffefa557ddcba39 Unity.TextMeshPro.dll:TMPro.PackageResourceImporterWindow
 aa82b3ce4c0c9b227036c0337315c5d3 Unity.TextMeshPro.dll:TMPro.TMP_FontAsset
 e51c09a4cc447f11db225afcd8e3e490 Unity.TextMeshPro.dll:TMPro.TMP_Settings
-ae5d5e6d6e1f004f3bb256a5c127ddbb Assembly-CSharp.dll:.DropdownController
 cf96e5f7b3d069bab453925bd41be04e UnityEngine.TestRunner.dll:UnityEngine.TestTools.EnumerableSetUpTearDownCommandState
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.PlayModeRunnerCallback
 259d013faac28e8ba0aa2a7542273735 UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.PlaymodeTestsController

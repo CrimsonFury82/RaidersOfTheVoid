@@ -26,6 +26,6 @@ public class ArmourCardPrefab : BaseCardPrefab
 
     public void EquipClickedGear() //calls function in inventorycontroller
     {
-        inventoryController.EquipArmour(this.gameObject, armourCardData, equipButton);
+        inventoryController.EquipArmour(this.gameObject, armourCardData);
     }
 }

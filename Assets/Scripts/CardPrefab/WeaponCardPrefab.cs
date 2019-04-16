@@ -39,6 +39,6 @@ public class WeaponCardPrefab : BaseCardPrefab
 
     public void EquipClickedGear() //calls function in inventory controller
     {
-        inventoryController.EquipWeapon(this.gameObject, weaponCardData, equipButton);
+        inventoryController.EquipWeapon(this.gameObject, weaponCardData);
     }
 }

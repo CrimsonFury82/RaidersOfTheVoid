@@ -36,11 +36,11 @@ public class RelicCardPrefab : BaseCardPrefab
 
     public void UsedClickedGear() //calls function in gamecontroller
     {
-        gameController.SupportRelic(relicCardData);
+        gameController.ActivateRelic(relicCardData);
     }
 
     public void EquipClickedGear() //calls function in inventorycontroller
     {
-        inventoryController.EquipRelic(this.gameObject, relicCardData, equipButton);
+        inventoryController.EquipRelic(this.gameObject, relicCardData);
     }
 }

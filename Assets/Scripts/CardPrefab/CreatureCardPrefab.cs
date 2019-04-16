@@ -37,7 +37,7 @@ public class CreatureCardPrefab : BaseCardPrefab
 
     public void AttackClickedCreature() //plays the clicked card from your hand area to the battlezone
     {
-        gameController.WeaponAttack(this.gameObject, creatureCardData, button);
+        gameController.WeaponAttack(this.gameObject, creatureCardData);
     }
 
     public void PlaySound() //plays audio clip once
