@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
+	Animator animator;//Kyle
+
     public enum turn {Player1, Player2}; //List of states
     public enum phase {MainPhase, CombatPhase}; //List of states
 
@@ -66,7 +68,8 @@ public class GameController : MonoBehaviour {
     ArmourCardData armourTopDeck;
     WeaponCardData weaponTopDeck;
     RelicCardData relicTopDeck;
-       
+    
+
     void Shuffle(List<CreatureCardData> deck)
     {
         for (int i = 0; i < 1000; i++) //shuffles by swapping two random cards and repeating process 1000 times
@@ -78,6 +81,7 @@ public class GameController : MonoBehaviour {
             deck[rng2] = tempcard; //swaps temp copy of card 1 into card 2's position in list
         }
     }
+
 
     public void Turns() //case switches for turn states
     {   switch (turnState)
@@ -361,6 +365,7 @@ public class GameController : MonoBehaviour {
             if (aiDeck1.Count > 0)
             {
                 DealCreature();
+				animator.SetTrigger ("MillerDealSequence");//Kyle
             }
         }
         MonstersUpdate();
@@ -602,5 +607,5 @@ public class GameController : MonoBehaviour {
     {
         gameoverText.text = "You win";
         gameoverBackground.SetActive(true);
-    }
+	}
 }
