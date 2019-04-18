@@ -365,7 +365,7 @@ public class GameController : MonoBehaviour {
             if (aiDeck1.Count > 0)
             {
                 DealCreature();
-				animator.SetTrigger ("MillerDealSequence");//Kyle
+                GameObject.Find("MillerDealer").GetComponent<Animator>().SetBool("DealSequence", true);//Kyle
             }
         }
         MonstersUpdate();
