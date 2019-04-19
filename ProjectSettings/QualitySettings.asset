@@ -38,6 +38,7 @@ QualitySettings:
     particleRaycastBudget: 4
     asyncUploadTimeSlice: 2
     asyncUploadBufferSize: 4
+    asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
     excludedTargetPlatforms:
     - Standalone
@@ -73,6 +74,7 @@ QualitySettings:
     particleRaycastBudget: 16
     asyncUploadTimeSlice: 2
     asyncUploadBufferSize: 4
+    asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
     excludedTargetPlatforms:
     - Standalone
@@ -108,6 +110,7 @@ QualitySettings:
     particleRaycastBudget: 64
     asyncUploadTimeSlice: 2
     asyncUploadBufferSize: 4
+    asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
     excludedTargetPlatforms:
     - Standalone
@@ -143,6 +146,7 @@ QualitySettings:
     particleRaycastBudget: 256
     asyncUploadTimeSlice: 2
     asyncUploadBufferSize: 4
+    asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
     excludedTargetPlatforms:
     - Standalone
@@ -178,6 +182,7 @@ QualitySettings:
     particleRaycastBudget: 1024
     asyncUploadTimeSlice: 2
     asyncUploadBufferSize: 4
+    asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
     excludedTargetPlatforms:
     - Standalone
@@ -196,7 +201,7 @@ QualitySettings:
     blendWeights: 4
     textureQuality: 0
     anisotropicTextures: 0
-    antiAliasing: 0
+    antiAliasing: 8
     softParticles: 0
     softVegetation: 1
     realtimeReflectionProbes: 0
@@ -213,6 +218,7 @@ QualitySettings:
     particleRaycastBudget: 4096
     asyncUploadTimeSlice: 2
     asyncUploadBufferSize: 4
+    asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
     excludedTargetPlatforms: []
   m_PerPlatformDefaultQuality:

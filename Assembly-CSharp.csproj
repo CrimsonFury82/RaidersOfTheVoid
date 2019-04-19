@@ -61,6 +61,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\MenuMusicController.cs" />
     <Compile Include="Assets\Scripts\CardData\ArmourCardData.cs" />
     <Compile Include="Assets\Scripts\CardData\BaseCardData.cs" />
     <Compile Include="Assets\Scripts\CardData\CreatureCardData.cs" />

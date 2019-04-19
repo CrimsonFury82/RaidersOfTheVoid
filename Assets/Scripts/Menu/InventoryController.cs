@@ -31,6 +31,7 @@ public class InventoryController : MonoBehaviour
 
     void Start()
     {
+        GameObject.FindGameObjectWithTag("MenuMusic").GetComponent<MenuMusicController>().StartMusic();
         DealArmourInv();
         DealRelicInv();
         DealWeaponInv();

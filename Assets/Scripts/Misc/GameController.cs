@@ -10,6 +10,8 @@ public class GameController : MonoBehaviour {
 
     public enum turn {Player1, Player2}; //List of states
     public enum phase {MainPhase, CombatPhase}; //List of states
+    public enum lootNum {Tier1, Tier2, Tier3}; //List of states
+    public enum lootTy {Weapon, Ultimate, Armour } //List of states
 
     bool relicUsed;
 
@@ -19,9 +21,13 @@ public class GameController : MonoBehaviour {
 
     public phase turnPhase; //State for current game phase
 
+    public lootNum lootTier; //State for Loot drop tier
+
+    public lootTy lootType; //State for Loot drop type
+
     int AP, RelicMaxCooldown, heroMaxHP, lootdropCounter = 3;
 
-    public GameObject gameoverBackground, lootDrop, backPack, menuButton; //menu objects that will be toggled off and on
+    public GameObject gameoverBackground, lootDrop, backPack, menuButton, exitButton, continueButton; //menu objects that will be toggled off and on
 
     Button endTurnButton;
 
@@ -92,7 +98,7 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    public void Phases() //case switches for main\combat phase states
+    public void Phases() //case switches for phase states
     {
         switch (turnPhase)
         {
@@ -106,6 +112,38 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    public void LootTier() //case switches for phase states
+    {
+        switch (lootTier)
+        {
+            case lootNum.Tier1:
+                break;
+            case lootNum.Tier2:
+                break;
+            case lootNum.Tier3:
+                break;
+            default:
+                print("Default loot tier");
+                break;
+        }
+    }
+
+    public void LootType() //case switches for phase states
+    {
+        switch (lootType)
+        {
+            case lootTy.Weapon:
+                break;
+            case lootTy.Ultimate:
+                break;
+            case lootTy.Armour:
+                break;
+            default:
+                print("Default loot type");
+                break;
+        }
+    }
+
     void Start()
     {
         BeginGame();
@@ -113,6 +151,7 @@ public class GameController : MonoBehaviour {
 
     void BeginGame() //function for starting the game.
     {
+        GameObject.FindGameObjectWithTag("MenuMusic").GetComponent<MenuMusicController>().StopMusic();
         relicUsed = false;
         Shuffle(aiDeck1);
         DealArmour();
@@ -395,25 +434,44 @@ public class GameController : MonoBehaviour {
     public void T3LootTable()
     {
         int t1Start = 1, t1end = 50 , t2Start = 51, t2end = 80, t3Start = 81 , t3end = 100; //values for loot drop tables
-        int rng = UnityEngine.Random.Range(1, 101); //selects a random number between 1 and 100
+        int weaponStart = 1, relicStart = 2, armourStart = 3; //values for loot drop tables
+        int tierRNG = UnityEngine.Random.Range(1, 101); //selects a random number between 1 and 100
+        int typeRNG = UnityEngine.Random.Range(1, 4); //selects a random number between 1 and 100
 
-        if(rng >= t1Start && rng <= t1end) //checks if loot drop number is within tier 1 value range
+        if (tierRNG >= t1Start && tierRNG <= t1end) //checks if loot drop number is within tier 1 value range
         {
-            //print("T1 loot");
+            lootTier = lootNum.Tier1;
         }
-        else if (rng >= t2Start && rng <= t2end) //checks if loot drop number is within tier 2 value range
+        else if (tierRNG >= t2Start && tierRNG <= t2end) //checks if loot drop number is within tier 2 value range
         {
-            //print("T2 loot");
+            lootTier = lootNum.Tier2;
         }
-        else if (rng >= t3Start && rng <= t3end) //checks if loot drop number is within tier 3 value range
+        else if (tierRNG >= t3Start && tierRNG <= t3end) //checks if loot drop number is within tier 3 value range
         {
-            //print("T3 loot");
+            lootTier = lootNum.Tier3;
         }
         else
         {
-            print("Invalid loot drop");
+            print("Invalid loot tier");
         }
 
+        if (typeRNG == weaponStart) //checks if loot drop number is within tier 1 value range
+        {
+            lootType = lootTy.Weapon;
+        }
+        else if (typeRNG == relicStart) //checks if loot drop number is within tier 2 value range
+        {
+            lootType = lootTy.Ultimate;
+        }
+        else if (typeRNG == armourStart) //checks if loot drop number is within tier 3 value range
+        {
+            lootType = lootTy.Armour;
+        }
+        else
+        {
+            print("Invalid loot type");
+        }
+        print(lootTier + " " + lootType);
     }
 
     void LootShuffle(List<CreatureCardData> deck)
@@ -602,5 +660,7 @@ public class GameController : MonoBehaviour {
     {
         gameoverText.text = "You win";
         gameoverBackground.SetActive(true);
+        exitButton.SetActive(true);
+        continueButton.SetActive(true);
     }
 }

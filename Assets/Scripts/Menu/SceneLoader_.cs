@@ -7,17 +7,15 @@ public class SceneLoader_ : MonoBehaviour {
 
 	public void LoadScene(string sceneName)
 	{
-        //Application.LoadLevel (level); 
-        //The line above is obsolete and should not be used. I replaced with the relevant line below instead. - Aston
         SceneManager.LoadScene(sceneName);
     }
 
-    public void SaveGame()
+    private void Start()
     {
-        print("Saving Game");
+        GameObject.FindGameObjectWithTag("MenuMusic").GetComponent<MenuMusicController>().StartMusic();
     }
 
-	public void QuitGame()
+    public void QuitGame()
 	{
 		Application.Quit ();
         print("Quitting");
