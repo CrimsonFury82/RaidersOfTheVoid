@@ -539,6 +539,12 @@ PrefabInstance:
       propertyPath: m_MaskInteraction
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8189744647816893408, guid: b5a186007324dc04e9ddcd1034712c35,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d554ed526daf07048b1797f9535ff51c,
+        type: 3}
     - target: {fileID: 8189744647816893420, guid: b5a186007324dc04e9ddcd1034712c35,
         type: 3}
       propertyPath: m_CullingMode
