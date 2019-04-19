@@ -31,8 +31,6 @@ public class GameController : MonoBehaviour {
 
     Button endTurnButton;
 
-    //Animator animator; //Kyle
-
     //Board zones for each group of cards
     public Transform enemyTransform, heroTransform, relicTransform, weaponTransform, armourTransform, lootTransform, backpackTransform;
 
@@ -75,7 +73,7 @@ public class GameController : MonoBehaviour {
     WeaponCardData weaponTopDeck;
     RelicCardData relicTopDeck;
        
-    void Shuffle(List<CreatureCardData> deck)
+    void CreatureShuffle(List<CreatureCardData> deck)
     {
         for (int i = 0; i < 1000; i++) //shuffles by swapping two random cards and repeating process 1000 times
         {   
@@ -155,7 +153,7 @@ public class GameController : MonoBehaviour {
     {
         GameObject.FindGameObjectWithTag("MenuMusic").GetComponent<MenuMusicController>().StopMusic();
         relicUsed = false;
-        Shuffle(aiDeck1);
+        CreatureShuffle(aiDeck1);
         DealArmour();
         DealHero();        
         DealRelic();
@@ -475,18 +473,6 @@ public class GameController : MonoBehaviour {
             print("Invalid loot type");
         }
         print(lootTier + " " + lootType);
-    }
-
-    void LootShuffle(List<CreatureCardData> deck)
-    {
-        for (int i = 0; i < 1000; i++) //shuffles by swapping two random cards and repeating process 1000 times
-        {
-            int rng1 = UnityEngine.Random.Range(0, deck.Count); //first randomly selected card number
-            int rng2 = UnityEngine.Random.Range(0, deck.Count); //second randomly selected card number
-            CreatureCardData tempcard = deck[rng1]; //tempcard to store copy of card 1
-            deck[rng1] = deck[rng2]; //swaps card 2 into card 1's position in list
-            deck[rng2] = tempcard; //swaps temp copy of card 1 into card 2's position in list
-        }
     }
 
     public void DealCreature() //Deals one creature card
