@@ -31,6 +31,8 @@ public class GameController : MonoBehaviour {
 
     Button endTurnButton;
 
+    //Animator animator; //Kyle
+
     //Board zones for each group of cards
     public Transform enemyTransform, heroTransform, relicTransform, weaponTransform, armourTransform, lootTransform, backpackTransform;
 
@@ -388,6 +390,7 @@ public class GameController : MonoBehaviour {
 
     public void DealCreatureHand() //Deals multiple creature cards
     {
+        StartCoroutine(DealerAnimation()); //starts animation
         lootdropCounter--;
         if(lootdropCounter == 0)
         {
@@ -615,6 +618,14 @@ public class GameController : MonoBehaviour {
             CreatureCardPrefab attacker = liveCreatures[i].GetComponent<CreatureCardPrefab>();
             attacker.buttonObject.SetActive(false); //disables buttons on all creature cards
         }
+    }
+
+    public IEnumerator DealerAnimation()
+    {
+        float animationDelay = 2.5f;
+        GameObject.Find("MillerDealer").GetComponent<Animator>().SetBool("DealSequence", true); //Kyle
+        yield return new WaitForSeconds(animationDelay);
+        GameObject.Find("MillerDealer").GetComponent<Animator>().SetBool("DealSequence", false); //Kyle
     }
 
     public IEnumerator HeroAttackPhase()

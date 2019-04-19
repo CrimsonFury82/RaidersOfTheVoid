@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//Script Written by Kyle Runeckles
+
 public class SceneLoader_ : MonoBehaviour {
 
 	public void LoadScene(string sceneName)
