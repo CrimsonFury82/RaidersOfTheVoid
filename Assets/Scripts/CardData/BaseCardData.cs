@@ -19,9 +19,9 @@ public class BaseCardData : ScriptableObject
 
     public virtual void BaseCardUpdate(Text cardNameText, Text ability1Text, Text hpText, Image artImage)
     {
-        cardNameText.text = cardName;
-        ability1Text.text = ability1;
-        hpText.text = hp.ToString();
-        artImage.sprite = artSprite;
+        cardNameText.text = cardName; //updates card UI text
+        ability1Text.text = ability1; //updates card UI text
+        hpText.text = hp.ToString(); //updates card UI text
+        artImage.sprite = artSprite; //updates card art image
     }
 }

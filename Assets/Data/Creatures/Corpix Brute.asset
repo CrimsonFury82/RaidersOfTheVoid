@@ -15,6 +15,6 @@ MonoBehaviour:
   cardName: Corpix Brute
   ability1: 
   hp: 12
-  artSprite: {fileID: 0}
+  artSprite: {fileID: 21300000, guid: a819db63c59fad64fbca62f5b31fc11e, type: 3}
   audio1: {fileID: 0}
   dmg: 5

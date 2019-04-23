@@ -15,6 +15,6 @@ MonoBehaviour:
   cardName: Hero
   ability1: 
   hp: 40
-  artSprite: {fileID: 21300000, guid: cbc53a736b881384a92f28cd32ea7cb1, type: 3}
+  artSprite: {fileID: 21300000, guid: 6fa9512ebe1622b4ea2d7ec5fb6d4e27, type: 3}
   audio1: {fileID: 0}
   armour: 3

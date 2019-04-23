@@ -15,7 +15,7 @@ MonoBehaviour:
   cardName: Frigid Lancer
   ability1: 
   hp: 0
-  artSprite: {fileID: 0}
+  artSprite: {fileID: 21300000, guid: 9be3477062a35524b8e705dded8a159b, type: 3}
   audio1: {fileID: 0}
   dmg: 14
   ap: 7

@@ -15,7 +15,7 @@ MonoBehaviour:
   cardName: Energy Shield
   ability1: Heal 5
   hp: 0
-  artSprite: {fileID: 0}
+  artSprite: {fileID: 21300000, guid: eeec9d97e2b2f974f8b033373fd817f3, type: 3}
   audio1: {fileID: 0}
   dmg: 0
   heal: 5

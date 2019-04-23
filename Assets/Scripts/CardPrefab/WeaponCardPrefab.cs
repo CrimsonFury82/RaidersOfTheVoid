@@ -37,8 +37,15 @@ public class WeaponCardPrefab : BaseCardPrefab
         gameController.WeaponTarget(weaponCardData);
     }
 
-    public void EquipClickedGear() //calls function in inventory controller
+    public void EquipInventory() //calls function in inventory controller
     {
-        inventoryController.EquipWeapon(this.gameObject, weaponCardData);
+        if (gameController != null)
+        {
+            gameController.EquipWeapon(this.gameObject, weaponCardData); //puts in backpack in game scene
+        }
+        else
+        {
+            inventoryController.EquipWeapon(this.gameObject, weaponCardData); //equips in inventory scene
+        }
     }
 }

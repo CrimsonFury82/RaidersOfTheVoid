@@ -15,6 +15,6 @@ MonoBehaviour:
   cardName: Dozer Mech
   ability1: 
   hp: 20
-  artSprite: {fileID: 0}
+  artSprite: {fileID: 21300000, guid: 6e232380f491dcb42b1bb91171de4c43, type: 3}
   audio1: {fileID: 0}
   dmg: 5

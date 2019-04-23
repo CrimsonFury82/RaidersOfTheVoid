@@ -15,5 +15,5 @@ MonoBehaviour:
   cardName: Light Assault
   ability1: 
   hp: 1
-  artSprite: {fileID: 0}
+  artSprite: {fileID: 21300000, guid: 70533dd9abeaac744a43b9299a23d33b, type: 3}
   audio1: {fileID: 0}

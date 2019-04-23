@@ -15,7 +15,7 @@ MonoBehaviour:
   cardName: Energy Sword
   ability1: 
   hp: 0
-  artSprite: {fileID: 0}
+  artSprite: {fileID: 21300000, guid: cef64f66e8791ea429fc3c4bbbd3c6fa, type: 3}
   audio1: {fileID: 0}
   dmg: 16
   ap: 4

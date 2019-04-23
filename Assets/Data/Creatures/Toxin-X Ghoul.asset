@@ -15,6 +15,6 @@ MonoBehaviour:
   cardName: Toxin-X Ghoul
   ability1: 
   hp: 14
-  artSprite: {fileID: 0}
+  artSprite: {fileID: 21300000, guid: 812ead048f73d7745a2961fa93057e7c, type: 3}
   audio1: {fileID: 0}
   dmg: 10

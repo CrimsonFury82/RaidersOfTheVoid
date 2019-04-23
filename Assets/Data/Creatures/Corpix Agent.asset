@@ -15,6 +15,6 @@ MonoBehaviour:
   cardName: Corpix Agent
   ability1: 
   hp: 8
-  artSprite: {fileID: 0}
+  artSprite: {fileID: 21300000, guid: fb24fa1973e45f7438556067aadd734f, type: 3}
   audio1: {fileID: 0}
   dmg: 8

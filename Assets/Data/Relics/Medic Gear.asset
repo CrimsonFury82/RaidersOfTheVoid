@@ -15,7 +15,7 @@ MonoBehaviour:
   cardName: Medic Gear
   ability1: Heal 7
   hp: 0
-  artSprite: {fileID: 0}
+  artSprite: {fileID: 21300000, guid: e152809ca88dfe34fae78003d13435de, type: 3}
   audio1: {fileID: 0}
   dmg: 0
   heal: 7

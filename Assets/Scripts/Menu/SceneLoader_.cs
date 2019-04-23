@@ -14,7 +14,11 @@ public class SceneLoader_ : MonoBehaviour {
 
     private void Start()
     {
-        GameObject.FindGameObjectWithTag("MenuMusic").GetComponent<MenuMusicController>().StartMusic();
+        GameObject controller = GameObject.FindGameObjectWithTag("MenuMusic");
+        if (controller != null)
+        {
+            controller.GetComponent<MenuMusicController>().StartMusic();
+        }
     }
 
     public void QuitGame()

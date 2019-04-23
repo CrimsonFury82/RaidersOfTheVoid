@@ -15,6 +15,6 @@ MonoBehaviour:
   cardName: Galactic Officer
   ability1: 
   hp: 9
-  artSprite: {fileID: 21300000, guid: 8cd0bd9c528aa8c4eba58446be530608, type: 3}
+  artSprite: {fileID: 21300000, guid: 4f60d1ba0f5a9e543b3e52fccf023d5b, type: 3}
   audio1: {fileID: 8300000, guid: 6dad11c9b3717e94a8489878b42f9417, type: 3}
   dmg: 10

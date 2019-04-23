@@ -10,7 +10,7 @@ public class MenuMusicController : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(transform.gameObject);
+        DontDestroyOnLoad(gameObject);
         audiosource = GetComponent<AudioSource>();
     }
 

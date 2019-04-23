@@ -15,8 +15,8 @@ MonoBehaviour:
   cardName: Laser Targeter
   ability1: Explosive
   hp: 0
-  artSprite: {fileID: 0}
+  artSprite: {fileID: 21300000, guid: 2a1f7b09d1214704fbb40fce2aa45a75, type: 3}
   audio1: {fileID: 0}
   dmg: 14
-  ap: 14
+  ap: 10
   range: 4

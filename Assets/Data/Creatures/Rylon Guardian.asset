@@ -15,6 +15,6 @@ MonoBehaviour:
   cardName: Rylon Guardian
   ability1: 
   hp: 14
-  artSprite: {fileID: 0}
+  artSprite: {fileID: 21300000, guid: c7b58bc118b060c428e74c44a8716e2b, type: 3}
   audio1: {fileID: 0}
   dmg: 8
