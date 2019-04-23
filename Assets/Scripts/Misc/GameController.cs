@@ -43,6 +43,7 @@ public class GameController : MonoBehaviour {
     public List<ArmourCardData> equippedArmour;
     public List<HeroCardData> equippedHero;
     public List<CreatureCardData> aiDeck1, aiDeck2, aiDeck3;
+    public List<BaseCardData> lootdeckTest;
 
     //Lists of card prefabs on the board
     public List<GameObject> liveWeapons, liveRelic, liveArmour, liveCreatures, liveHero, liveLoot;
@@ -368,6 +369,24 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    //public void DealWeapon(Transform spawnTransform, List<BaseCardData> dataList, List<GameObject> objectList) //Deals one weapon card
+    //{
+    //    //if (dataList.Count > 0)
+    //    //{
+    //    //    weaponTopDeck = dataList[0];
+    //    //}
+    //    //else
+    //    //{
+    //    //    weaponTopDeck = null;
+    //    //}
+    //    WeaponCardData card = Instantiate(weaponTopDeck); //instantiates instance of scriptable object
+    //    WeaponCardPrefab tempCard = Instantiate(weaponCardTemplate); //instantiates an instance of the card prefab
+    //    tempCard.transform.SetParent(spawnTransform, false); //moves card onto board
+    //    tempCard.weaponCardData = card; //assigns the instance of the scriptable object to the instance of the prefab
+    //    dataList.Remove(weaponTopDeck); //removes card from list
+    //    objectList.Add(tempCard.gameObject); //adds card to list
+    //}
+
     public void DealWeapon(Transform spawnTransform, List<WeaponCardData> dataList, List<GameObject> objectList) //Deals one weapon card
     {
         if (dataList.Count > 0)
@@ -406,15 +425,27 @@ public class GameController : MonoBehaviour {
         MonstersUpdate();
     }
 
+    //public void DropLoot()
+    //{
+    //    if(weaponLoot1.Count > 0)
+    //    {
+    //        lootDrop.SetActive(true); //enables menu
+    //        backPack.SetActive(true); //enables menu
+    //        menuButton.SetActive(false); //disables menu
+    //        lootdropCounter = 3; //resets lootdrop counter
+    //        DealWeapon(lootTransform, weaponLoot1, liveLoot);
+    //    }
+    //}
+
     public void DropLoot()
     {
-        if(weaponLoot1.Count > 0)
+        if (weaponLoot1.Count > 0)
         {
             lootDrop.SetActive(true); //enables menu
             backPack.SetActive(true); //enables menu
             menuButton.SetActive(false); //disables menu
             lootdropCounter = 3; //resets lootdrop counter
-            DealWeapon(lootTransform, weaponLoot1, liveLoot);
+            DealWeapon(lootTransform, lootdeckTest, liveLoot);
         }
     }
 

@@ -3457,6 +3457,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 42deae3532d541042a6d701d6d8a8123, type: 2}
   aiDeck2: []
   aiDeck3: []
+  lootdeckTest:
+  - {fileID: 11400000, guid: 99ca836159ce48248893373982cd461a, type: 2}
+  - {fileID: 11400000, guid: 6c32140ad7b4e3249a005a6a253dcc76, type: 2}
+  - {fileID: 11400000, guid: 7f3e900d8a6d27546b3cc23e4c3e3e9e, type: 2}
+  - {fileID: 11400000, guid: 4f007907e71c4f342b81e139da1c05d8, type: 2}
+  - {fileID: 11400000, guid: 4f8a7b06402e3bb4fb667f180baa143c, type: 2}
   liveWeapons: []
   liveRelic: []
   liveArmour: []
