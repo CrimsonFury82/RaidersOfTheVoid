@@ -15,7 +15,7 @@ MonoBehaviour:
   cardName: Sypher Shot
   ability1: DMG 9 - Heal 5
   hp: 0
-  artSprite: {fileID: 21300000, guid: 99f4858861914b34a8940f21014b9190, type: 3}
+  artSprite: {fileID: 21300000, guid: 51b8e83f94c37ec4abcb755d327fc893, type: 3}
   audio1: {fileID: 0}
   dmg: 9
   heal: 5

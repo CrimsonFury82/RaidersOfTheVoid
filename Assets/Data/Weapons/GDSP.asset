@@ -15,7 +15,7 @@ MonoBehaviour:
   cardName: GDSP
   ability1: 
   hp: 0
-  artSprite: {fileID: 21300000, guid: 6588bcb1cdc012f4aa663513614b3683, type: 3}
+  artSprite: {fileID: 21300000, guid: 09196263e97bde44d903131de655299a, type: 3}
   audio1: {fileID: 0}
   dmg: 4
   ap: 2

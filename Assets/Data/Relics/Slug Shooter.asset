@@ -15,7 +15,7 @@ MonoBehaviour:
   cardName: Slug Shooter
   ability1: DMG 7
   hp: 0
-  artSprite: {fileID: 0}
+  artSprite: {fileID: 21300000, guid: 47cdac88b4790f64987e73643e2b5ab0, type: 3}
   audio1: {fileID: 0}
   dmg: 7
   heal: 0

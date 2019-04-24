@@ -15,6 +15,6 @@ MonoBehaviour:
   cardName: V-Rex
   ability1: 
   hp: 21
-  artSprite: {fileID: 21300000, guid: c0c685d6aa461744a881b81de2fc13a9, type: 3}
+  artSprite: {fileID: 21300000, guid: b3c9972110a8dec4dafc9647d24f7b38, type: 3}
   audio1: {fileID: 0}
   dmg: 10

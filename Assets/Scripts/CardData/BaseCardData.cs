@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 //Script written by Aston Olsen
 
+[System.Serializable]
 [ExecuteInEditMode]
 public class BaseCardData : ScriptableObject
 {

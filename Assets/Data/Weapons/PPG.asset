@@ -15,7 +15,7 @@ MonoBehaviour:
   cardName: PPG
   ability1: Explosive
   hp: 0
-  artSprite: {fileID: 21300000, guid: 38c52642bb43aa7479e87eddf2f1ee22, type: 3}
+  artSprite: {fileID: 21300000, guid: ab29469ee18d153498b2cf0565cb4189, type: 3}
   audio1: {fileID: 0}
   dmg: 8
   ap: 6
