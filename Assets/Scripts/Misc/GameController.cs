@@ -27,7 +27,9 @@ public class GameController : MonoBehaviour {
 
     int AP, RelicMaxCooldown, heroMaxHP, lootCounter, lootDrop = 3;
 
-    public GameObject gameoverBackground, lootDropObj, backPackObj, menuButton, exitButton, continueButton; //menu objects that will be toggled off and on
+    public GameObject gameoverBackground, lootDropObj, buttonCanvas; //menu objects that will be toggled off and on
+
+    public Toggle menuToggle;
 
     Button endTurnButton;
 
@@ -435,8 +437,8 @@ public class GameController : MonoBehaviour {
         if (weaponLoot1.Count > 0)
         {
             lootDropObj.SetActive(true); //enables menu
-            backPackObj.SetActive(true); //enables menu
-            menuButton.SetActive(false); //disables menu
+            menuToggle.isOn = !menuToggle.isOn;
+            //backPackObj.SetActive(true); //enables menu
             lootCounter = lootDrop; //resets lootdrop counter
             DealLoot(lootChestTransform, weaponLoot1, lootChest); //deals card to lootdrop zone
         }
@@ -678,9 +680,9 @@ public class GameController : MonoBehaviour {
     public IEnumerator DealerAnimation()
     {
         float animationDelay = 2.5f;
-        GameObject.Find("MillerDealer").GetComponent<Animator>().SetBool("DealSequence", true); //Kyle
+        GameObject.Find("MillerDealer").GetComponent<Animator>().SetBool("DealSequence", true); //Starts dealer animation
         yield return new WaitForSeconds(animationDelay);
-        GameObject.Find("MillerDealer").GetComponent<Animator>().SetBool("DealSequence", false); //Kyle
+        GameObject.Find("MillerDealer").GetComponent<Animator>().SetBool("DealSequence", false); //Stops dealer animation
     }
 
     public IEnumerator HeroAttackPhase()
@@ -726,7 +728,6 @@ public class GameController : MonoBehaviour {
     {
         gameoverText.text = "You win";
         gameoverBackground.SetActive(true);
-        exitButton.SetActive(true);
-        continueButton.SetActive(true);
+        buttonCanvas.SetActive(true);
     }
 }

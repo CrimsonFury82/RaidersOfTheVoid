@@ -10,12 +10,16 @@ using UnityEngine.UI;
 [ExecuteInEditMode]
 public class BaseCardData : ScriptableObject
 {
+    [SerializeField]
     public string cardName, ability1;
-    
+
+    [SerializeField]
     public int hp;
 
+    [SerializeField]
     public Sprite artSprite;
 
+    [SerializeField]
     public AudioClip audio1;
 
     public virtual void BaseCardUpdate(Text cardNameText, Text ability1Text, Text hpText, Image artImage)
