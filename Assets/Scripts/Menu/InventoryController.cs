@@ -11,17 +11,17 @@ public class InventoryController : MonoBehaviour
     public Transform relicTransform, weaponTransform, armourTransform, relicInvTransform, weaponInvTransform, armourInvTransform;
 
     //Inventory lists
-    public List<WeaponCardData> weaponInv;
-    public List<RelicCardData> relicInv;
-    public List<ArmourCardData> armourInv;
+    public List<WeaponData> weaponInv;
+    public List<UltimateData> relicInv;
+    public List<ArmourData> armourInv;
 
     //Equipped items lists
     public List<GameObject> weaponSlots, relicSlot, armourSlot, invRelics, invWeapons, invArmour;
 
     //Card prefabs
-    public ArmourCardPrefab armourCardTemplate;
-    public RelicCardPrefab relicCardTemplate;
-    public WeaponCardPrefab weaponCardTemplate;
+    public ArmourCard armourCardTemplate;
+    public UltimateCard relicCardTemplate;
+    public WeaponCard weaponCardTemplate;
 
     void Start()
     {
@@ -50,7 +50,7 @@ public class InventoryController : MonoBehaviour
 
     public void DealArmour() //Deals hero cards at start of game
     {
-        ArmourCardData armourTopDeck;
+        ArmourData armourTopDeck;
         if (armourInv.Count > 0)
         {
             armourTopDeck = armourInv[0];
@@ -59,8 +59,8 @@ public class InventoryController : MonoBehaviour
         {
             armourTopDeck = null;
         }
-        ArmourCardData card = Instantiate(armourTopDeck); //instantiates instance of scriptable object
-        ArmourCardPrefab tempCard = Instantiate(armourCardTemplate); //instantiates an instance of the card prefab
+        ArmourData card = Instantiate(armourTopDeck); //instantiates instance of scriptable object
+        ArmourCard tempCard = Instantiate(armourCardTemplate); //instantiates an instance of the card prefab
         tempCard.transform.SetParent(armourInvTransform.transform, false); //moves card onto board
         tempCard.armourCardData = card; //assigns the instance of the scriptable object to the instance of the prefab
         armourInv.Remove(armourTopDeck);  //removes from list
@@ -68,7 +68,7 @@ public class InventoryController : MonoBehaviour
         tempCard.equipButton.SetActive(true); //enables the button
     }
 
-    public void EquipArmour(GameObject playedCard, ArmourCardData armourCardData)
+    public void EquipArmour(GameObject playedCard, ArmourData armourCardData)
     {
         if (playedCard.transform.parent == armourInvTransform)
         {
@@ -105,7 +105,7 @@ public class InventoryController : MonoBehaviour
 
     public void DealRelic(Transform relicTransform, List<GameObject> relicObjectList) //Deals hero cards at start of game
     {
-        RelicCardData relicTopDeck;
+        UltimateData relicTopDeck;
         if (relicInv.Count > 0)
         {
             relicTopDeck = relicInv[0];
@@ -114,8 +114,8 @@ public class InventoryController : MonoBehaviour
         {
             relicTopDeck = null;
         }
-        RelicCardData card = Instantiate(relicTopDeck); //instantiates instance of scriptable object
-        RelicCardPrefab tempCard = Instantiate(relicCardTemplate); //instantiates an instance of the card prefab
+        UltimateData card = Instantiate(relicTopDeck); //instantiates instance of scriptable object
+        UltimateCard tempCard = Instantiate(relicCardTemplate); //instantiates an instance of the card prefab
         tempCard.transform.SetParent(relicTransform.transform, false); //moves card onto board
         tempCard.relicCardData = card; //assigns the instance of the scriptable object to the instance of the prefab
         relicInv.Remove(relicTopDeck);  //removes from list
@@ -123,7 +123,7 @@ public class InventoryController : MonoBehaviour
         tempCard.equipButton.SetActive(true); //enables the button
     }
 
-    public void EquipRelic(GameObject playedCard, RelicCardData relicCardData)
+    public void EquipRelic(GameObject playedCard, UltimateData relicCardData)
     {
         if (playedCard.transform.parent == relicInvTransform)
         {
@@ -160,7 +160,7 @@ public class InventoryController : MonoBehaviour
 
     public void DealWeapon(Transform weaponTransform, List <GameObject> weaponObjectList) //Deals one weapon card
     {
-        WeaponCardData weaponTopDeck;
+        WeaponData weaponTopDeck;
         if (weaponInv.Count > 0)
         {
             weaponTopDeck = weaponInv[0];
@@ -169,16 +169,16 @@ public class InventoryController : MonoBehaviour
         {
             weaponTopDeck = null;
         }
-        WeaponCardData card = Instantiate(weaponTopDeck); //instantiates instance of scriptable object
-        WeaponCardPrefab tempCard = Instantiate(weaponCardTemplate); //instantiates an instance of the card prefab
+        WeaponData card = Instantiate(weaponTopDeck); //instantiates instance of scriptable object
+        WeaponCard tempCard = Instantiate(weaponCardTemplate); //instantiates an instance of the card prefab
         tempCard.transform.SetParent(weaponTransform.transform, false); //moves card onto board
-        tempCard.weaponCardData = card; //assigns the instance of the scriptable object to the instance of the prefab
+        tempCard.weaponData = card; //assigns the instance of the scriptable object to the instance of the prefab
         weaponInv.Remove(weaponTopDeck); //removes from list
         weaponObjectList.Add(tempCard.gameObject); //adds to list
         tempCard.equipButton.SetActive(true); //enables the button
     }
 
-    public void EquipWeapon(GameObject playedCard, WeaponCardData weaponCardData)
+    public void EquipWeapon(GameObject playedCard, WeaponData weaponCardData)
     {
         if (playedCard.transform.parent == weaponInvTransform)
         {

@@ -363,7 +363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0, g: 0, b: 0.5882353, a: 0.39215687}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -864,7 +864,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0.5882353, g: 0, b: 0, a: 0.39215687}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1473,7 +1473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.13021867, g: 0.46226418, b: 0, a: 0}
+  m_Color: {r: 0, g: 0.5882353, b: 0, a: 0.39215687}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2088,12 +2088,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
+      - m_Target: {fileID: 1623185360}
+        m_MethodName: SaveGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2354,7 +2354,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &776772328
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2716,55 +2716,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 799621507}
   m_CullTransparentMesh: 0
---- !u!1 &851767207
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 851767209}
-  - component: {fileID: 851767208}
-  m_Layer: 0
-  m_Name: ItemLoader
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &851767208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 851767207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47df3adb79256f746a75f1b9afa51ec5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  items:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
---- !u!4 &851767209
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 851767207}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 33.30307, y: -176.8908, z: 57.916016}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &856069225
 GameObject:
   m_ObjectHideFlags: 0
@@ -2923,6 +2874,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 891819743}
   m_CullTransparentMesh: 0
+--- !u!1 &903308084
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 903308085}
+  - component: {fileID: 903308086}
+  m_Layer: 5
+  m_Name: LevelTracker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &903308085
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903308084}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 90}
+  m_LocalScale: {x: 0.009256395, y: 0.009256395, z: 0.009256395}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 3565.103, y: -19013.883}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &903308086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903308084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ecbce8ea33cffd4baf86be36173798b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelCounter: 0
 --- !u!1 &904324194
 GameObject:
   m_ObjectHideFlags: 0
@@ -3082,12 +3082,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
+      - m_Target: {fileID: 1623185360}
+        m_MethodName: LoadGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3368,7 +3368,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 354}
-  m_SizeDelta: {x: 1636.2, y: 726.34}
+  m_SizeDelta: {x: 1640, y: 726}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1286185803
 MonoBehaviour:
@@ -3390,7 +3390,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 30f1ed3c3558c2047a2ff7547502b2a7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c11e1208102db1f449142fea29810709, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4236,23 +4236,17 @@ MonoBehaviour:
   lootChestTransform: {fileID: 780869511}
   backpackTransform: {fileID: 1025141}
   weaponLoot1:
-  - {fileID: 11400000, guid: 819d07d4ae8498941928fbdf5b9777fe, type: 2}
+  - {fileID: 11400000, guid: ca0dd02dced648e42920c9f645d2ca22, type: 2}
   - {fileID: 11400000, guid: 31b6732bc03d5a04ba20b790295b71ca, type: 2}
   - {fileID: 11400000, guid: 67062e3df4a2a2042a9221d25c805c90, type: 2}
   - {fileID: 11400000, guid: c26d1f1cd167b4c48b529baeebe0bb08, type: 2}
-  weaponLoot2: []
-  weaponLoot3: []
   relicLoot1:
   - {fileID: 11400000, guid: fd8bbaf899aac274a8b75a7ae4d2b5e9, type: 2}
   - {fileID: 11400000, guid: 88eadd8a85349b74a87969e4c618d0ba, type: 2}
   - {fileID: 11400000, guid: b8edf7f1b2d0e8c4cbd5d2cacb6867c5, type: 2}
-  relicLoot2: []
-  relicLoot3: []
   armourLoot1:
   - {fileID: 11400000, guid: 2bba0fcc49769324cb1192213cd414b8, type: 2}
   - {fileID: 11400000, guid: 6e7b548cef771354aaa3176066862a48, type: 2}
-  armourLoot2: []
-  armourLoot3: []
   equippedWeapons:
   - {fileID: 11400000, guid: cbedb8b7b409a6a4ea653fe81f2effe6, type: 2}
   - {fileID: 11400000, guid: 6c32140ad7b4e3249a005a6a253dcc76, type: 2}
@@ -4300,14 +4294,20 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 42deae3532d541042a6d701d6d8a8123, type: 2}
   - {fileID: 11400000, guid: 42deae3532d541042a6d701d6d8a8123, type: 2}
   - {fileID: 11400000, guid: 42deae3532d541042a6d701d6d8a8123, type: 2}
-  aiDeck2: []
+  aiDeck2:
+  - {fileID: 11400000, guid: 9175caad2213e6b4bab03983838e78f9, type: 2}
+  - {fileID: 11400000, guid: 9175caad2213e6b4bab03983838e78f9, type: 2}
+  - {fileID: 11400000, guid: 6ca277191f3a354439228fc994e5b964, type: 2}
+  - {fileID: 11400000, guid: 6ca277191f3a354439228fc994e5b964, type: 2}
+  - {fileID: 11400000, guid: 0f689965235a75248b59df9720296df8, type: 2}
+  - {fileID: 11400000, guid: 0f689965235a75248b59df9720296df8, type: 2}
+  - {fileID: 11400000, guid: 86d6928c9bd8aef40bf0100109fe2bb2, type: 2}
+  - {fileID: 11400000, guid: 86d6928c9bd8aef40bf0100109fe2bb2, type: 2}
   aiDeck3: []
-  lootdeckTest:
-  - {fileID: 11400000, guid: 99ca836159ce48248893373982cd461a, type: 2}
-  - {fileID: 11400000, guid: 6c32140ad7b4e3249a005a6a253dcc76, type: 2}
-  - {fileID: 11400000, guid: 7f3e900d8a6d27546b3cc23e4c3e3e9e, type: 2}
-  - {fileID: 11400000, guid: 4f007907e71c4f342b81e139da1c05d8, type: 2}
-  - {fileID: 11400000, guid: 4f8a7b06402e3bb4fb667f180baa143c, type: 2}
+  currentAiDeck: []
+  equipmentDeck:
+  - {fileID: 11400000, guid: 7f4afd6c0d4f0fc4f9260db3414ab58c, type: 2}
+  textEquipmentDeck: []
   equippedWeaponObj: []
   equippedRelicObj: []
   equippedArmourObj: []
@@ -4326,6 +4326,7 @@ MonoBehaviour:
   weaponCardTemplate: {fileID: 114392435368565454, guid: d72cb5ee704c3034b9e9ff93465b46f3,
     type: 3}
   animationController: {fileID: 166944612}
+  levelController: {fileID: 903308086}
 --- !u!4 &1623185361
 Transform:
   m_ObjectHideFlags: 0
@@ -4646,7 +4647,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0.5882353, g: 0.5882353, b: 0, a: 0.39215687}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5220,7 +5221,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2070231900
 RectTransform:
   m_ObjectHideFlags: 0

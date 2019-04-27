@@ -14,5 +14,5 @@ using UnityEngine.UI;
 public class DeckData : ScriptableObject
 {
     [SerializeField]
-    public List<BaseCardData> deckList;
+    public List<BaseData> deckList;
 }
