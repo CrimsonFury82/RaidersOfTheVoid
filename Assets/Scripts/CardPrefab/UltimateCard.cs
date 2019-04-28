@@ -11,7 +11,7 @@ public class UltimateCard : BaseCard
 
     public InventoryController inventoryController;
 
-    public UltimateData relicCardData;
+    public UltimateData ultimateData;
 
     public GameObject useButton, equipButton;
 
@@ -26,10 +26,10 @@ public class UltimateCard : BaseCard
 
     public void UIRelicCard(Text dmg, Text heal, Text cooldown)
     {
-        relicCardData.BaseCardUpdate(cardNameText, ability1Text, hpText, artImage);
-        dmgText.text = relicCardData.dmg.ToString(); //updates prefab with values from scriptable object
-        healText.text = relicCardData.heal.ToString(); //updates prefab with values from scriptable object
-        cooldownText.text = relicCardData.cooldown.ToString(); //updates prefab with values from scriptable object
+        ultimateData.BaseCardUpdate(cardNameText, ability1Text, hpText, artImage);
+        dmgText.text = ultimateData.dmg.ToString(); //updates prefab with values from scriptable object
+        healText.text = ultimateData.heal.ToString(); //updates prefab with values from scriptable object
+        cooldownText.text = ultimateData.cooldown.ToString(); //updates prefab with values from scriptable object
         if(gameController != null)
         {
             gameController.ultimateText.color = Color.red;
@@ -39,11 +39,11 @@ public class UltimateCard : BaseCard
 
     public void UsedClickedGear() //calls function in gamecontroller
     {
-        gameController.ActivateRelic(relicCardData);
+        gameController.ActivateRelic(ultimateData);
     }
 
     public void EquipClickedGear() //calls function in inventorycontroller
     {
-        inventoryController.EquipRelic(this.gameObject, relicCardData);
+        inventoryController.EquipUltimate(this.gameObject);
     }
 }

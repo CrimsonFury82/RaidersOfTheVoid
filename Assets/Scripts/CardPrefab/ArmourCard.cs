@@ -9,7 +9,7 @@ public class ArmourCard : BaseCard
 {
     public InventoryController inventoryController;
 
-    public ArmourData armourCardData;
+    public ArmourData armourData;
 
     public GameObject equipButton;
 
@@ -21,11 +21,11 @@ public class ArmourCard : BaseCard
 
     public void UIArmourCard()
     {
-        armourCardData.BaseCardUpdate(cardNameText, ability1Text, hpText, artImage);
+        armourData.BaseCardUpdate(cardNameText, ability1Text, hpText, artImage);
     }
 
     public void EquipClickedGear() //calls function in inventorycontroller
     {
-        inventoryController.EquipArmour(this.gameObject, armourCardData);
+        inventoryController.EquipArmour(this.gameObject);
     }
 }

@@ -1,27 +1,34 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 //Script written by Aston Olsen
 
 public class InventoryController : MonoBehaviour
 {
     //Board zones for each group of cards
-    public Transform relicTransform, weaponTransform, armourTransform, relicInvTransform, weaponInvTransform, armourInvTransform;
+    public Transform relicTransform, weaponTransform, armourTransform, ultimateInvTransform, weaponInvTransform, armourInvTransform;
 
     //Inventory lists
-    public List<WeaponData> weaponInv;
-    public List<UltimateData> relicInv;
-    public List<ArmourData> armourInv;
+    public List<WeaponData> allWeapons;
+    public List<UltimateData> allUltimates;
+    public List<ArmourData> allArmour;
+    public List<string> textEquippedWeapons, textEquippedUltimate, textEquippedArmour;
 
     //Equipped items lists
-    public List<GameObject> weaponSlots, relicSlot, armourSlot, invRelics, invWeapons, invArmour;
+    public List<GameObject> equippedWeaponObj, equippedUltimateObj, equippedArmourObj, invWeapons, invUltimates, invArmour;
 
     //Card prefabs
     public ArmourCard armourCardTemplate;
-    public UltimateCard relicCardTemplate;
+    public UltimateCard ultimateCardTemplate;
     public WeaponCard weaponCardTemplate;
+
+    //Item Dictionaries
+    public Dictionary<string, GameObject> weaponDictionary = new Dictionary<string, GameObject>();
+    public Dictionary<string, GameObject> ultimateDictionary = new Dictionary<string, GameObject>();
+    public Dictionary<string, GameObject> armourDictionary = new Dictionary<string, GameObject>();
 
     void Start()
     {
@@ -30,174 +37,269 @@ public class InventoryController : MonoBehaviour
         {
             controller.GetComponent<MenuMusicController>().StartMusic(); //plays menu music
         }
-
         DealArmourInv();
-        DealRelicInv();
+        DealUltimateInv();
         DealWeaponInv();
+        CreateDictionaries();
+        LoadEquipped();
     }
 
     public void DealArmourInv() //Deals all cards in inventory
     {
-        int loopSize = armourInv.Count;
-        for (int i = 0; i < loopSize; i++) //loops number of times equal to loopsize
+        foreach (ArmourData armour in allArmour)
         {
-            if (armourInv.Count > 0)
-            {
-                DealArmour();
-            }
+            DealArmour(armourInvTransform, invArmour, armour);
         }
     }
 
-    public void DealArmour() //Deals hero cards at start of game
+    public void DealArmour(Transform armourTransform, List<GameObject> armourObjectList, ArmourData armour) //Deals one card
     {
-        ArmourData armourTopDeck;
-        if (armourInv.Count > 0)
-        {
-            armourTopDeck = armourInv[0];
-        }
-        else
-        {
-            armourTopDeck = null;
-        }
-        ArmourData card = Instantiate(armourTopDeck); //instantiates instance of scriptable object
+        ArmourData card = Instantiate(armour); //instantiates instance of scriptable object
         ArmourCard tempCard = Instantiate(armourCardTemplate); //instantiates an instance of the card prefab
         tempCard.transform.SetParent(armourInvTransform.transform, false); //moves card onto board
-        tempCard.armourCardData = card; //assigns the instance of the scriptable object to the instance of the prefab
-        armourInv.Remove(armourTopDeck);  //removes from list
+        tempCard.armourData = card; //assigns the instance of the scriptable object to the instance of the prefab
         invArmour.Add(tempCard.gameObject); //adds card to live list
         tempCard.equipButton.SetActive(true); //enables the button
+        tempCard.name = tempCard.armourData.name.Replace("(Clone)", "").ToString();
     }
 
-    public void EquipArmour(GameObject playedCard, ArmourData armourCardData)
+    public void EquipArmour(GameObject playedCard)
     {
         if (playedCard.transform.parent == armourInvTransform)
         {
-            if (armourSlot.Count == 1)
+            if (equippedArmourObj.Count >= 1)
             {
                 print("Armour slot full");
             }
             else
             {
                 playedCard.transform.SetParent(armourTransform.transform, false); //moves the card to the zone
-                armourSlot.Add(playedCard); //adds to list
+                equippedArmourObj.Add(playedCard); //adds to list
                 invArmour.Remove(playedCard); //removes from list
             }
         }
         else
         {
             playedCard.transform.SetParent(armourInvTransform.transform, false); //moves the card to the zone
-            armourSlot.Remove(playedCard); //removes from list
+            equippedArmourObj.Remove(playedCard); //removes from list
             invArmour.Add(playedCard); //adds to list
         }
     }
 
-    public void DealRelicInv() //Deals all cards in inventory
+    public void DealUltimateInv() //Deals all cards in inventory
     {
-        int loopSize = relicInv.Count;
-        for (int i = 0; i < loopSize; i++) //loops number of times equal to loopsize
+        foreach (UltimateData ultimate in allUltimates)
         {
-            if (relicInv.Count > 0)
-            {
-                DealRelic(relicInvTransform, invRelics);
-            }
+            DealUltimate(ultimateInvTransform, invUltimates, ultimate);
         }
     }
 
-    public void DealRelic(Transform relicTransform, List<GameObject> relicObjectList) //Deals hero cards at start of game
+    public void DealUltimate(Transform ultimateTransform, List<GameObject> relicObjectList, UltimateData ultimate) //Deals one card
     {
-        UltimateData relicTopDeck;
-        if (relicInv.Count > 0)
-        {
-            relicTopDeck = relicInv[0];
-        }
-        else
-        {
-            relicTopDeck = null;
-        }
-        UltimateData card = Instantiate(relicTopDeck); //instantiates instance of scriptable object
-        UltimateCard tempCard = Instantiate(relicCardTemplate); //instantiates an instance of the card prefab
-        tempCard.transform.SetParent(relicTransform.transform, false); //moves card onto board
-        tempCard.relicCardData = card; //assigns the instance of the scriptable object to the instance of the prefab
-        relicInv.Remove(relicTopDeck);  //removes from list
+        UltimateData card = Instantiate(ultimate); //instantiates instance of scriptable object
+        UltimateCard tempCard = Instantiate(ultimateCardTemplate); //instantiates an instance of the card prefab
+        tempCard.transform.SetParent(ultimateTransform.transform, false); //moves card onto board
+        tempCard.ultimateData = card; //assigns the instance of the scriptable object to the instance of the prefab
         relicObjectList.Add(tempCard.gameObject); //adds to list
         tempCard.equipButton.SetActive(true); //enables the button
+        tempCard.name = tempCard.ultimateData.name.Replace("(Clone)", "").ToString();
     }
 
-    public void EquipRelic(GameObject playedCard, UltimateData relicCardData)
+    public void EquipUltimate(GameObject playedCard)
     {
-        if (playedCard.transform.parent == relicInvTransform)
+        if (playedCard.transform.parent == ultimateInvTransform)
         {
-            if (relicSlot.Count == 1)
+            if (equippedUltimateObj.Count >= 1)
             {
                 print("Ultimate slot full");
             }
             else
             {
                 playedCard.transform.SetParent(relicTransform.transform, false); //moves the card to the zone
-                relicSlot.Add(playedCard); //adds to list
-                invRelics.Remove(playedCard); //removes from list
+                equippedUltimateObj.Add(playedCard); //adds to list
+                invUltimates.Remove(playedCard); //removes from list
             }
         }
         else
         {
-            playedCard.transform.SetParent(relicInvTransform.transform, false); //moves the card to the zone
-            relicSlot.Remove(playedCard); //removes from list
-            invRelics.Add(playedCard); //adds to list
+            playedCard.transform.SetParent(ultimateInvTransform.transform, false); //moves the card to the zone
+            equippedUltimateObj.Remove(playedCard); //removes from list
+            invUltimates.Add(playedCard); //adds to list
         }
     }
 
     public void DealWeaponInv() //Deals all cards in inventory
     {
-        int loopSize = weaponInv.Count;
-        for (int i = 0; i < loopSize; i++) //loops number of times equal to loopsize
+        foreach(WeaponData weapon in allWeapons)
         {
-            if(weaponInv.Count > 0)
-            {
-                DealWeapon(weaponInvTransform, invWeapons);
-            }
+            DealWeapon(weaponInvTransform, invWeapons, weapon);
         }
     }
 
-    public void DealWeapon(Transform weaponTransform, List <GameObject> weaponObjectList) //Deals one weapon card
+    public void DealWeapon(Transform weaponTransform, List <GameObject> weaponObjectList, WeaponData weapon) //Deals one card
     {
-        WeaponData weaponTopDeck;
-        if (weaponInv.Count > 0)
-        {
-            weaponTopDeck = weaponInv[0];
-        }
-        else
-        {
-            weaponTopDeck = null;
-        }
-        WeaponData card = Instantiate(weaponTopDeck); //instantiates instance of scriptable object
+        WeaponData card = Instantiate(weapon); //instantiates instance of scriptable object
         WeaponCard tempCard = Instantiate(weaponCardTemplate); //instantiates an instance of the card prefab
         tempCard.transform.SetParent(weaponTransform.transform, false); //moves card onto board
         tempCard.weaponData = card; //assigns the instance of the scriptable object to the instance of the prefab
-        weaponInv.Remove(weaponTopDeck); //removes from list
         weaponObjectList.Add(tempCard.gameObject); //adds to list
         tempCard.equipButton.SetActive(true); //enables the button
+        tempCard.name = tempCard.weaponData.name.Replace("(Clone)", "").ToString();
     }
 
-    public void EquipWeapon(GameObject playedCard, WeaponData weaponCardData)
+    public void EquipWeapon(GameObject playedCard)
     {
         if (playedCard.transform.parent == weaponInvTransform)
         {
-            if (weaponSlots.Count == 3)
+            if (equippedWeaponObj.Count >= 3)
             {
                 print("Weapon slots full");
             }
             else
             {
                 playedCard.transform.SetParent(weaponTransform.transform, false); //moves the card to the zone
-                weaponSlots.Add(playedCard); //adds to list
+                equippedWeaponObj.Add(playedCard); //adds to list
                 invWeapons.Remove(playedCard); //removes from list
             }
         }
         else
         {
             playedCard.transform.SetParent(weaponInvTransform.transform, false); //moves the card to the zone
-            weaponSlots.Remove(playedCard); //removes from list
+            equippedWeaponObj.Remove(playedCard); //removes from list
             invWeapons.Add(playedCard); //adds to list
+        }
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown("s"))
+        {
+            SaveEquipped();
+        }
+
+        if (Input.GetKeyDown("l"))
+        {
+            LoadEquipped();
+        }
+    }
+
+    public void SaveEquipped()
+    {
+        textEquippedWeapons.Clear(); //clears list before saving
+        foreach(GameObject weapon in equippedWeaponObj) //loops through equipped weapons
+        {
+            textEquippedWeapons.Add(weapon.name.ToString()); //Converts weapondata to string
+        }
+
+        textEquippedUltimate.Clear(); //clears list before saving
+        foreach (GameObject ultimate in equippedUltimateObj) //loops through equipped weapons
+        {
+            textEquippedUltimate.Add(ultimate.name.ToString()); //Converts weapondata to string
+        }
+
+        textEquippedArmour.Clear(); //clears list before saving
+        foreach (GameObject armour in equippedArmourObj) //loops through equipped weapons
+        {
+            textEquippedArmour.Add(armour.name.ToString()); //Converts weapondata to string
+        }
+
+        FileStream weaponFile = new FileStream("EquippedWeapons.dat", FileMode.Create);
+        var bf = new BinaryFormatter();
+        bf.Serialize(weaponFile, textEquippedWeapons);
+        weaponFile.Close();
+
+        FileStream ultimateFile = new FileStream("EquippedUltimate.dat", FileMode.Create);
+        bf.Serialize(ultimateFile, textEquippedUltimate);
+        ultimateFile.Close();
+
+        FileStream armourFile = new FileStream("EquippedArmour.dat", FileMode.Create);
+        bf.Serialize(armourFile, textEquippedArmour);
+        armourFile.Close();
+
+        print("saved");
+
+        SceneManager.LoadScene("MenuScene");
+    }
+
+    public void LoadEquipped()
+    {
+        using (FileStream weaponFile = File.Open("EquippedWeapons.dat", FileMode.Open))
+        {
+            var bf = new BinaryFormatter();
+            List<string> tempWeapons = (List<string>)bf.Deserialize(weaponFile);
+            textEquippedWeapons.Clear(); //clears list before loading
+            for (int i = 0; i < tempWeapons.Count; i++)
+            {
+                textEquippedWeapons.Add(tempWeapons[i]);
+            }
+        }
+
+        using (FileStream ultimateFile = File.Open("EquippedUltimate.dat", FileMode.Open))
+        {
+            var bf = new BinaryFormatter();
+            List<string> tempUltimate = (List<string>)bf.Deserialize(ultimateFile);
+            textEquippedUltimate.Clear(); //clears list before loading
+            for (int i = 0; i < tempUltimate.Count; i++)
+            {
+                textEquippedUltimate.Add(tempUltimate[i]);
+            }
+        }
+
+        using (FileStream armourFile = File.Open("EquippedArmour.dat", FileMode.Open))
+        {
+            var bf = new BinaryFormatter();
+            List<string> tempArmour = (List<string>)bf.Deserialize(armourFile);
+            textEquippedArmour.Clear(); //clears list before loading
+            for (int i = 0; i < tempArmour.Count; i++)
+            {
+                textEquippedArmour.Add(tempArmour[i]);
+            }
+        }
+
+        foreach (string weaponName in textEquippedWeapons)
+        {
+            GameObject weaponValue;
+            if (weaponDictionary.TryGetValue(weaponName, out weaponValue))
+            {
+                EquipWeapon(weaponValue);
+            }
+        }
+
+        foreach (string ultimateName in textEquippedUltimate)
+        {
+            GameObject UltimateValue;
+            if (ultimateDictionary.TryGetValue(ultimateName, out UltimateValue))
+            {
+                EquipUltimate(UltimateValue);
+            }
+        }
+
+        foreach (string armourName in textEquippedArmour)
+        {
+            GameObject armourValue;
+            if (armourDictionary.TryGetValue(armourName, out armourValue))
+            {
+                EquipArmour(armourValue);
+            }
+        }
+        print("loaded");
+    }
+
+    void CreateDictionaries()
+    {
+        foreach (GameObject weapon in invWeapons)
+        {
+            weaponDictionary.Add(weapon.name, weapon);
+        }
+
+        foreach (GameObject ultimate in invUltimates)
+        {
+            ultimateDictionary.Add(ultimate.name, ultimate);
+        }
+
+        foreach (GameObject armour in invArmour)
+        {
+            armourDictionary.Add(armour.name, armour);
         }
     }
 }

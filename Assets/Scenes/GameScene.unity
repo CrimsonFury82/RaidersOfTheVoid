@@ -2354,7 +2354,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &776772328
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4254,7 +4254,7 @@ MonoBehaviour:
   equippedRelic:
   - {fileID: 11400000, guid: 181c747c49fb38549a536d9942c5f2f8, type: 2}
   equippedArmour:
-  - {fileID: 11400000, guid: 6e7b548cef771354aaa3176066862a48, type: 2}
+  - {fileID: 11400000, guid: 4f8a7b06402e3bb4fb667f180baa143c, type: 2}
   equippedHero:
   - {fileID: 11400000, guid: a3f4e053182bf5f409e7842f5de99399, type: 2}
   aiDeck1:
@@ -4294,22 +4294,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 42deae3532d541042a6d701d6d8a8123, type: 2}
   - {fileID: 11400000, guid: 42deae3532d541042a6d701d6d8a8123, type: 2}
   - {fileID: 11400000, guid: 42deae3532d541042a6d701d6d8a8123, type: 2}
-  aiDeck2:
-  - {fileID: 11400000, guid: 9175caad2213e6b4bab03983838e78f9, type: 2}
-  - {fileID: 11400000, guid: 9175caad2213e6b4bab03983838e78f9, type: 2}
-  - {fileID: 11400000, guid: 6ca277191f3a354439228fc994e5b964, type: 2}
-  - {fileID: 11400000, guid: 6ca277191f3a354439228fc994e5b964, type: 2}
-  - {fileID: 11400000, guid: 0f689965235a75248b59df9720296df8, type: 2}
-  - {fileID: 11400000, guid: 0f689965235a75248b59df9720296df8, type: 2}
-  - {fileID: 11400000, guid: 86d6928c9bd8aef40bf0100109fe2bb2, type: 2}
-  - {fileID: 11400000, guid: 86d6928c9bd8aef40bf0100109fe2bb2, type: 2}
-  aiDeck3: []
   currentAiDeck: []
-  equipmentDeck:
-  - {fileID: 11400000, guid: 7f4afd6c0d4f0fc4f9260db3414ab58c, type: 2}
-  textEquipmentDeck: []
+  allWeapons: []
+  allUltimates: []
+  allArmour: []
+  textEquippedWeapons: []
+  textEquippedUltimate: []
+  textEquippedArmour: []
   equippedWeaponObj: []
-  equippedRelicObj: []
+  equippedUltimateObj: []
   equippedArmourObj: []
   equippedCreaturesObj: []
   equippedHeroObj: []
@@ -5221,7 +5214,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2070231900
 RectTransform:
   m_ObjectHideFlags: 0

@@ -144,11 +144,11 @@ RectTransform:
   m_Father: {fileID: 161830435}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -368.45, y: 0.000061035156}
-  m_SizeDelta: {x: 343.1, y: 63.7}
-  m_Pivot: {x: 1, y: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 420, y: 0}
+  m_SizeDelta: {x: 343.09998, y: 60}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &43063784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,9 +261,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Save changes
-
-    and Exit'
+  m_Text: Save changes and exit
 --- !u!222 &60892982
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -418,7 +416,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 50, y: 0}
+  m_AnchoredPosition: {x: 60, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &228920362
@@ -476,7 +474,7 @@ GameObject:
   - component: {fileID: 309956374}
   - component: {fileID: 309956373}
   m_Layer: 5
-  m_Name: RelicSlot
+  m_Name: UltimateSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -670,7 +668,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 719, y: -914.22}
+  m_AnchoredPosition: {x: 700, y: -914.22}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &349536094
@@ -749,12 +747,12 @@ RectTransform:
   m_Children:
   - {fileID: 2123945122}
   m_Father: {fileID: 1516807046}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 230, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &445702323
 MonoBehaviour:
@@ -901,12 +899,12 @@ RectTransform:
   m_Children:
   - {fileID: 60892980}
   m_Father: {fileID: 1516807046}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 270, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &491894754
 MonoBehaviour:
@@ -949,8 +947,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1201063327}
-        m_MethodName: SaveGame
+      - m_Target: {fileID: 1623185360}
+        m_MethodName: SaveEquipped
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1051,7 +1049,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 116.6957
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1075,7 +1073,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 33, y: -176, z: -10}
+  m_LocalPosition: {x: 586, y: -489, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1257,8 +1255,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -29.199951}
+  m_SizeDelta: {x: 0, y: -58.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &853366434
 MonoBehaviour:
@@ -1355,8 +1353,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 280.00006, y: -9.549805}
-  m_SizeDelta: {x: 560, y: 107.3}
+  m_AnchoredPosition: {x: 280, y: -0.28027344}
+  m_SizeDelta: {x: 560, y: 60}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &867710663
 MonoBehaviour:
@@ -1470,9 +1468,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Cancel changes
-
-    and Exit'
+  m_Text: Cancel changes and exit
 --- !u!222 &922437401
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1515,7 +1511,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 50, y: 150}
+  m_AnchoredPosition: {x: 60, y: 150.06}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &983958169
@@ -1716,7 +1712,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -150}
+  m_AnchoredPosition: {x: 60, y: -152}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1379331210
@@ -1796,8 +1792,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -29.199951}
+  m_SizeDelta: {x: 0, y: -58.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1382576200
 MonoBehaviour:
@@ -1988,18 +1984,18 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1909909536}
+  - {fileID: 445702322}
+  - {fileID: 2110662215}
   - {fileID: 491894753}
   - {fileID: 1622334003}
-  - {fileID: 2110662215}
-  - {fileID: 445702322}
-  - {fileID: 1909909536}
   m_Father: {fileID: 161830435}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -400, y: -116.85}
-  m_SizeDelta: {x: 297.6, y: 609.87}
+  m_AnchoredPosition: {x: -399.99994, y: -60.28}
+  m_SizeDelta: {x: 560, y: 666.47}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1516807047
 MonoBehaviour:
@@ -2010,20 +2006,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1516807045}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1297475563, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: -2095666955, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
+    m_Left: 20
+    m_Right: 20
+    m_Top: 50
     m_Bottom: 0
-  m_ChildAlignment: 1
-  m_Spacing: 20
-  m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 0
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
+  m_ChildAlignment: 0
+  m_StartCorner: 3
+  m_StartAxis: 1
+  m_CellSize: {x: 250, y: 150}
+  m_Spacing: {x: 20, y: 50}
+  m_Constraint: 1
+  m_ConstraintCount: 2
 --- !u!114 &1516807048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2093,12 +2090,12 @@ RectTransform:
   m_Children:
   - {fileID: 922437399}
   m_Father: {fileID: 1516807046}
-  m_RootOrder: 1
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 270, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1622334004
 MonoBehaviour:
@@ -2223,45 +2220,51 @@ MonoBehaviour:
   relicTransform: {fileID: 309956372}
   weaponTransform: {fileID: 1928461721}
   armourTransform: {fileID: 1384792240}
-  relicInvTransform: {fileID: 2002198606}
+  ultimateInvTransform: {fileID: 2002198606}
   weaponInvTransform: {fileID: 1382576199}
   armourInvTransform: {fileID: 853366433}
-  weaponInv:
+  allWeapons:
   - {fileID: 11400000, guid: 99ca836159ce48248893373982cd461a, type: 2}
-  - {fileID: 11400000, guid: ca0dd02dced648e42920c9f645d2ca22, type: 2}
-  - {fileID: 11400000, guid: cbedb8b7b409a6a4ea653fe81f2effe6, type: 2}
   - {fileID: 11400000, guid: 3c8a4dff5be63fb4bb3516164285914a, type: 2}
-  - {fileID: 11400000, guid: 819d07d4ae8498941928fbdf5b9777fe, type: 2}
   - {fileID: 11400000, guid: 413bf293a70c56148921a3f97d182b79, type: 2}
+  - {fileID: 11400000, guid: 819d07d4ae8498941928fbdf5b9777fe, type: 2}
   - {fileID: 11400000, guid: 31b6732bc03d5a04ba20b790295b71ca, type: 2}
+  - {fileID: 11400000, guid: 6c32140ad7b4e3249a005a6a253dcc76, type: 2}
+  - {fileID: 11400000, guid: cbedb8b7b409a6a4ea653fe81f2effe6, type: 2}
   - {fileID: 11400000, guid: 67062e3df4a2a2042a9221d25c805c90, type: 2}
   - {fileID: 11400000, guid: c26d1f1cd167b4c48b529baeebe0bb08, type: 2}
-  - {fileID: 11400000, guid: 6c32140ad7b4e3249a005a6a253dcc76, type: 2}
-  relicInv:
+  - {fileID: 11400000, guid: ca0dd02dced648e42920c9f645d2ca22, type: 2}
+  equippedWeaponsData: []
+  allUltimates:
   - {fileID: 11400000, guid: 181c747c49fb38549a536d9942c5f2f8, type: 2}
-  - {fileID: 11400000, guid: b8edf7f1b2d0e8c4cbd5d2cacb6867c5, type: 2}
-  - {fileID: 11400000, guid: fd8bbaf899aac274a8b75a7ae4d2b5e9, type: 2}
+  - {fileID: 11400000, guid: 2423b70f0e6af7842b157d0fc28e5032, type: 2}
+  - {fileID: 11400000, guid: 784a8a186e722b04f9621a25500585d6, type: 2}
   - {fileID: 11400000, guid: 7f3e900d8a6d27546b3cc23e4c3e3e9e, type: 2}
+  - {fileID: 11400000, guid: fd8bbaf899aac274a8b75a7ae4d2b5e9, type: 2}
+  - {fileID: 11400000, guid: 0635f874fcb5c524cbb6b033314f4e19, type: 2}
   - {fileID: 11400000, guid: 88eadd8a85349b74a87969e4c618d0ba, type: 2}
+  - {fileID: 11400000, guid: b8edf7f1b2d0e8c4cbd5d2cacb6867c5, type: 2}
   - {fileID: 11400000, guid: 4f007907e71c4f342b81e139da1c05d8, type: 2}
   - {fileID: 11400000, guid: 14cef655bd517424892679b338ebc51f, type: 2}
-  - {fileID: 11400000, guid: 0635f874fcb5c524cbb6b033314f4e19, type: 2}
-  - {fileID: 11400000, guid: 784a8a186e722b04f9621a25500585d6, type: 2}
-  - {fileID: 11400000, guid: 2423b70f0e6af7842b157d0fc28e5032, type: 2}
-  armourInv:
+  equippedUltimateData: []
+  allArmour:
   - {fileID: 11400000, guid: 6e7b548cef771354aaa3176066862a48, type: 2}
   - {fileID: 11400000, guid: 2bba0fcc49769324cb1192213cd414b8, type: 2}
   - {fileID: 11400000, guid: 4f8a7b06402e3bb4fb667f180baa143c, type: 2}
   - {fileID: 11400000, guid: 5673d566ca9ea404783cf3274f46ff38, type: 2}
-  weaponSlots: []
-  relicSlot: []
-  armourSlot: []
-  invRelics: []
+  equippedArmourData: []
+  textEquippedWeapons: []
+  textEquippedUltimate: []
+  textEquippedArmour: []
+  equippedWeaponObj: []
+  equippedUltimateObj: []
+  equippedArmourObj: []
   invWeapons: []
+  invUltimates: []
   invArmour: []
   armourCardTemplate: {fileID: 114112948601217292, guid: 5ee815007428a8d4b906f344ea7945e2,
     type: 3}
-  relicCardTemplate: {fileID: 114838983193221068, guid: 07db1221f0ce77c4ea70bb812328513d,
+  ultimateCardTemplate: {fileID: 114838983193221068, guid: 07db1221f0ce77c4ea70bb812328513d,
     type: 3}
   weaponCardTemplate: {fileID: 114392435368565454, guid: d72cb5ee704c3034b9e9ff93465b46f3,
     type: 3}
@@ -2465,12 +2468,12 @@ RectTransform:
   m_Children:
   - {fileID: 1663807571}
   m_Father: {fileID: 1516807046}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 230, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1909909537
 MonoBehaviour:
@@ -2718,8 +2721,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -29.199951}
+  m_SizeDelta: {x: 0, y: -58.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2002198607
 MonoBehaviour:
@@ -2898,7 +2901,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 230, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2110662216
 MonoBehaviour:

@@ -17,7 +17,7 @@ public class GameController : MonoBehaviour {
     public enum lootNum {Tier1, Tier2, Tier3}; //List of states
     public enum lootTy {Weapon, Ultimate, Armour } //List of states
 
-    bool relicUsed;
+    bool ultimateUsed;
 
     public Text apText, monstersText, turnText, gameoverText, ultimateText; //UI text
 
@@ -48,12 +48,16 @@ public class GameController : MonoBehaviour {
     public List<UltimateData> equippedRelic;
     public List<ArmourData> equippedArmour;
     public List<HeroData> equippedHero;
-    public List<CreatureData> aiDeck1, aiDeck2, aiDeck3, currentAiDeck;
-    public List<DeckData> equipmentDeck;
-    public List<string> textEquipmentDeck;
+    public List<CreatureData> aiDeck1, currentAiDeck; //, aiDeck2, aiDeck3;
+
+    public List<WeaponData> allWeapons;
+    public List<UltimateData> allUltimates;
+    public List<ArmourData> allArmour;
+
+    public List<string> textEquippedWeapons, textEquippedUltimate, textEquippedArmour;
 
     //Lists of card prefabs on the board
-    public List<GameObject> equippedWeaponObj, equippedRelicObj, equippedArmourObj, equippedCreaturesObj, equippedHeroObj, lootChest, backPack;
+    public List<GameObject> equippedWeaponObj, equippedUltimateObj, equippedArmourObj, equippedCreaturesObj, equippedHeroObj, lootChest, backPack;
 
     //card prefabs
     public CreatureCard creatureCardTemplate;
@@ -67,12 +71,17 @@ public class GameController : MonoBehaviour {
     ArmourCard currentArmour;
     UltimateCard currentRelic;
 
+    //Item Dictionaries
+    public Dictionary<string, GameObject> weaponDictionary = new Dictionary<string, GameObject>();
+    public Dictionary<string, GameObject> ultimateDictionary = new Dictionary<string, GameObject>();
+    public Dictionary<string, GameObject> armourDictionary = new Dictionary<string, GameObject>();
+
     public AnimationController animationController;
 
     public LevelController levelController;
 
     WeaponData tempWeapon; //currently selected weapon
-    UltimateData tempRelic = null; //current selected attack relic
+    UltimateData tempUltimate = null; //currently selected ultimate
 
     float endTurnDelay = 1.75f;
 
@@ -96,7 +105,7 @@ public class GameController : MonoBehaviour {
         {
             controller.GetComponent<MenuMusicController>().StopMusic();
         }
-        relicUsed = false;
+        ultimateUsed = false;
         currentAiDeck = aiDeck1;
         CreatureShuffle(currentAiDeck);
         InventoryLoad();
@@ -107,6 +116,7 @@ public class GameController : MonoBehaviour {
         DealCreatureHand();
         lootCounter = lootDrop;
         turnState = turn.Player1;
+        //CreateDictionaries();
         if (turnState == turn.Player1) //checks if it is the Players's turn
         {
             for (int i = 0; i < equippedWeaponObj.Count; i++) //loop repeats for each weapon on the board
@@ -114,7 +124,7 @@ public class GameController : MonoBehaviour {
                 WeaponCard weapon = equippedWeaponObj[i].GetComponent<WeaponCard>();
                 weapon.useButton.SetActive(true); //enables buttons on all weapon cards during player turn
             }
-            if (currentRelic.relicCardData.cooldown == 0) //Checks if Ultimte is ready
+            if (currentRelic.ultimateData.cooldown == 0) //Checks if Ultimte is ready
             {
                 currentRelic.useButton.SetActive(true); //enables button
             }
@@ -124,14 +134,7 @@ public class GameController : MonoBehaviour {
 
     void InventoryLoad()
     {
-        //foreach (WeaponData deck in equipmentDeck[0])
-        //{
-        //    //equippedWeapons.Add(equipmentDeck[0]);
-        //    print("weapon test");
-        //}
-
-        //equippedWeapons.Add(equipmentDeck[0]);
-        //print("loaded inventory");
+        
     }
 
     void CreatureShuffle(List<CreatureData> deck)
@@ -236,19 +239,19 @@ public class GameController : MonoBehaviour {
         turnText.color = Color.green;
         turnText.text = "Go - Your turn";
 
-        if (relicUsed == true)
+        if (ultimateUsed == true)
         {
-            currentRelic.relicCardData.cooldown = RelicMaxCooldown;
-            relicUsed = false;
+            currentRelic.ultimateData.cooldown = RelicMaxCooldown;
+            ultimateUsed = false;
             ultimateText.text = "Ultimate charging"; //updates card UI text
             RelicUpdate();
         }
         else
         {
-            currentRelic.relicCardData.cooldown--; //updates cooldown
-            if (currentRelic.relicCardData.cooldown <= 0)
+            currentRelic.ultimateData.cooldown--; //updates cooldown
+            if (currentRelic.ultimateData.cooldown <= 0)
             {
-                currentRelic.relicCardData.cooldown = 0;
+                currentRelic.ultimateData.cooldown = 0;
                 currentRelic.useButton.SetActive(true); //enables button
                 ultimateText.color = Color.green; //changes font colour
                 ultimateText.text = "Ultimate Ready"; //updates card UI text
@@ -261,7 +264,7 @@ public class GameController : MonoBehaviour {
     public void RelicAttacked()
     {
         currentRelic.useButton.SetActive(false); //disables button
-        relicUsed = true;
+        ultimateUsed = true;
         ultimateText.color = Color.red; //changes font colour
         ultimateText.text = "Ultimate Used"; //updates card UI text
     }
@@ -284,7 +287,7 @@ public class GameController : MonoBehaviour {
 
     void RelicUpdate() //updates UI text
     {
-        currentRelic.cooldownText.text = currentRelic.relicCardData.cooldown.ToString(); //updates prefab text from scriptable object
+        currentRelic.cooldownText.text = currentRelic.ultimateData.cooldown.ToString(); //updates prefab text from scriptable object
     }
 
     void MonstersUpdate() //updates UI text
@@ -338,7 +341,7 @@ public class GameController : MonoBehaviour {
         ArmourData card = Instantiate(armourTopDeck); //instantiates instance of scriptable object
         ArmourCard tempCard = Instantiate(armourCardTemplate); //instantiates an instance of the card prefab
         tempCard.transform.SetParent(armourTransform.transform, false); //moves card onto board
-        tempCard.armourCardData = card; //assigns the instance of the scriptable object to the instance of the prefab
+        tempCard.armourData = card; //assigns the instance of the scriptable object to the instance of the prefab
         equippedArmour.Remove(armourTopDeck); //removes the card from the deck
         equippedArmourObj.Add(tempCard.gameObject); //adds card to live list
         currentArmour = equippedArmourObj[0].GetComponent<ArmourCard>();
@@ -361,8 +364,9 @@ public class GameController : MonoBehaviour {
         equippedHero.Remove(heroTopDeck);
         equippedHeroObj.Add(tempCard.gameObject); //adds card to live list
         defHero = equippedHeroObj[0].GetComponent<HeroCard>();
-        defHero.heroCardData.armour = currentArmour.armourCardData.hp;
+        defHero.heroCardData.armour = currentArmour.armourData.hp;
         heroMaxHP = defHero.heroCardData.hp;
+        defHero.heroCardData.artSprite = currentArmour.armourData.artSprite;
     }
 
     public void DealRelic() //Deals hero cards at start of game
@@ -378,11 +382,11 @@ public class GameController : MonoBehaviour {
         UltimateData card = Instantiate(relicTopDeck); //instantiates instance of scriptable object
         UltimateCard tempCard = Instantiate(relicCardTemplate); //instantiates an instance of the card prefab
         tempCard.transform.SetParent(relicTransform.transform, false); //moves card onto board
-        tempCard.relicCardData= card; //assigns the instance of the scriptable object to the instance of the prefab
+        tempCard.ultimateData= card; //assigns the instance of the scriptable object to the instance of the prefab
         equippedRelic.Remove(relicTopDeck); //removes card from list
-        equippedRelicObj.Add(tempCard.gameObject); //adds card to live list
-        currentRelic = equippedRelicObj[0].GetComponent<UltimateCard>();
-        RelicMaxCooldown = currentRelic.relicCardData.cooldown; //assigns cooldown for reseting relic after use
+        equippedUltimateObj.Add(tempCard.gameObject); //adds card to live list
+        currentRelic = equippedUltimateObj[0].GetComponent<UltimateCard>();
+        RelicMaxCooldown = currentRelic.ultimateData.cooldown; //assigns cooldown for resetting ultimate after use
     }
 
     public void DealWeaponHand() //Deals multiple weapon cards
@@ -396,24 +400,6 @@ public class GameController : MonoBehaviour {
             }
         }
     }
-
-    //public void DealWeapon(Transform spawnTransform, List<BaseCardData> dataList, List<GameObject> objectList) //Deals one weapon card
-    //{
-    //    if (dataList.Count > 0)
-    //    {
-    //        TopDeck = dataList[0];
-    //    }
-    //    else
-    //    {
-    //        TopDeck = null;
-    //    }
-    //    BaseCardData card = Instantiate(TopDeck); //instantiates instance of scriptable object
-    //    WeaponCardPrefab tempCard = Instantiate(weaponCardTemplate); //instantiates an instance of the card prefab
-    //    tempCard.transform.SetParent(spawnTransform, false); //moves card onto board
-    //    tempCard.weaponCardData = card; //assigns the instance of the scriptable object to the instance of the prefab
-    //    dataList.Remove(weaponTopDeck); //removes card from list
-    //    objectList.Add(tempCard.gameObject); //adds card to list
-    //}
 
     public void DealWeapon(Transform spawnTransform, List<WeaponData> dataList, List<GameObject> objectList) //Deals one weapon card
     {
@@ -484,18 +470,17 @@ public class GameController : MonoBehaviour {
         tempCard.equipButton.SetActive(true); //enables button
     }
 
-    public void EquipWeapon(GameObject playedCard, WeaponData weaponData)
+    public void EquipWeapon(GameObject playedCard)
     {
         if (playedCard.transform.parent == lootChestTransform)
         {
-            if (backPack.Count == 2)
+            if (backPack.Count >= 2)
             {
                 print("Backpack full");
             }
             else
             {
                 playedCard.transform.SetParent(backpackTransform.transform, false); //moves the card to the zone
-                textEquipmentDeck.Add(weaponData.cardName);
                 backPack.Add(playedCard); //adds to list
                 lootChest.Remove(playedCard); //removes from list
             }
@@ -504,7 +489,6 @@ public class GameController : MonoBehaviour {
         {
             playedCard.transform.SetParent(lootChestTransform.transform, false); //moves the card to the zone
             backPack.Remove(playedCard); //removes from list
-            textEquipmentDeck.Remove(weaponData.cardName);
             lootChest.Add(playedCard); //adds to list
         }
     }
@@ -596,7 +580,7 @@ public class GameController : MonoBehaviour {
         }
         if (relicCardData.dmg > 0)
         {
-            tempRelic = relicCardData;
+            tempUltimate = relicCardData;
             WeaponTarget(relicCardData);
         }
         if (relicCardData.apBonus > 0)
@@ -606,15 +590,15 @@ public class GameController : MonoBehaviour {
         RelicAttacked();
     }
 
-    void HealRelic(UltimateData relicCardData)
+    void HealRelic(UltimateData ultimateData)
     {
-        if(defHero.heroCardData.hp + relicCardData.heal > heroMaxHP) //checks if healing will take hero past max HP
+        if(defHero.heroCardData.hp + ultimateData.heal > heroMaxHP) //checks if healing will take hero past max HP
         {
             defHero.heroCardData.hp = heroMaxHP; //heals to max HP
         }
         else
         {
-            defHero.heroCardData.hp += relicCardData.heal; //heals for heal amount on relic
+            defHero.heroCardData.hp += ultimateData.heal; //heals for heal amount on ultimate
         }
         HeroHPUpdate(); //updates card UI text
     }
@@ -658,7 +642,7 @@ public class GameController : MonoBehaviour {
 
     public void WeaponTarget(UltimateData relicCardData) //function for selecting weapon target
     {
-        //print("relic targeting");
+        //print("ultimate targeting");
         for (int i = 0; i < equippedCreaturesObj.Count; i++) //loop repeats for each creature on the board
         {
             CreatureCard attacker = equippedCreaturesObj[i].GetComponent<CreatureCard>();
@@ -668,18 +652,18 @@ public class GameController : MonoBehaviour {
 
     public void WeaponAttack(GameObject creature, CreatureData creatureCard)
     {
-        if(tempRelic == null)
+        if(tempUltimate == null)
         {
             AP -= tempWeapon.ap; //updates AP remaining
             APUpdate(); //updates UI text
             creatureCard.hp -= tempWeapon.dmg; //weapon deals dmg to creature
-            //print("temp relic = null");
+            //print("temp ultimate = null");
         }
         else
         {
-            creatureCard.hp -= tempRelic.dmg; //relic deals dmg to creature
-            //print("temp relic = not null");
-            tempRelic = null;
+            creatureCard.hp -= tempUltimate.dmg; //ultimate deals dmg to creature
+            //print("temp ultiamte = not null");
+            tempUltimate = null;
         }
         CreatureCard defCreature = creature.GetComponent<CreatureCard>(); //creatures a reference to the creature
         defCreature.hpText.text = defCreature.creatureCardData.hp.ToString(); //updates UI text
@@ -715,9 +699,9 @@ public class GameController : MonoBehaviour {
             CreatureCard attackCreature = equippedCreaturesObj[i].GetComponent<CreatureCard>();
             StartCoroutine(animationController.AttackMove(equippedCreaturesObj[i], equippedHeroObj[0])); //starts coroutine for moving attacking card
             attackCreature.PlaySound(); //plays sound effect
-            if (attackCreature.creatureCardData.dmg > currentArmour.armourCardData.hp) //checks if creature attack is strong enough to pierce armour
+            if (attackCreature.creatureCardData.dmg > currentArmour.armourData.hp) //checks if creature attack is strong enough to pierce armour
             {
-                defHero.heroCardData.hp -= attackCreature.creatureCardData.dmg - currentArmour.armourCardData.hp; //creature deals damage
+                defHero.heroCardData.hp -= attackCreature.creatureCardData.dmg - currentArmour.armourData.hp; //creature deals damage
             }
             HeroHPUpdate(); //updates UI text
             float combatDelay = 1.3f;
@@ -753,34 +737,130 @@ public class GameController : MonoBehaviour {
         buttonCanvas.SetActive(true);
     }
 
-    public void NextLevel()
-    {
-        currentAiDeck = aiDeck2;
-        SceneManager.LoadScene("GameScene");
-        levelController.levelIncrement();
-    }
+    //public void NextLevel()
+    //{
+    //    currentAiDeck = aiDeck2;
+    //    SceneManager.LoadScene("GameScene");
+    //    levelController.levelIncrement();
+    //}
 
-    public void SaveGame()
+    public void SaveBackpack()
     {
-        FileStream file = new FileStream("save.dat", FileMode.Create);
-        BinaryFormatter bf = new BinaryFormatter();
-        bf.Serialize(file, textEquipmentDeck);
-        file.Close();
-        print("Saved");
-    }
-
-    public void LoadGame()
-    {
-        using (Stream stream = File.Open("save.dat", FileMode.Open))
+        textEquippedWeapons.Clear(); //clears list before saving
+        foreach (GameObject weapon in equippedWeaponObj) //loops through equipped weapons
         {
-            var bformatter = new BinaryFormatter();
-            List<string> tempList = (List<string>)bformatter.Deserialize(stream);
+            textEquippedWeapons.Add(weapon.name.ToString()); //Converts weapondata to string
+        }
 
-            for (int i = 0; i < tempList.Count; i++)
+        textEquippedUltimate.Clear(); //clears list before saving
+        foreach (GameObject ultimate in equippedUltimateObj) //loops through equipped weapons
+        {
+            textEquippedUltimate.Add(ultimate.name.ToString()); //Converts weapondata to string
+        }
+
+        textEquippedArmour.Clear(); //clears list before saving
+        foreach (GameObject armour in equippedArmourObj) //loops through equipped weapons
+        {
+            textEquippedArmour.Add(armour.name.ToString()); //Converts weapondata to string
+        }
+
+        FileStream weaponFile = new FileStream("BackpackWeapons.dat", FileMode.Create);
+        var bf = new BinaryFormatter();
+        bf.Serialize(weaponFile, textEquippedWeapons);
+        weaponFile.Close();
+
+        FileStream ultimateFile = new FileStream("BackpackUltimates.dat", FileMode.Create);
+        bf.Serialize(ultimateFile, textEquippedUltimate);
+        ultimateFile.Close();
+
+        FileStream armourFile = new FileStream("BackpackArmour.dat", FileMode.Create);
+        bf.Serialize(armourFile, textEquippedArmour);
+        armourFile.Close();
+
+        print("saved");
+
+        SceneManager.LoadScene("MenuScene");
+    }
+
+    public void LoadEquipped()
+    {
+        using (FileStream weaponFile = File.Open("EquippedWeapons.dat", FileMode.Open))
+        {
+            var bf = new BinaryFormatter();
+            List<string> tempWeapons = (List<string>)bf.Deserialize(weaponFile);
+            textEquippedWeapons.Clear(); //clears list before loading
+            for (int i = 0; i < tempWeapons.Count; i++)
             {
-                textEquipmentDeck.Add(tempList[i]);
+                textEquippedWeapons.Add(tempWeapons[i]);
             }
         }
-        print("Loaded");
+
+        using (FileStream ultimateFile = File.Open("EquippedUltimate.dat", FileMode.Open))
+        {
+            var bf = new BinaryFormatter();
+            List<string> tempUltimate = (List<string>)bf.Deserialize(ultimateFile);
+            textEquippedUltimate.Clear(); //clears list before loading
+            for (int i = 0; i < tempUltimate.Count; i++)
+            {
+                textEquippedUltimate.Add(tempUltimate[i]);
+            }
+        }
+
+        using (FileStream armourFile = File.Open("EquippedArmour.dat", FileMode.Open))
+        {
+            var bf = new BinaryFormatter();
+            List<string> tempArmour = (List<string>)bf.Deserialize(armourFile);
+            textEquippedArmour.Clear(); //clears list before loading
+            for (int i = 0; i < tempArmour.Count; i++)
+            {
+                textEquippedArmour.Add(tempArmour[i]);
+            }
+        }
+
+        foreach (string weaponName in textEquippedWeapons)
+        {
+            GameObject weaponValue;
+            if (weaponDictionary.TryGetValue(weaponName, out weaponValue))
+            {
+                EquipWeapon(weaponValue);
+            }
+        }
+
+        foreach (string ultimateName in textEquippedUltimate)
+        {
+            GameObject UltimateValue;
+            if (ultimateDictionary.TryGetValue(ultimateName, out UltimateValue))
+            {
+                //EquipUltimate(UltimateValue);
+            }
+        }
+
+        foreach (string armourName in textEquippedArmour)
+        {
+            GameObject armourValue;
+            if (armourDictionary.TryGetValue(armourName, out armourValue))
+            {
+                //EquipArmour(armourValue);
+            }
+        }
+        print("loaded");
     }
+
+    //void CreateDictionaries()
+    //{
+    //    foreach (GameObject weapon in invWeapons)
+    //    {
+    //        weaponDictionary.Add(weapon.name, weapon);
+    //    }
+
+    //    foreach (GameObject ultimate in invUltimates)
+    //    {
+    //        ultimateDictionary.Add(ultimate.name, ultimate);
+    //    }
+
+    //    foreach (GameObject armour in invArmour)
+    //    {
+    //        armourDictionary.Add(armour.name, armour);
+    //    }
+    //}
 }
