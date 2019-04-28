@@ -38,14 +38,14 @@ public class GameController : MonoBehaviour {
     Button endTurnButton;
 
     //Board zones for each group of cards
-    public Transform enemyTransform, heroTransform, relicTransform, weaponTransform, armourTransform, lootChestTransform, backpackTransform;
+    public Transform enemyTransform, heroTransform, ultimateTransform, weaponTransform, armourTransform, lootChestTransform, backpackTransform;
 
     //Deck lists
     public List<WeaponData> weaponLoot1; //, weaponLoot2, weaponLoot3;
     public List<UltimateData> relicLoot1; //, relicLoot2, relicLoot3;
     public List<ArmourData> armourLoot1; //, armourLoot2, armourLoot3;
     public List<WeaponData> equippedWeapons; 
-    public List<UltimateData> equippedRelic;
+    public List<UltimateData> equippedUltimate;
     public List<ArmourData> equippedArmour;
     public List<HeroData> equippedHero;
     public List<CreatureData> aiDeck1, currentAiDeck; //, aiDeck2, aiDeck3;
@@ -63,18 +63,18 @@ public class GameController : MonoBehaviour {
     public CreatureCard creatureCardTemplate;
     public HeroCard heroCardTemplate;
     public ArmourCard armourCardTemplate;
-    public UltimateCard relicCardTemplate;
+    public UltimateCard ultimateCardTemplate;
     public WeaponCard weaponCardTemplate;
     
     //prefabs instances on the board
     HeroCard defHero;
     ArmourCard currentArmour;
-    UltimateCard currentRelic;
+    UltimateCard currentUltimate;
 
     //Item Dictionaries
-    public Dictionary<string, GameObject> weaponDictionary = new Dictionary<string, GameObject>();
-    public Dictionary<string, GameObject> ultimateDictionary = new Dictionary<string, GameObject>();
-    public Dictionary<string, GameObject> armourDictionary = new Dictionary<string, GameObject>();
+    public Dictionary<string, WeaponData> weaponDictionary = new Dictionary<string, WeaponData>();
+    public Dictionary<string, UltimateData> ultimateDictionary = new Dictionary<string, UltimateData>();
+    public Dictionary<string, ArmourData> armourDictionary = new Dictionary<string, ArmourData>();
 
     public AnimationController animationController;
 
@@ -91,7 +91,7 @@ public class GameController : MonoBehaviour {
     HeroData heroTopDeck;
     ArmourData armourTopDeck;
     WeaponData weaponTopDeck;
-    UltimateData relicTopDeck;
+    UltimateData ultimateTopDeck;
        
     void Start()
     {
@@ -108,15 +108,13 @@ public class GameController : MonoBehaviour {
         ultimateUsed = false;
         currentAiDeck = aiDeck1;
         CreatureShuffle(currentAiDeck);
-        InventoryLoad();
-        DealArmour();
+        CreateDictionaries();
+        LoadEquipment();
         DealHero();        
-        DealRelic();
-        DealWeaponHand();
         DealCreatureHand();
         lootCounter = lootDrop;
         turnState = turn.Player1;
-        //CreateDictionaries();
+        
         if (turnState == turn.Player1) //checks if it is the Players's turn
         {
             for (int i = 0; i < equippedWeaponObj.Count; i++) //loop repeats for each weapon on the board
@@ -124,17 +122,12 @@ public class GameController : MonoBehaviour {
                 WeaponCard weapon = equippedWeaponObj[i].GetComponent<WeaponCard>();
                 weapon.useButton.SetActive(true); //enables buttons on all weapon cards during player turn
             }
-            if (currentRelic.ultimateData.cooldown == 0) //Checks if Ultimte is ready
+            if (currentUltimate.ultimateData.cooldown == 0) //Checks if Ultimte is ready
             {
-                currentRelic.useButton.SetActive(true); //enables button
+                currentUltimate.useButton.SetActive(true); //enables button
             }
         }
         APReset();
-    }
-
-    void InventoryLoad()
-    {
-        
     }
 
     void CreatureShuffle(List<CreatureData> deck)
@@ -241,18 +234,18 @@ public class GameController : MonoBehaviour {
 
         if (ultimateUsed == true)
         {
-            currentRelic.ultimateData.cooldown = RelicMaxCooldown;
+            currentUltimate.ultimateData.cooldown = RelicMaxCooldown;
             ultimateUsed = false;
             ultimateText.text = "Ultimate charging"; //updates card UI text
             RelicUpdate();
         }
         else
         {
-            currentRelic.ultimateData.cooldown--; //updates cooldown
-            if (currentRelic.ultimateData.cooldown <= 0)
+            currentUltimate.ultimateData.cooldown--; //updates cooldown
+            if (currentUltimate.ultimateData.cooldown <= 0)
             {
-                currentRelic.ultimateData.cooldown = 0;
-                currentRelic.useButton.SetActive(true); //enables button
+                currentUltimate.ultimateData.cooldown = 0;
+                currentUltimate.useButton.SetActive(true); //enables button
                 ultimateText.color = Color.green; //changes font colour
                 ultimateText.text = "Ultimate Ready"; //updates card UI text
             }
@@ -263,7 +256,7 @@ public class GameController : MonoBehaviour {
 
     public void RelicAttacked()
     {
-        currentRelic.useButton.SetActive(false); //disables button
+        currentUltimate.useButton.SetActive(false); //disables button
         ultimateUsed = true;
         ultimateText.color = Color.red; //changes font colour
         ultimateText.text = "Ultimate Used"; //updates card UI text
@@ -287,7 +280,7 @@ public class GameController : MonoBehaviour {
 
     void RelicUpdate() //updates UI text
     {
-        currentRelic.cooldownText.text = currentRelic.ultimateData.cooldown.ToString(); //updates prefab text from scriptable object
+        currentUltimate.cooldownText.text = currentUltimate.ultimateData.cooldown.ToString(); //updates prefab text from scriptable object
     }
 
     void MonstersUpdate() //updates UI text
@@ -305,7 +298,7 @@ public class GameController : MonoBehaviour {
                 weapon.useButton.SetActive(false); //disables buttons on all weapon cards during AI turn
             }
 
-            currentRelic.useButton.SetActive(false); //disables button
+            currentUltimate.useButton.SetActive(false); //disables button
 
             if (equippedCreaturesObj.Count == 0) //checks if AI has creatures on the board
             {
@@ -326,25 +319,6 @@ public class GameController : MonoBehaviour {
                 weapon.useButton.SetActive(true); //enables buttons on all weapon cards during player turn
             }
         }
-    }
-
-    public void DealArmour() //Deals hero cards at start of game
-    {
-        if (equippedArmour.Count > 0)
-        {
-            armourTopDeck = equippedArmour[0];
-        }
-        else
-        {
-            armourTopDeck = null;
-        }
-        ArmourData card = Instantiate(armourTopDeck); //instantiates instance of scriptable object
-        ArmourCard tempCard = Instantiate(armourCardTemplate); //instantiates an instance of the card prefab
-        tempCard.transform.SetParent(armourTransform.transform, false); //moves card onto board
-        tempCard.armourData = card; //assigns the instance of the scriptable object to the instance of the prefab
-        equippedArmour.Remove(armourTopDeck); //removes the card from the deck
-        equippedArmourObj.Add(tempCard.gameObject); //adds card to live list
-        currentArmour = equippedArmourObj[0].GetComponent<ArmourCard>();
     }
 
     public void DealHero() //Deals hero cards at start of game
@@ -369,53 +343,33 @@ public class GameController : MonoBehaviour {
         defHero.heroCardData.artSprite = currentArmour.armourData.artSprite;
     }
 
-    public void DealRelic() //Deals hero cards at start of game
+    public void DealArmour(Transform spawnTransform, ArmourData data, List<GameObject> objectList) //Deals hero cards at start of game
     {
-        if (equippedRelic.Count > 0)
-        {
-            relicTopDeck = equippedRelic[0];
-        }
-        else
-        {
-            relicTopDeck = null;
-        }
-        UltimateData card = Instantiate(relicTopDeck); //instantiates instance of scriptable object
-        UltimateCard tempCard = Instantiate(relicCardTemplate); //instantiates an instance of the card prefab
-        tempCard.transform.SetParent(relicTransform.transform, false); //moves card onto board
-        tempCard.ultimateData= card; //assigns the instance of the scriptable object to the instance of the prefab
-        equippedRelic.Remove(relicTopDeck); //removes card from list
-        equippedUltimateObj.Add(tempCard.gameObject); //adds card to live list
-        currentRelic = equippedUltimateObj[0].GetComponent<UltimateCard>();
-        RelicMaxCooldown = currentRelic.ultimateData.cooldown; //assigns cooldown for resetting ultimate after use
+        ArmourData card = Instantiate(data); //instantiates instance of scriptable object
+        ArmourCard tempCard = Instantiate(armourCardTemplate); //instantiates an instance of the card prefab
+        tempCard.transform.SetParent(spawnTransform, false); //moves card onto board
+        tempCard.armourData = card; //assigns the instance of the scriptable object to the instance of the prefab
+        equippedArmourObj.Add(tempCard.gameObject); //adds card to live list
+        currentArmour = equippedArmourObj[0].GetComponent<ArmourCard>();
     }
 
-    public void DealWeaponHand() //Deals multiple weapon cards
+    public void DealUltimate(Transform spawnTransform, UltimateData data, List<GameObject> objectList) //Deals hero cards at start of game
     {
-        int weaponsDealt = 3; //number of weapons to deal
-        for (int i = 0; i < weaponsDealt; i++) //loops number of times equal to weaponsDealt variable
-        {
-            if (equippedWeapons.Count > 0)
-            {
-                DealWeapon(weaponTransform, equippedWeapons, equippedWeaponObj);
-            }
-        }
+        UltimateData card = Instantiate(data); //instantiates instance of scriptable object
+        UltimateCard tempCard = Instantiate(ultimateCardTemplate); //instantiates an instance of the card prefab
+        tempCard.transform.SetParent(spawnTransform, false); //moves card onto board
+        tempCard.ultimateData = card; //assigns the instance of the scriptable object to the instance of the prefab
+        objectList.Add(tempCard.gameObject); //adds card to live list
+        currentUltimate = tempCard.GetComponent<UltimateCard>();
+        RelicMaxCooldown = currentUltimate.ultimateData.cooldown; //assigns cooldown for resetting ultimate after use
     }
 
-    public void DealWeapon(Transform spawnTransform, List<WeaponData> dataList, List<GameObject> objectList) //Deals one weapon card
+    public void DealWeapon(Transform spawnTransform, WeaponData data, List<GameObject> objectList) //Deals one weapon card
     {
-        if (dataList.Count > 0)
-        {
-            weaponTopDeck = dataList[0];
-        }
-        else
-        {
-            weaponTopDeck = null;
-        }
-        WeaponData card = Instantiate(weaponTopDeck); //instantiates instance of scriptable object
+        WeaponData card = Instantiate(data); //instantiates instance of scriptable object
         WeaponCard tempCard = Instantiate(weaponCardTemplate); //instantiates an instance of the card prefab
         tempCard.transform.SetParent(spawnTransform, false); //moves card onto board
         tempCard.weaponData = card; //assigns the instance of the scriptable object to the instance of the prefab
-        dataList.Remove(weaponTopDeck); //removes card from list
         objectList.Add(tempCard.gameObject); //adds card to list
     }
 
@@ -782,7 +736,7 @@ public class GameController : MonoBehaviour {
         SceneManager.LoadScene("MenuScene");
     }
 
-    public void LoadEquipped()
+    void LoadEquipment()
     {
         using (FileStream weaponFile = File.Open("EquippedWeapons.dat", FileMode.Open))
         {
@@ -817,50 +771,54 @@ public class GameController : MonoBehaviour {
             }
         }
 
+        equippedWeaponObj.Clear(); //clears list
         foreach (string weaponName in textEquippedWeapons)
         {
-            GameObject weaponValue;
+            WeaponData weaponValue;
             if (weaponDictionary.TryGetValue(weaponName, out weaponValue))
             {
-                EquipWeapon(weaponValue);
+                DealWeapon(weaponTransform, weaponValue, equippedWeaponObj);
             }
         }
 
+        equippedUltimateObj.Clear(); //clears list
         foreach (string ultimateName in textEquippedUltimate)
         {
-            GameObject UltimateValue;
-            if (ultimateDictionary.TryGetValue(ultimateName, out UltimateValue))
+            UltimateData ultimateValue;
+            if (ultimateDictionary.TryGetValue(ultimateName, out ultimateValue))
             {
-                //EquipUltimate(UltimateValue);
+                DealUltimate(ultimateTransform, ultimateValue, equippedUltimateObj);
             }
         }
 
+        equippedArmourObj.Clear(); //clears list
         foreach (string armourName in textEquippedArmour)
         {
-            GameObject armourValue;
+            ArmourData armourValue;
             if (armourDictionary.TryGetValue(armourName, out armourValue))
             {
-                //EquipArmour(armourValue);
+                DealArmour(armourTransform, armourValue, equippedArmourObj);
             }
         }
+
         print("loaded");
     }
 
-    //void CreateDictionaries()
-    //{
-    //    foreach (GameObject weapon in invWeapons)
-    //    {
-    //        weaponDictionary.Add(weapon.name, weapon);
-    //    }
+    void CreateDictionaries()
+    {
+        foreach (WeaponData weapon in allWeapons)
+        {
+            weaponDictionary.Add(weapon.name, weapon);
+        }
 
-    //    foreach (GameObject ultimate in invUltimates)
-    //    {
-    //        ultimateDictionary.Add(ultimate.name, ultimate);
-    //    }
+        foreach (UltimateData ultimate in allUltimates)
+        {
+            ultimateDictionary.Add(ultimate.name, ultimate);
+        }
 
-    //    foreach (GameObject armour in invArmour)
-    //    {
-    //        armourDictionary.Add(armour.name, armour);
-    //    }
-    //}
+        foreach (ArmourData armour in allArmour)
+        {
+            armourDictionary.Add(armour.name, armour);
+        }
+    }
 }
