@@ -12,10 +12,10 @@ public class InventoryController : MonoBehaviour
     public Transform relicTransform, weaponTransform, armourTransform, ultimateInvTransform, weaponInvTransform, armourInvTransform;
 
     //Inventory lists
-    public List<WeaponData> allWeapons;
-    public List<UltimateData> allUltimates;
-    public List<ArmourData> allArmour;
-    public List<string> textEquippedWeapons, textEquippedUltimate, textEquippedArmour;
+    public List<WeaponData> allWeapons, startingWeapons;
+    public List<UltimateData> allUltimates, startingUltimates;
+    public List<ArmourData> allArmour, StartingArmour;
+    public List<string> textEquippedWeapons, textEquippedUltimate, textEquippedArmour, textInventoryWeapons, textInventoryUltimates, textInventoryArmour;
 
     //Equipped items lists
     public List<GameObject> equippedWeaponObj, equippedUltimateObj, equippedArmourObj, invWeapons, invUltimates, invArmour;
@@ -26,9 +26,13 @@ public class InventoryController : MonoBehaviour
     public WeaponCard weaponCardTemplate;
 
     //Item Dictionaries
-    public Dictionary<string, GameObject> weaponDictionary = new Dictionary<string, GameObject>();
-    public Dictionary<string, GameObject> ultimateDictionary = new Dictionary<string, GameObject>();
-    public Dictionary<string, GameObject> armourDictionary = new Dictionary<string, GameObject>();
+    public Dictionary<string, WeaponData> weaponDataDictionary = new Dictionary<string, WeaponData>();
+    public Dictionary<string, UltimateData> ultimateDataDictionary = new Dictionary<string, UltimateData>();
+    public Dictionary<string, ArmourData> armourDataDictionary = new Dictionary<string, ArmourData>();
+    public Dictionary<string, GameObject> weaponObjDictionary = new Dictionary<string, GameObject>();
+    public Dictionary<string, GameObject> ultimateObjDictionary = new Dictionary<string, GameObject>();
+    public Dictionary<string, GameObject> armourObjDictionary = new Dictionary<string, GameObject>();
+
 
     void Start()
     {
@@ -37,16 +41,18 @@ public class InventoryController : MonoBehaviour
         {
             controller.GetComponent<MenuMusicController>().StartMusic(); //plays menu music
         }
+        CreateDataDictionaries();
+        LoadInventory();
         DealArmourInv();
         DealUltimateInv();
         DealWeaponInv();
-        CreateDictionaries();
+        CreateObjDictonaries();
         LoadEquipped();
     }
 
     public void DealArmourInv() //Deals all cards in inventory
     {
-        foreach (ArmourData armour in allArmour)
+        foreach (ArmourData armour in StartingArmour)
         {
             DealArmour(armourInvTransform, invArmour, armour);
         }
@@ -88,7 +94,7 @@ public class InventoryController : MonoBehaviour
 
     public void DealUltimateInv() //Deals all cards in inventory
     {
-        foreach (UltimateData ultimate in allUltimates)
+        foreach (UltimateData ultimate in startingUltimates)
         {
             DealUltimate(ultimateInvTransform, invUltimates, ultimate);
         }
@@ -130,7 +136,7 @@ public class InventoryController : MonoBehaviour
 
     public void DealWeaponInv() //Deals all cards in inventory
     {
-        foreach(WeaponData weapon in allWeapons)
+        foreach(WeaponData weapon in startingWeapons)
         {
             DealWeapon(weaponInvTransform, invWeapons, weapon);
         }
@@ -218,7 +224,7 @@ public class InventoryController : MonoBehaviour
 
         print("saved");
 
-        SceneManager.LoadScene("MenuScene");
+        //SceneManager.LoadScene("MenuScene");
     }
 
     public void LoadEquipped()
@@ -256,11 +262,15 @@ public class InventoryController : MonoBehaviour
             }
         }
 
+        //print(textEquippedWeapons.Count);
+
         foreach (string weaponName in textEquippedWeapons)
         {
+            //print("test");
             GameObject weaponValue;
-            if (weaponDictionary.TryGetValue(weaponName, out weaponValue))
+            if (weaponObjDictionary.TryGetValue(weaponName, out weaponValue))
             {
+                //print(weaponValue);
                 EquipWeapon(weaponValue);
             }
         }
@@ -268,7 +278,7 @@ public class InventoryController : MonoBehaviour
         foreach (string ultimateName in textEquippedUltimate)
         {
             GameObject UltimateValue;
-            if (ultimateDictionary.TryGetValue(ultimateName, out UltimateValue))
+            if (ultimateObjDictionary.TryGetValue(ultimateName, out UltimateValue))
             {
                 EquipUltimate(UltimateValue);
             }
@@ -277,29 +287,111 @@ public class InventoryController : MonoBehaviour
         foreach (string armourName in textEquippedArmour)
         {
             GameObject armourValue;
-            if (armourDictionary.TryGetValue(armourName, out armourValue))
+            if (armourObjDictionary.TryGetValue(armourName, out armourValue))
             {
                 EquipArmour(armourValue);
             }
         }
-        print("loaded");
+        print("Loaded Equipped");
     }
 
-    void CreateDictionaries()
+    public void LoadInventory()
+    {
+        using (FileStream weaponFile = File.Open("BackpackWeapons.dat", FileMode.Open))
+        {
+            var bf = new BinaryFormatter();
+            List<string> tempWeapons = (List<string>)bf.Deserialize(weaponFile);
+            textEquippedWeapons.Clear(); //clears list before loading
+            for (int i = 0; i < tempWeapons.Count; i++)
+            {
+                textInventoryWeapons.Add(tempWeapons[i]);
+            }
+        }
+
+        using (FileStream ultimateFile = File.Open("BackpackUltimates.dat", FileMode.Open))
+        {
+            var bf = new BinaryFormatter();
+            List<string> tempUltimate = (List<string>)bf.Deserialize(ultimateFile);
+            textEquippedUltimate.Clear(); //clears list before loading
+            for (int i = 0; i < tempUltimate.Count; i++)
+            {
+                textInventoryUltimates.Add(tempUltimate[i]);
+            }
+        }
+
+        using (FileStream armourFile = File.Open("BackpackArmour.dat", FileMode.Open))
+        {
+            var bf = new BinaryFormatter();
+            List<string> tempArmour = (List<string>)bf.Deserialize(armourFile);
+            textEquippedArmour.Clear(); //clears list before loading
+            for (int i = 0; i < tempArmour.Count; i++)
+            {
+                textInventoryArmour.Add(tempArmour[i]);
+            }
+        }
+
+        foreach (string weaponName in textInventoryWeapons)
+        {
+            WeaponData weaponValue;
+            if (weaponDataDictionary.TryGetValue(weaponName, out weaponValue))
+            {
+                DealWeapon(weaponInvTransform, invWeapons, weaponValue);
+            }
+        }
+
+        foreach (string ultimateName in textInventoryUltimates)
+        {
+            UltimateData UltimateValue;
+            if (ultimateDataDictionary.TryGetValue(ultimateName, out UltimateValue))
+            {
+                DealUltimate(ultimateInvTransform, invUltimates, UltimateValue);
+            }
+        }
+
+        foreach (string armourName in textInventoryArmour)
+        {
+            ArmourData armourValue;
+            if (armourDataDictionary.TryGetValue(armourName, out armourValue))
+            {
+                DealArmour(armourInvTransform, invArmour, armourValue);
+            }
+        }
+        print("Loaded inventory");
+    }
+
+    void CreateDataDictionaries()
+    {
+        foreach (WeaponData weapon in allWeapons)
+        {
+            weaponDataDictionary.Add(weapon.name, weapon);
+        }
+
+        foreach (UltimateData ultimate in allUltimates)
+        {
+            ultimateDataDictionary.Add(ultimate.name, ultimate);
+        }
+
+        foreach (ArmourData armour in allArmour)
+        {
+            armourDataDictionary.Add(armour.name, armour);
+        }
+    }
+
+    void CreateObjDictonaries()
     {
         foreach (GameObject weapon in invWeapons)
         {
-            weaponDictionary.Add(weapon.name, weapon);
+            weaponObjDictionary.Add(weapon.name, weapon);
         }
 
         foreach (GameObject ultimate in invUltimates)
         {
-            ultimateDictionary.Add(ultimate.name, ultimate);
+            ultimateObjDictionary.Add(ultimate.name, ultimate);
         }
 
         foreach (GameObject armour in invArmour)
         {
-            armourDictionary.Add(armour.name, armour);
+            armourObjDictionary.Add(armour.name, armour);
         }
     }
 }

@@ -44,6 +44,13 @@ public class UltimateCard : BaseCard
 
     public void EquipClickedGear() //calls function in inventorycontroller
     {
-        inventoryController.EquipUltimate(this.gameObject);
+        if (gameController != null)
+        {
+            gameController.EquipUltimate(this.gameObject); //puts in backpack in game scene
+        }
+        else
+        {
+            inventoryController.EquipUltimate(this.gameObject); //equips in inventory scene
+        }
     }
 }

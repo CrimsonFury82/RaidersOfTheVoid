@@ -2234,7 +2234,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 67062e3df4a2a2042a9221d25c805c90, type: 2}
   - {fileID: 11400000, guid: c26d1f1cd167b4c48b529baeebe0bb08, type: 2}
   - {fileID: 11400000, guid: ca0dd02dced648e42920c9f645d2ca22, type: 2}
-  equippedWeaponsData: []
+  startingWeapons:
+  - {fileID: 11400000, guid: cbedb8b7b409a6a4ea653fe81f2effe6, type: 2}
+  - {fileID: 11400000, guid: 6c32140ad7b4e3249a005a6a253dcc76, type: 2}
+  - {fileID: 11400000, guid: 99ca836159ce48248893373982cd461a, type: 2}
   allUltimates:
   - {fileID: 11400000, guid: 181c747c49fb38549a536d9942c5f2f8, type: 2}
   - {fileID: 11400000, guid: 2423b70f0e6af7842b157d0fc28e5032, type: 2}
@@ -2246,16 +2249,21 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b8edf7f1b2d0e8c4cbd5d2cacb6867c5, type: 2}
   - {fileID: 11400000, guid: 4f007907e71c4f342b81e139da1c05d8, type: 2}
   - {fileID: 11400000, guid: 14cef655bd517424892679b338ebc51f, type: 2}
-  equippedUltimateData: []
+  startingUltimates:
+  - {fileID: 11400000, guid: 181c747c49fb38549a536d9942c5f2f8, type: 2}
   allArmour:
   - {fileID: 11400000, guid: 6e7b548cef771354aaa3176066862a48, type: 2}
   - {fileID: 11400000, guid: 2bba0fcc49769324cb1192213cd414b8, type: 2}
   - {fileID: 11400000, guid: 4f8a7b06402e3bb4fb667f180baa143c, type: 2}
   - {fileID: 11400000, guid: 5673d566ca9ea404783cf3274f46ff38, type: 2}
-  equippedArmourData: []
+  StartingArmour:
+  - {fileID: 11400000, guid: 6e7b548cef771354aaa3176066862a48, type: 2}
   textEquippedWeapons: []
   textEquippedUltimate: []
   textEquippedArmour: []
+  textInventoryWeapons: []
+  textInventoryUltimates: []
+  textInventoryArmour: []
   equippedWeaponObj: []
   equippedUltimateObj: []
   equippedArmourObj: []

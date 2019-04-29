@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using UnityEngine;
+using UnityEngine.UI;
 
 //Script written by Aston Olsen
 
@@ -16,6 +15,7 @@ public class GameController : MonoBehaviour {
     public enum phase {MainPhase, CombatPhase}; //List of states
     public enum lootNum {Tier1, Tier2, Tier3}; //List of states
     public enum lootTy {Weapon, Ultimate, Armour } //List of states
+    string dataType;
 
     bool ultimateUsed;
 
@@ -41,8 +41,9 @@ public class GameController : MonoBehaviour {
     public Transform enemyTransform, heroTransform, ultimateTransform, weaponTransform, armourTransform, lootChestTransform, backpackTransform;
 
     //Deck lists
+    public List<BaseData> mixedLoot1;
     public List<WeaponData> weaponLoot1; //, weaponLoot2, weaponLoot3;
-    public List<UltimateData> relicLoot1; //, relicLoot2, relicLoot3;
+    public List<UltimateData> ultimateLoot1; //, relicLoot2, relicLoot3;
     public List<ArmourData> armourLoot1; //, armourLoot2, armourLoot3;
     public List<WeaponData> equippedWeapons; 
     public List<UltimateData> equippedUltimate;
@@ -54,10 +55,10 @@ public class GameController : MonoBehaviour {
     public List<UltimateData> allUltimates;
     public List<ArmourData> allArmour;
 
-    public List<string> textEquippedWeapons, textEquippedUltimate, textEquippedArmour;
+    public List<string> textEquippedWeapons, textEquippedUltimate, textEquippedArmour, textBackpackWeapons, textBackpackUltimate, textBackpackArmour;
 
     //Lists of card prefabs on the board
-    public List<GameObject> equippedWeaponObj, equippedUltimateObj, equippedArmourObj, equippedCreaturesObj, equippedHeroObj, lootChest, backPack;
+    public List<GameObject> equippedWeaponObj, equippedUltimateObj, equippedArmourObj, equippedCreaturesObj, equippedHeroObj, lootChest, backPackWeapons, backPackUltimates, backPackArmour;
 
     //card prefabs
     public CreatureCard creatureCardTemplate;
@@ -182,22 +183,6 @@ public class GameController : MonoBehaviour {
                 break;
             default:
                 print("Default loot tier");
-                break;
-        }
-    }
-
-    public void LootType() //case switches for phase states
-    {
-        switch (lootType)
-        {
-            case lootTy.Weapon:
-                break;
-            case lootTy.Ultimate:
-                break;
-            case lootTy.Armour:
-                break;
-            default:
-                print("Default loot type");
                 break;
         }
     }
@@ -395,16 +380,18 @@ public class GameController : MonoBehaviour {
 
     public void DropLoot()
     {
-        if (weaponLoot1.Count > 0)
+        if (mixedLoot1.Count > 0)
         {
             lootDropObj.SetActive(true); //enables menu
             menuToggle.isOn = !menuToggle.isOn; //toggles menu on
             lootCounter = lootDrop; //resets lootdrop counter
-            DealLoot(lootChestTransform, weaponLoot1, lootChest); //deals card to lootdrop zone
+            DealWeaponLoot(lootChestTransform, weaponLoot1, lootChest); //deals card to lootdrop zone
+            DealUltimateLoot(lootChestTransform, ultimateLoot1, lootChest); //deals card to lootdrop zone
+            DealArmourLoot(lootChestTransform, armourLoot1, lootChest); //deals card to lootdrop zone
         }
     }
 
-    public void DealLoot(Transform spawnTransform, List<WeaponData> dataList, List<GameObject> objectList) //Deals one weapon card
+    public void DealWeaponLoot(Transform spawnTransform, List<WeaponData> dataList, List<GameObject> objectList) //Deals one weapon card
     {
         if (dataList.Count > 0)
         {
@@ -422,27 +409,162 @@ public class GameController : MonoBehaviour {
         dataList.Remove(weaponTopDeck); //removes card from list
         objectList.Add(tempCard.gameObject); //adds card to list
         tempCard.equipButton.SetActive(true); //enables button
+        tempCard.name = tempCard.weaponData.name.Replace("(Clone)", "").ToString();
     }
+
+    public void DealUltimateLoot(Transform spawnTransform, List<UltimateData> dataList, List<GameObject> objectList) //Deals one weapon card
+    {
+        if (dataList.Count > 0)
+        {
+            int rng = UnityEngine.Random.Range(0, dataList.Count); //randomly select a card
+            ultimateTopDeck = dataList[rng];
+        }
+        else
+        {
+            ultimateTopDeck = null;
+        }
+        UltimateData card = Instantiate(ultimateTopDeck); //instantiates instance of scriptable object
+        UltimateCard tempCard = Instantiate(ultimateCardTemplate); //instantiates an instance of the card prefab
+        tempCard.transform.SetParent(spawnTransform, false); //moves card onto board
+        tempCard.ultimateData = card; //assigns the instance of the scriptable object to the instance of the prefab
+        dataList.Remove(ultimateTopDeck); //removes card from list
+        objectList.Add(tempCard.gameObject); //adds card to list
+        tempCard.equipButton.SetActive(true); //enables button
+        tempCard.name = tempCard.ultimateData.name.Replace("(Clone)", "").ToString();
+    }
+
+    public void DealArmourLoot(Transform spawnTransform, List<ArmourData> dataList, List<GameObject> objectList) //Deals one weapon card
+    {
+        if (dataList.Count > 0)
+        {
+            int rng = UnityEngine.Random.Range(0, dataList.Count); //randomly select a card
+            armourTopDeck = dataList[rng];
+        }
+        else
+        {
+            armourTopDeck = null;
+        }
+        ArmourData card = Instantiate(armourTopDeck); //instantiates instance of scriptable object
+        ArmourCard tempCard = Instantiate(armourCardTemplate); //instantiates an instance of the card prefab
+        tempCard.transform.SetParent(spawnTransform, false); //moves card onto board
+        tempCard.armourData = card; //assigns the instance of the scriptable object to the instance of the prefab
+        dataList.Remove(armourTopDeck); //removes card from list
+        objectList.Add(tempCard.gameObject); //adds card to list
+        tempCard.equipButton.SetActive(true); //enables button
+        tempCard.name = tempCard.armourData.name.Replace("(Clone)", "").ToString();
+    }
+
+    //public int rng;
+
+    //public void SpawnMixedLoot(Transform spawnTransform, List<BaseData> dataList, List<GameObject> objectList) //case switches for phase states
+    //{
+
+    //    if (dataList.Count > 0)
+    //    {
+    //        rng = UnityEngine.Random.Range(0, dataList.Count); //randomly select a card
+    //    }
+
+    //    switch (lootType)
+    //    {
+    //        case lootTy.Weapon:
+    //            weaponTopDeck = mixedLoot1[0];
+    //            WeaponData weaponCard = Instantiate(weaponTopDeck); //instantiates instance of scriptable object
+    //WeaponCard tempWeaponCard = Instantiate(weaponCardTemplate); //instantiates an instance of the card prefab
+    //tempWeaponCard.transform.SetParent(spawnTransform, false); //moves card onto board
+    //            tempWeaponCard.weaponData = weaponCard; //assigns the instance of the scriptable object to the instance of the prefab
+    //            dataList.Remove(tempWeaponCard.weaponData); //removes card from list
+    //            objectList.Add(tempWeaponCard.gameObject); //adds card to list
+    //            tempWeaponCard.equipButton.SetActive(true); //enables button
+    //            break;
+    //        case lootTy.Ultimate:
+    //            UltimateData ultimateCard = Instantiate(ultimateTopDeck); //instantiates instance of scriptable object
+    //UltimateCard tempUltimateCard = Instantiate(ultimateCardTemplate); //instantiates an instance of the card prefab
+    //tempUltimateCard.transform.SetParent(spawnTransform, false); //moves card onto board
+    //            tempUltimateCard.ultimateData = ultimateCard; //assigns the instance of the scriptable object to the instance of the prefab
+    //            dataList.Remove(tempUltimateCard.ultimateData); //removes card from list
+    //            objectList.Add(tempUltimateCard.gameObject); //adds card to list
+    //            tempUltimateCard.equipButton.SetActive(true); //enables button
+    //            break;
+    //        case lootTy.Armour:
+    //            ArmourData armourCard = Instantiate(armourTopDeck); //instantiates instance of scriptable object
+    //ArmourCard tempArmourCard = Instantiate(armourCardTemplate); //instantiates an instance of the card prefab
+    //tempArmourCard.transform.SetParent(spawnTransform, false); //moves card onto board
+    //            tempArmourCard.armourData = armourCard; //assigns the instance of the scriptable object to the instance of the prefab
+    //            dataList.Remove(tempArmourCard.armourData); //removes card from list
+    //            objectList.Add(tempArmourCard.gameObject); //adds card to list
+    //            tempArmourCard.equipButton.SetActive(true); //enables button
+    //            break;
+    //        default:
+    //            print("Default loot type");
+    //            break;
+    //    }
+    //}
 
     public void EquipWeapon(GameObject playedCard)
     {
         if (playedCard.transform.parent == lootChestTransform)
         {
-            if (backPack.Count >= 2)
+            if ((backPackWeapons.Count + backPackUltimates.Count + backPackArmour.Count) >= 2)
             {
                 print("Backpack full");
             }
             else
             {
                 playedCard.transform.SetParent(backpackTransform.transform, false); //moves the card to the zone
-                backPack.Add(playedCard); //adds to list
+                backPackWeapons.Add(playedCard); //adds to list
                 lootChest.Remove(playedCard); //removes from list
             }
         }
         else
         {
             playedCard.transform.SetParent(lootChestTransform.transform, false); //moves the card to the zone
-            backPack.Remove(playedCard); //removes from list
+            backPackWeapons.Remove(playedCard); //removes from list
+            lootChest.Add(playedCard); //adds to list
+        }
+    }
+
+    public void EquipUltimate(GameObject playedCard)
+    {
+        if (playedCard.transform.parent == lootChestTransform)
+        {
+            if ((backPackWeapons.Count + backPackUltimates.Count + backPackArmour.Count) >= 2)
+            {
+                print("Backpack full");
+            }
+            else
+            {
+                playedCard.transform.SetParent(backpackTransform.transform, false); //moves the card to the zone
+                backPackUltimates.Add(playedCard); //adds to list
+                lootChest.Remove(playedCard); //removes from list
+            }
+        }
+        else
+        {
+            playedCard.transform.SetParent(lootChestTransform.transform, false); //moves the card to the zone
+            backPackUltimates.Remove(playedCard); //removes from list
+            lootChest.Add(playedCard); //adds to list
+        }
+    }
+
+    public void EquipArmour(GameObject playedCard)
+    {
+        if (playedCard.transform.parent == lootChestTransform)
+        {
+            if ((backPackWeapons.Count + backPackUltimates.Count + backPackArmour.Count) >= 2)
+            {
+                print("Backpack full");
+            }
+            else
+            {
+                playedCard.transform.SetParent(backpackTransform.transform, false); //moves the card to the zone
+                backPackArmour.Add(playedCard); //adds to list
+                lootChest.Remove(playedCard); //removes from list
+            }
+        }
+        else
+        {
+            playedCard.transform.SetParent(lootChestTransform.transform, false); //moves the card to the zone
+            backPackArmour.Remove(playedCard); //removes from list
             lootChest.Add(playedCard); //adds to list
         }
     }
@@ -700,40 +822,40 @@ public class GameController : MonoBehaviour {
 
     public void SaveBackpack()
     {
-        textEquippedWeapons.Clear(); //clears list before saving
-        foreach (GameObject weapon in equippedWeaponObj) //loops through equipped weapons
+        textBackpackWeapons.Clear(); //clears list before saving
+        foreach (GameObject weapon in backPackWeapons) //loops through equipped weapons
         {
-            textEquippedWeapons.Add(weapon.name.ToString()); //Converts weapondata to string
+            textBackpackWeapons.Add(weapon.name.ToString()); //Converts weapondata to string
         }
 
-        textEquippedUltimate.Clear(); //clears list before saving
-        foreach (GameObject ultimate in equippedUltimateObj) //loops through equipped weapons
+        textBackpackUltimate.Clear(); //clears list before saving
+        foreach (GameObject ultimate in backPackUltimates) //loops through equipped weapons
         {
-            textEquippedUltimate.Add(ultimate.name.ToString()); //Converts weapondata to string
+            textBackpackUltimate.Add(ultimate.name.ToString()); //Converts weapondata to string
         }
 
-        textEquippedArmour.Clear(); //clears list before saving
-        foreach (GameObject armour in equippedArmourObj) //loops through equipped weapons
+        textBackpackArmour.Clear(); //clears list before saving
+        foreach (GameObject armour in backPackArmour) //loops through equipped weapons
         {
-            textEquippedArmour.Add(armour.name.ToString()); //Converts weapondata to string
+            textBackpackArmour.Add(armour.name.ToString()); //Converts weapondata to string
         }
 
         FileStream weaponFile = new FileStream("BackpackWeapons.dat", FileMode.Create);
         var bf = new BinaryFormatter();
-        bf.Serialize(weaponFile, textEquippedWeapons);
+        bf.Serialize(weaponFile, textBackpackWeapons);
         weaponFile.Close();
 
         FileStream ultimateFile = new FileStream("BackpackUltimates.dat", FileMode.Create);
-        bf.Serialize(ultimateFile, textEquippedUltimate);
+        bf.Serialize(ultimateFile, textBackpackUltimate);
         ultimateFile.Close();
 
         FileStream armourFile = new FileStream("BackpackArmour.dat", FileMode.Create);
-        bf.Serialize(armourFile, textEquippedArmour);
+        bf.Serialize(armourFile, textBackpackArmour);
         armourFile.Close();
 
         print("saved");
 
-        SceneManager.LoadScene("MenuScene");
+        //SceneManager.LoadScene("MenuScene");
     }
 
     void LoadEquipment()

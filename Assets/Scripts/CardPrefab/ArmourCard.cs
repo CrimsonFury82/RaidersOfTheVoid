@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class ArmourCard : BaseCard
 {
+    public GameController gameController;
+
     public InventoryController inventoryController;
 
     public ArmourData armourData;
@@ -15,6 +17,7 @@ public class ArmourCard : BaseCard
 
     private void Start()
     {
+        gameController = (GameController)FindObjectOfType(typeof(GameController)); //finds the gamecontroller
         inventoryController = (InventoryController)FindObjectOfType(typeof(InventoryController)); //finds the inventorycontroller
         UIArmourCard();
     }
@@ -26,6 +29,14 @@ public class ArmourCard : BaseCard
 
     public void EquipClickedGear() //calls function in inventorycontroller
     {
-        inventoryController.EquipArmour(this.gameObject);
+
+        if (gameController != null)
+        {
+            gameController.EquipArmour(this.gameObject); //puts in backpack in game scene
+        }
+        else
+        {
+            inventoryController.EquipArmour(this.gameObject); //equips in inventory scene
+        }
     }
 }

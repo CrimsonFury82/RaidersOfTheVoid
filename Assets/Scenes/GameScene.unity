@@ -2089,7 +2089,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1623185360}
-        m_MethodName: SaveGame
+        m_MethodName: SaveBackpack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2354,7 +2354,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &776772328
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4235,15 +4235,18 @@ MonoBehaviour:
   armourTransform: {fileID: 1384792240}
   lootChestTransform: {fileID: 780869511}
   backpackTransform: {fileID: 1025141}
+  mixedLoot1:
+  - {fileID: 11400000, guid: 99ca836159ce48248893373982cd461a, type: 2}
+  - {fileID: 11400000, guid: 181c747c49fb38549a536d9942c5f2f8, type: 2}
+  - {fileID: 11400000, guid: 4f8a7b06402e3bb4fb667f180baa143c, type: 2}
   weaponLoot1:
   - {fileID: 11400000, guid: ca0dd02dced648e42920c9f645d2ca22, type: 2}
   - {fileID: 11400000, guid: 31b6732bc03d5a04ba20b790295b71ca, type: 2}
   - {fileID: 11400000, guid: 67062e3df4a2a2042a9221d25c805c90, type: 2}
   - {fileID: 11400000, guid: c26d1f1cd167b4c48b529baeebe0bb08, type: 2}
-  relicLoot1:
-  - {fileID: 11400000, guid: fd8bbaf899aac274a8b75a7ae4d2b5e9, type: 2}
-  - {fileID: 11400000, guid: 88eadd8a85349b74a87969e4c618d0ba, type: 2}
-  - {fileID: 11400000, guid: b8edf7f1b2d0e8c4cbd5d2cacb6867c5, type: 2}
+  ultimateLoot1:
+  - {fileID: 11400000, guid: 2423b70f0e6af7842b157d0fc28e5032, type: 2}
+  - {fileID: 11400000, guid: 784a8a186e722b04f9621a25500585d6, type: 2}
   armourLoot1:
   - {fileID: 11400000, guid: 2bba0fcc49769324cb1192213cd414b8, type: 2}
   - {fileID: 11400000, guid: 6e7b548cef771354aaa3176066862a48, type: 2}
@@ -4325,6 +4328,9 @@ MonoBehaviour:
   textEquippedWeapons: []
   textEquippedUltimate: []
   textEquippedArmour: []
+  textBackpackWeapons: []
+  textBackpackUltimate: []
+  textBackpackArmour: []
   equippedWeaponObj: []
   equippedUltimateObj: []
   equippedArmourObj: []
@@ -5238,7 +5244,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2070231900
 RectTransform:
   m_ObjectHideFlags: 0
