@@ -176,19 +176,6 @@ public class InventoryController : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if(Input.GetKeyDown("s"))
-        {
-            SaveEquipped();
-        }
-
-        if (Input.GetKeyDown("l"))
-        {
-            LoadEquipped();
-        }
-    }
-
     public void SaveEquipped()
     {
         textEquippedWeapons.Clear(); //clears list before saving
@@ -224,7 +211,7 @@ public class InventoryController : MonoBehaviour
 
         print("saved");
 
-        //SceneManager.LoadScene("MenuScene");
+        SceneManager.LoadScene("MenuScene");
     }
 
     public void LoadEquipped()
@@ -262,15 +249,11 @@ public class InventoryController : MonoBehaviour
             }
         }
 
-        //print(textEquippedWeapons.Count);
-
         foreach (string weaponName in textEquippedWeapons)
         {
-            //print("test");
             GameObject weaponValue;
             if (weaponObjDictionary.TryGetValue(weaponName, out weaponValue))
             {
-                //print(weaponValue);
                 EquipWeapon(weaponValue);
             }
         }

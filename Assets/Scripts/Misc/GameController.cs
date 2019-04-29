@@ -5,6 +5,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 //Script written by Aston Olsen
 
@@ -41,7 +42,6 @@ public class GameController : MonoBehaviour {
     public Transform enemyTransform, heroTransform, ultimateTransform, weaponTransform, armourTransform, lootChestTransform, backpackTransform;
 
     //Deck lists
-    public List<BaseData> mixedLoot1;
     public List<WeaponData> weaponLoot1; //, weaponLoot2, weaponLoot3;
     public List<UltimateData> ultimateLoot1; //, relicLoot2, relicLoot3;
     public List<ArmourData> armourLoot1; //, armourLoot2, armourLoot3;
@@ -55,7 +55,7 @@ public class GameController : MonoBehaviour {
     public List<UltimateData> allUltimates;
     public List<ArmourData> allArmour;
 
-    public List<string> textEquippedWeapons, textEquippedUltimate, textEquippedArmour, textBackpackWeapons, textBackpackUltimate, textBackpackArmour;
+    public List<string> textEquippedWeapons, textEquippedUltimate, textEquippedArmour, textBackpackWeapons, textBackpackUltimate, textBackpackArmour, textRemainingWeapons, textRemainingUltimates, textRemainingArmour;
 
     //Lists of card prefabs on the board
     public List<GameObject> equippedWeaponObj, equippedUltimateObj, equippedArmourObj, equippedCreaturesObj, equippedHeroObj, lootChest, backPackWeapons, backPackUltimates, backPackArmour;
@@ -323,6 +323,7 @@ public class GameController : MonoBehaviour {
         equippedHero.Remove(heroTopDeck);
         equippedHeroObj.Add(tempCard.gameObject); //adds card to live list
         defHero = equippedHeroObj[0].GetComponent<HeroCard>();
+        //print(currentArmour);
         defHero.heroCardData.armour = currentArmour.armourData.hp;
         heroMaxHP = defHero.heroCardData.hp;
         defHero.heroCardData.artSprite = currentArmour.armourData.artSprite;
@@ -380,15 +381,12 @@ public class GameController : MonoBehaviour {
 
     public void DropLoot()
     {
-        if (mixedLoot1.Count > 0)
-        {
-            lootDropObj.SetActive(true); //enables menu
-            menuToggle.isOn = !menuToggle.isOn; //toggles menu on
-            lootCounter = lootDrop; //resets lootdrop counter
-            DealWeaponLoot(lootChestTransform, weaponLoot1, lootChest); //deals card to lootdrop zone
-            DealUltimateLoot(lootChestTransform, ultimateLoot1, lootChest); //deals card to lootdrop zone
-            DealArmourLoot(lootChestTransform, armourLoot1, lootChest); //deals card to lootdrop zone
-        }
+        lootDropObj.SetActive(true); //enables menu
+        menuToggle.isOn = !menuToggle.isOn; //toggles menu on
+        lootCounter = lootDrop; //resets lootdrop counter
+        DealWeaponLoot(lootChestTransform, weaponLoot1, lootChest); //deals card to lootdrop zone
+        DealUltimateLoot(lootChestTransform, ultimateLoot1, lootChest); //deals card to lootdrop zone
+        DealArmourLoot(lootChestTransform, armourLoot1, lootChest); //deals card to lootdrop zone
     }
 
     public void DealWeaponLoot(Transform spawnTransform, List<WeaponData> dataList, List<GameObject> objectList) //Deals one weapon card
@@ -823,21 +821,39 @@ public class GameController : MonoBehaviour {
     public void SaveBackpack()
     {
         textBackpackWeapons.Clear(); //clears list before saving
-        foreach (GameObject weapon in backPackWeapons) //loops through equipped weapons
+        foreach (GameObject weapon in backPackWeapons) 
         {
-            textBackpackWeapons.Add(weapon.name.ToString()); //Converts weapondata to string
+            textBackpackWeapons.Add(weapon.name.ToString()); //Converts data to string
         }
 
         textBackpackUltimate.Clear(); //clears list before saving
-        foreach (GameObject ultimate in backPackUltimates) //loops through equipped weapons
+        foreach (GameObject ultimate in backPackUltimates) 
         {
-            textBackpackUltimate.Add(ultimate.name.ToString()); //Converts weapondata to string
+            textBackpackUltimate.Add(ultimate.name.ToString()); //Converts data to string
         }
 
         textBackpackArmour.Clear(); //clears list before saving
-        foreach (GameObject armour in backPackArmour) //loops through equipped weapons
+        foreach (GameObject armour in backPackArmour)
         {
-            textBackpackArmour.Add(armour.name.ToString()); //Converts weapondata to string
+            textBackpackArmour.Add(armour.name.ToString()); //Converts data to string
+        }
+
+        textRemainingWeapons.Clear(); //clears list before saving
+        foreach (WeaponData weapon in weaponLoot1) 
+        {
+            textRemainingWeapons.Add(weapon.name.ToString()); //Converts data to string
+        }
+
+        textRemainingUltimates.Clear(); //clears list before saving
+        foreach (UltimateData ultimate in ultimateLoot1)
+        {
+            textRemainingUltimates.Add(ultimate.name.ToString()); //Converts data to string
+        }
+
+        textRemainingArmour.Clear(); //clears list before saving
+        foreach (ArmourData armour in armourLoot1) 
+        {
+            textRemainingArmour.Add(armour.name.ToString()); //Converts ndata to string
         }
 
         FileStream weaponFile = new FileStream("BackpackWeapons.dat", FileMode.Create);
@@ -851,6 +867,18 @@ public class GameController : MonoBehaviour {
 
         FileStream armourFile = new FileStream("BackpackArmour.dat", FileMode.Create);
         bf.Serialize(armourFile, textBackpackArmour);
+        armourFile.Close();
+
+        FileStream weaponLootRemainingFile = new FileStream("WeaponsLoot.dat", FileMode.Create);
+        bf.Serialize(weaponLootRemainingFile, textRemainingWeapons);
+        weaponFile.Close();
+
+        FileStream ultimateLootRemianingFile = new FileStream("UltimatesLoot.dat", FileMode.Create);
+        bf.Serialize(ultimateLootRemianingFile, textRemainingUltimates);
+        ultimateFile.Close();
+
+        FileStream armourLootRemainingFile = new FileStream("ArmourLoot.dat", FileMode.Create);
+        bf.Serialize(armourLootRemainingFile, textRemainingArmour);
         armourFile.Close();
 
         print("saved");
@@ -889,7 +917,42 @@ public class GameController : MonoBehaviour {
             textEquippedArmour.Clear(); //clears list before loading
             for (int i = 0; i < tempArmour.Count; i++)
             {
+                //print(tempArmour[i]);
                 textEquippedArmour.Add(tempArmour[i]);
+            }
+        }
+
+        using (FileStream weaponLootRemainingFile = File.Open("WeaponsLoot.dat", FileMode.Open))
+        {
+            var bf = new BinaryFormatter();
+            List<string> tempWeapons = (List<string>)bf.Deserialize(weaponLootRemainingFile);
+            textRemainingWeapons.Clear(); //clears list before loading
+            for (int i = 0; i < tempWeapons.Count; i++)
+            {
+                textRemainingWeapons.Add(tempWeapons[i]);
+            }
+        }
+
+        using (FileStream ultimateLootRemianingFile = File.Open("UltimatesLoot.dat", FileMode.Open))
+        {
+            var bf = new BinaryFormatter();
+            List<string> tempUltimate = (List<string>)bf.Deserialize(ultimateLootRemianingFile);
+            textRemainingUltimates.Clear(); //clears list before loading
+            for (int i = 0; i < tempUltimate.Count; i++)
+            {
+                textRemainingUltimates.Add(tempUltimate[i]);
+            }
+        }
+
+        using (FileStream armourLootRemainingFile = File.Open("ArmourLoot.dat", FileMode.Open))
+        {
+            var bf = new BinaryFormatter();
+            List<string> tempArmour = (List<string>)bf.Deserialize(armourLootRemainingFile);
+            textRemainingArmour.Clear(); //clears list before loading
+            for (int i = 0; i < tempArmour.Count; i++)
+            {
+                //print(tempArmour[i]);
+                textRemainingArmour.Add(tempArmour[i]);
             }
         }
 
@@ -920,6 +983,36 @@ public class GameController : MonoBehaviour {
             if (armourDictionary.TryGetValue(armourName, out armourValue))
             {
                 DealArmour(armourTransform, armourValue, equippedArmourObj);
+            }
+        }
+
+        weaponLoot1.Clear(); //clears list
+        foreach (string weaponName in textRemainingWeapons)
+        {
+            WeaponData weaponValue;
+            if (weaponDictionary.TryGetValue(weaponName, out weaponValue))
+            {
+                weaponLoot1.Add(weaponValue);
+            }
+        }
+        
+        ultimateLoot1.Clear(); //clears list
+        foreach (string ultimateName in textRemainingUltimates)
+        {
+            UltimateData ultimateValue;
+            if (ultimateDictionary.TryGetValue(ultimateName, out ultimateValue))
+            {
+                ultimateLoot1.Add(ultimateValue);
+            }
+        }
+
+        armourLoot1.Clear(); //clears list
+        foreach (string armourName in textRemainingArmour)
+        {
+            ArmourData armourValue;
+            if (armourDictionary.TryGetValue(armourName, out armourValue))
+            {
+                armourLoot1.Add(armourValue);
             }
         }
 

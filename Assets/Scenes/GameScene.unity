@@ -4235,21 +4235,15 @@ MonoBehaviour:
   armourTransform: {fileID: 1384792240}
   lootChestTransform: {fileID: 780869511}
   backpackTransform: {fileID: 1025141}
-  mixedLoot1:
-  - {fileID: 11400000, guid: 99ca836159ce48248893373982cd461a, type: 2}
-  - {fileID: 11400000, guid: 181c747c49fb38549a536d9942c5f2f8, type: 2}
-  - {fileID: 11400000, guid: 4f8a7b06402e3bb4fb667f180baa143c, type: 2}
   weaponLoot1:
-  - {fileID: 11400000, guid: ca0dd02dced648e42920c9f645d2ca22, type: 2}
-  - {fileID: 11400000, guid: 31b6732bc03d5a04ba20b790295b71ca, type: 2}
-  - {fileID: 11400000, guid: 67062e3df4a2a2042a9221d25c805c90, type: 2}
+  - {fileID: 11400000, guid: 413bf293a70c56148921a3f97d182b79, type: 2}
   - {fileID: 11400000, guid: c26d1f1cd167b4c48b529baeebe0bb08, type: 2}
   ultimateLoot1:
-  - {fileID: 11400000, guid: 2423b70f0e6af7842b157d0fc28e5032, type: 2}
-  - {fileID: 11400000, guid: 784a8a186e722b04f9621a25500585d6, type: 2}
+  - {fileID: 11400000, guid: 7f3e900d8a6d27546b3cc23e4c3e3e9e, type: 2}
+  - {fileID: 11400000, guid: 88eadd8a85349b74a87969e4c618d0ba, type: 2}
   armourLoot1:
-  - {fileID: 11400000, guid: 2bba0fcc49769324cb1192213cd414b8, type: 2}
-  - {fileID: 11400000, guid: 6e7b548cef771354aaa3176066862a48, type: 2}
+  - {fileID: 11400000, guid: 4f8a7b06402e3bb4fb667f180baa143c, type: 2}
+  - {fileID: 11400000, guid: 5673d566ca9ea404783cf3274f46ff38, type: 2}
   equippedWeapons:
   - {fileID: 11400000, guid: cbedb8b7b409a6a4ea653fe81f2effe6, type: 2}
   - {fileID: 11400000, guid: 6c32140ad7b4e3249a005a6a253dcc76, type: 2}
@@ -4331,13 +4325,18 @@ MonoBehaviour:
   textBackpackWeapons: []
   textBackpackUltimate: []
   textBackpackArmour: []
+  textRemainingWeapons: []
+  textRemainingUltimates: []
+  textRemainingArmour: []
   equippedWeaponObj: []
   equippedUltimateObj: []
   equippedArmourObj: []
   equippedCreaturesObj: []
   equippedHeroObj: []
   lootChest: []
-  backPack: []
+  backPackWeapons: []
+  backPackUltimates: []
+  backPackArmour: []
   creatureCardTemplate: {fileID: 114737955036837596, guid: aecfe16196e7c394f9e5c6acb11ac9c1,
     type: 3}
   heroCardTemplate: {fileID: 114996385502162220, guid: b822fdea457c3c446a64940425ee6824,
