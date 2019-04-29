@@ -194,7 +194,7 @@ public class GameController : MonoBehaviour {
         if (equippedCreaturesObj.Count == 0 && currentAiDeck.Count == 0) //checks if all enemies have been destroy for victory condition.
         {
             Victory();
-            DropLoot();
+            //DropLoot();
             return;
         }
 
@@ -366,7 +366,7 @@ public class GameController : MonoBehaviour {
         lootCounter--;
         if(lootCounter == 0)
         {
-            DropLoot();   
+            //DropLoot();   
         }
 
         int dealMonsters = 4; //number of monsters to deal
@@ -380,15 +380,15 @@ public class GameController : MonoBehaviour {
         MonstersUpdate();
     }
 
-    public void DropLoot()
-    {
-        lootDropObj.SetActive(true); //enables menu
-        menuToggle.isOn = !menuToggle.isOn; //toggles menu on
-        lootCounter = lootDrop; //resets lootdrop counter
-        DealWeaponLoot(lootChestTransform, weaponLoot1, lootChest); //deals card to lootdrop zone
-        DealUltimateLoot(lootChestTransform, ultimateLoot1, lootChest); //deals card to lootdrop zone
-        DealArmourLoot(lootChestTransform, armourLoot1, lootChest); //deals card to lootdrop zone
-    }
+    //public void DropLoot()
+    //{
+    //    lootDropObj.SetActive(true); //enables menu
+    //    menuToggle.isOn = !menuToggle.isOn; //toggles menu on
+    //    lootCounter = lootDrop; //resets lootdrop counter
+    //    DealWeaponLoot(lootChestTransform, weaponLoot1, lootChest); //deals card to lootdrop zone
+    //    DealUltimateLoot(lootChestTransform, ultimateLoot1, lootChest); //deals card to lootdrop zone
+    //    DealArmourLoot(lootChestTransform, armourLoot1, lootChest); //deals card to lootdrop zone
+    //}
 
     public void DealWeaponLoot(Transform spawnTransform, List<WeaponData> dataList, List<GameObject> objectList) //Deals one weapon card
     {

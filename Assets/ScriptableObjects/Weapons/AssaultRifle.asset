@@ -16,7 +16,8 @@ MonoBehaviour:
   ability1: 
   hp: 0
   artSprite: {fileID: 21300000, guid: fb213a8772b28fe42a474e958ec080e8, type: 3}
-  audio1: {fileID: 0}
+  audio1: {fileID: 8300000, guid: 595e8a624d4408a4da8e249b26c9bd4d, type: 3}
+  audio2: {fileID: 8300000, guid: 97a7341212def884fa3a5e8d72f51637, type: 3}
   dmg: 10
   ap: 5
   range: 4

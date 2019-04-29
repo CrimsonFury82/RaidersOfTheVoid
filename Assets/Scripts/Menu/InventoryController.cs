@@ -245,55 +245,55 @@ public class InventoryController : MonoBehaviour
 
         print("saved equipped");
 
-        backpackToggle.backpackLoaded = true;
+        //backpackToggle.backpackLoaded = true;
     }
 
-    public void LoadBackPack()
-    {
-        //deserializes backpack items from .dat files to list of strings
+    //public void LoadBackPack()
+    //{
+    //    //deserializes backpack items from .dat files to list of strings
 
-        using (FileStream weaponFile = File.Open("BackpackWeapons.dat", FileMode.Open))
-        {
-            var bf = new BinaryFormatter();
-            textInventoryWeapons.Clear();
-            List<string> tempWeapons = (List<string>)bf.Deserialize(weaponFile);
-            for (int i = 0; i < tempWeapons.Count; i++)
-            {
-                textInventoryWeapons.Add(tempWeapons[i]);
-            }
-        }
+    //    using (FileStream weaponFile = File.Open("BackpackWeapons.dat", FileMode.Open))
+    //    {
+    //        var bf = new BinaryFormatter();
+    //        textInventoryWeapons.Clear();
+    //        List<string> tempWeapons = (List<string>)bf.Deserialize(weaponFile);
+    //        for (int i = 0; i < tempWeapons.Count; i++)
+    //        {
+    //            textInventoryWeapons.Add(tempWeapons[i]);
+    //        }
+    //    }
 
-        using (FileStream ultimateFile = File.Open("BackpackUltimates.dat", FileMode.Open))
-        {
-            var bf = new BinaryFormatter();
-            textInventoryUltimates.Clear();
-            List<string> tempUltimate = (List<string>)bf.Deserialize(ultimateFile);
-            for (int i = 0; i < tempUltimate.Count; i++)
-            {
-                textInventoryUltimates.Add(tempUltimate[i]);
-            }
-        }
+    //    using (FileStream ultimateFile = File.Open("BackpackUltimates.dat", FileMode.Open))
+    //    {
+    //        var bf = new BinaryFormatter();
+    //        textInventoryUltimates.Clear();
+    //        List<string> tempUltimate = (List<string>)bf.Deserialize(ultimateFile);
+    //        for (int i = 0; i < tempUltimate.Count; i++)
+    //        {
+    //            textInventoryUltimates.Add(tempUltimate[i]);
+    //        }
+    //    }
 
-        using (FileStream armourFile = File.Open("BackpackArmour.dat", FileMode.Open))
-        {
-            var bf = new BinaryFormatter();
-            textInventoryArmour.Clear();
-            List<string> tempArmour = (List<string>)bf.Deserialize(armourFile);
-            for (int i = 0; i < tempArmour.Count; i++)
-            {
-                textInventoryArmour.Add(tempArmour[i]);
-            }
-        }
-    }
+    //    using (FileStream armourFile = File.Open("BackpackArmour.dat", FileMode.Open))
+    //    {
+    //        var bf = new BinaryFormatter();
+    //        textInventoryArmour.Clear();
+    //        List<string> tempArmour = (List<string>)bf.Deserialize(armourFile);
+    //        for (int i = 0; i < tempArmour.Count; i++)
+    //        {
+    //            textInventoryArmour.Add(tempArmour[i]);
+    //        }
+    //    }
+    //}
 
     public void LoadInventory()
     {
-        if(backpackToggle.backpackLoaded == false)
-        {
-            LoadBackPack();
-            print("loaded backpack");
-            backpackToggle.backpackLoaded = true;
-        }
+        //if(backpackToggle.backpackLoaded == false)
+        //{
+        //    LoadBackPack();
+        //    print("loaded backpack");
+        //    backpackToggle.backpackLoaded = true;
+        //}
 
         //deserializes inventory items
 

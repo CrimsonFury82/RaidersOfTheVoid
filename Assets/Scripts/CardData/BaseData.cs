@@ -17,7 +17,7 @@ public class BaseData : ScriptableObject
     public Sprite artSprite;
 
     [SerializeField]
-    public AudioClip audio1;
+    public AudioClip audio1, audio2;
 
     [SerializeField]
     public virtual void BaseCardUpdate(Text cardNameText, Text ability1Text, Text hpText, Image artImage)

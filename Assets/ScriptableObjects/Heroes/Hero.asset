@@ -16,5 +16,6 @@ MonoBehaviour:
   ability1: 
   hp: 40
   artSprite: {fileID: 21300000, guid: 6fa9512ebe1622b4ea2d7ec5fb6d4e27, type: 3}
-  audio1: {fileID: 0}
+  audio1: {fileID: 8300000, guid: feb7e6b4e9a33d042a608135995835ed, type: 3}
+  audio2: {fileID: 0}
   armour: 3

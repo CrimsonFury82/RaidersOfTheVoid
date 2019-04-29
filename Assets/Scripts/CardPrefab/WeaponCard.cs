@@ -11,6 +11,8 @@ public class WeaponCard : BaseCard
 
     public InventoryController inventoryController;
 
+    AudioSource audioSource;
+
     public WeaponData weaponData;
 
     public GameObject useButton, equipButton;
@@ -19,6 +21,7 @@ public class WeaponCard : BaseCard
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         gameController = (GameController)FindObjectOfType(typeof(GameController)); //finds the gamecontroller
         inventoryController = (InventoryController)FindObjectOfType(typeof(InventoryController)); //finds the inventorycontroller
         UIWeaponCard(dmgText, apText, rangeText);
@@ -47,5 +50,12 @@ public class WeaponCard : BaseCard
         {
             inventoryController.EquipWeapon(this.gameObject); //equips in inventory scene
         }
+    }
+
+    public void PlaySound() //plays audio clip once
+    {
+        audioSource = GetComponent<AudioSource>();
+        AudioClip attackSound = weaponData.audio1;
+        audioSource.PlayOneShot(attackSound);
     }
 }
