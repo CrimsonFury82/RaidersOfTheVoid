@@ -11,6 +11,8 @@ public class InventoryController : MonoBehaviour
     //Board zones for each group of cards
     public Transform relicTransform, weaponTransform, armourTransform, ultimateInvTransform, weaponInvTransform, armourInvTransform;
 
+    public backpackToggle backpackToggle;
+
     //Inventory lists
     public List<WeaponData> allWeapons, startingWeapons;
     public List<UltimateData> allUltimates, startingUltimates;
@@ -36,6 +38,7 @@ public class InventoryController : MonoBehaviour
 
     void Start()
     {
+        //backpackToggle.backpackLoaded = true;
         GameObject controller = GameObject.FindGameObjectWithTag("MenuMusic");
         if (controller != null)
         {
@@ -176,10 +179,19 @@ public class InventoryController : MonoBehaviour
         }
     }
 
-    public void SaveEquipped()
+    public void SaveInvAndExit()
     {
+        SaveInventory();
+        SaveEquipped();
+        SceneManager.LoadScene("MenuScene");
+    }
+
+    public void SaveInventory()
+    {
+        //saves list of gameobject names as a list of strings
+
         textEquippedWeapons.Clear(); //clears list before saving
-        foreach(GameObject weapon in equippedWeaponObj) //loops through equipped weapons
+        foreach (GameObject weapon in equippedWeaponObj) //loops through equipped weapons
         {
             textEquippedWeapons.Add(weapon.name.ToString()); //Converts weapondata to string
         }
@@ -196,6 +208,28 @@ public class InventoryController : MonoBehaviour
             textEquippedArmour.Add(armour.name.ToString()); //Converts weapondata to string
         }
 
+        //serializes list of strings to .dat files
+
+        FileStream invWeaponFile = new FileStream("InvWeapons.dat", FileMode.Create);
+        var bf = new BinaryFormatter();
+        bf.Serialize(invWeaponFile, textInventoryWeapons);
+        invWeaponFile.Close();
+
+        FileStream invUltimateFile = new FileStream("InvUltimate.dat", FileMode.Create);
+        bf.Serialize(invUltimateFile, textInventoryUltimates);
+        invUltimateFile.Close();
+
+        FileStream invArmourFile = new FileStream("InvArmour.dat", FileMode.Create);
+        bf.Serialize(invArmourFile, textInventoryArmour);
+        invArmourFile.Close();
+
+        print("saved inventory");
+    }
+
+    public void SaveEquipped()
+    {
+        //serializes list of strings to .dat files
+
         FileStream weaponFile = new FileStream("EquippedWeapons.dat", FileMode.Create);
         var bf = new BinaryFormatter();
         bf.Serialize(weaponFile, textEquippedWeapons);
@@ -209,9 +243,121 @@ public class InventoryController : MonoBehaviour
         bf.Serialize(armourFile, textEquippedArmour);
         armourFile.Close();
 
-        print("saved");
+        print("saved equipped");
 
-        SceneManager.LoadScene("MenuScene");
+        backpackToggle.backpackLoaded = true;
+    }
+
+    public void LoadBackPack()
+    {
+        //deserializes backpack items from .dat files to list of strings
+
+        using (FileStream weaponFile = File.Open("BackpackWeapons.dat", FileMode.Open))
+        {
+            var bf = new BinaryFormatter();
+            textInventoryWeapons.Clear();
+            List<string> tempWeapons = (List<string>)bf.Deserialize(weaponFile);
+            for (int i = 0; i < tempWeapons.Count; i++)
+            {
+                textInventoryWeapons.Add(tempWeapons[i]);
+            }
+        }
+
+        using (FileStream ultimateFile = File.Open("BackpackUltimates.dat", FileMode.Open))
+        {
+            var bf = new BinaryFormatter();
+            textInventoryUltimates.Clear();
+            List<string> tempUltimate = (List<string>)bf.Deserialize(ultimateFile);
+            for (int i = 0; i < tempUltimate.Count; i++)
+            {
+                textInventoryUltimates.Add(tempUltimate[i]);
+            }
+        }
+
+        using (FileStream armourFile = File.Open("BackpackArmour.dat", FileMode.Open))
+        {
+            var bf = new BinaryFormatter();
+            textInventoryArmour.Clear();
+            List<string> tempArmour = (List<string>)bf.Deserialize(armourFile);
+            for (int i = 0; i < tempArmour.Count; i++)
+            {
+                textInventoryArmour.Add(tempArmour[i]);
+            }
+        }
+    }
+
+    public void LoadInventory()
+    {
+        if(backpackToggle.backpackLoaded == false)
+        {
+            LoadBackPack();
+            print("loaded backpack");
+            backpackToggle.backpackLoaded = true;
+        }
+
+        //deserializes inventory items
+
+        using (FileStream invWeaponFile = File.Open("InvWeapons.dat", FileMode.Open))
+        {
+            var bf = new BinaryFormatter();
+            List<string> tempWeapons = (List<string>)bf.Deserialize(invWeaponFile);
+            for (int i = 0; i < tempWeapons.Count; i++)
+            {
+                textInventoryWeapons.Add(tempWeapons[i]);
+            }
+        }
+
+        using (FileStream invUltimateFile = File.Open("InvUltimate.dat", FileMode.Open))
+        {
+            var bf = new BinaryFormatter();
+            List<string> tempUltimate = (List<string>)bf.Deserialize(invUltimateFile);
+            for (int i = 0; i < tempUltimate.Count; i++)
+            {
+                textInventoryUltimates.Add(tempUltimate[i]);
+            }
+        }
+
+        using (FileStream invArmourFile = File.Open("InvArmour.dat", FileMode.Open))
+        {
+            var bf = new BinaryFormatter();
+            List<string> tempArmour = (List<string>)bf.Deserialize(invArmourFile);
+            for (int i = 0; i < tempArmour.Count; i++)
+            {
+                textInventoryArmour.Add(tempArmour[i]);
+            }
+        }
+
+        //uses dictionary to compare list of strings with data and populate lists of data
+
+        foreach (string weaponName in textInventoryWeapons)
+        {
+            WeaponData weaponValue;
+            if (weaponDataDictionary.TryGetValue(weaponName, out weaponValue))
+            {
+                DealWeapon(weaponInvTransform, invWeapons, weaponValue);
+            }
+        }
+
+        foreach (string ultimateName in textInventoryUltimates)
+        {
+            UltimateData UltimateValue;
+            if (ultimateDataDictionary.TryGetValue(ultimateName, out UltimateValue))
+            {
+                DealUltimate(ultimateInvTransform, invUltimates, UltimateValue);
+            }
+        }
+
+        foreach (string armourName in textInventoryArmour)
+        {
+            ArmourData armourValue;
+            if (armourDataDictionary.TryGetValue(armourName, out armourValue))
+            {
+                DealArmour(armourInvTransform, invArmour, armourValue);
+            }
+        }
+        print("Loaded inventory");
+
+        //SaveInventory();
     }
 
     public void LoadEquipped()
@@ -276,70 +422,6 @@ public class InventoryController : MonoBehaviour
             }
         }
         print("Loaded Equipped");
-    }
-
-    public void LoadInventory()
-    {
-        using (FileStream weaponFile = File.Open("BackpackWeapons.dat", FileMode.Open))
-        {
-            var bf = new BinaryFormatter();
-            List<string> tempWeapons = (List<string>)bf.Deserialize(weaponFile);
-            textEquippedWeapons.Clear(); //clears list before loading
-            for (int i = 0; i < tempWeapons.Count; i++)
-            {
-                textInventoryWeapons.Add(tempWeapons[i]);
-            }
-        }
-
-        using (FileStream ultimateFile = File.Open("BackpackUltimates.dat", FileMode.Open))
-        {
-            var bf = new BinaryFormatter();
-            List<string> tempUltimate = (List<string>)bf.Deserialize(ultimateFile);
-            textEquippedUltimate.Clear(); //clears list before loading
-            for (int i = 0; i < tempUltimate.Count; i++)
-            {
-                textInventoryUltimates.Add(tempUltimate[i]);
-            }
-        }
-
-        using (FileStream armourFile = File.Open("BackpackArmour.dat", FileMode.Open))
-        {
-            var bf = new BinaryFormatter();
-            List<string> tempArmour = (List<string>)bf.Deserialize(armourFile);
-            textEquippedArmour.Clear(); //clears list before loading
-            for (int i = 0; i < tempArmour.Count; i++)
-            {
-                textInventoryArmour.Add(tempArmour[i]);
-            }
-        }
-
-        foreach (string weaponName in textInventoryWeapons)
-        {
-            WeaponData weaponValue;
-            if (weaponDataDictionary.TryGetValue(weaponName, out weaponValue))
-            {
-                DealWeapon(weaponInvTransform, invWeapons, weaponValue);
-            }
-        }
-
-        foreach (string ultimateName in textInventoryUltimates)
-        {
-            UltimateData UltimateValue;
-            if (ultimateDataDictionary.TryGetValue(ultimateName, out UltimateValue))
-            {
-                DealUltimate(ultimateInvTransform, invUltimates, UltimateValue);
-            }
-        }
-
-        foreach (string armourName in textInventoryArmour)
-        {
-            ArmourData armourValue;
-            if (armourDataDictionary.TryGetValue(armourName, out armourValue))
-            {
-                DealArmour(armourInvTransform, invArmour, armourValue);
-            }
-        }
-        print("Loaded inventory");
     }
 
     void CreateDataDictionaries()

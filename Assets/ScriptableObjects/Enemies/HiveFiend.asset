@@ -15,6 +15,6 @@ MonoBehaviour:
   cardName: Hive Fiend
   ability1: 
   hp: 10
-  artSprite: {fileID: 0}
+  artSprite: {fileID: 21300000, guid: 0c1d7d9f681ffc24d92c949dff770c7b, type: 3}
   audio1: {fileID: 0}
   dmg: 10

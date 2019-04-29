@@ -18,6 +18,8 @@ public class GameController : MonoBehaviour {
     public enum lootTy {Weapon, Ultimate, Armour } //List of states
     string dataType;
 
+    public backpackToggle backpackToggle;
+
     bool ultimateUsed;
 
     public Text apText, monstersText, turnText, gameoverText, ultimateText; //UI text
@@ -42,9 +44,9 @@ public class GameController : MonoBehaviour {
     public Transform enemyTransform, heroTransform, ultimateTransform, weaponTransform, armourTransform, lootChestTransform, backpackTransform;
 
     //Deck lists
-    public List<WeaponData> weaponLoot1; //, weaponLoot2, weaponLoot3;
-    public List<UltimateData> ultimateLoot1; //, relicLoot2, relicLoot3;
-    public List<ArmourData> armourLoot1; //, armourLoot2, armourLoot3;
+    public List<WeaponData> weaponLoot1;
+    public List<UltimateData> ultimateLoot1;
+    public List<ArmourData> armourLoot1;
     public List<WeaponData> equippedWeapons; 
     public List<UltimateData> equippedUltimate;
     public List<ArmourData> equippedArmour;
@@ -323,7 +325,6 @@ public class GameController : MonoBehaviour {
         equippedHero.Remove(heroTopDeck);
         equippedHeroObj.Add(tempCard.gameObject); //adds card to live list
         defHero = equippedHeroObj[0].GetComponent<HeroCard>();
-        //print(currentArmour);
         defHero.heroCardData.armour = currentArmour.armourData.hp;
         heroMaxHP = defHero.heroCardData.hp;
         defHero.heroCardData.artSprite = currentArmour.armourData.artSprite;
@@ -404,7 +405,7 @@ public class GameController : MonoBehaviour {
         WeaponCard tempCard = Instantiate(weaponCardTemplate); //instantiates an instance of the card prefab
         tempCard.transform.SetParent(spawnTransform, false); //moves card onto board
         tempCard.weaponData = card; //assigns the instance of the scriptable object to the instance of the prefab
-        dataList.Remove(weaponTopDeck); //removes card from list
+        //dataList.Remove(weaponTopDeck); //removes card from list
         objectList.Add(tempCard.gameObject); //adds card to list
         tempCard.equipButton.SetActive(true); //enables button
         tempCard.name = tempCard.weaponData.name.Replace("(Clone)", "").ToString();
@@ -425,7 +426,7 @@ public class GameController : MonoBehaviour {
         UltimateCard tempCard = Instantiate(ultimateCardTemplate); //instantiates an instance of the card prefab
         tempCard.transform.SetParent(spawnTransform, false); //moves card onto board
         tempCard.ultimateData = card; //assigns the instance of the scriptable object to the instance of the prefab
-        dataList.Remove(ultimateTopDeck); //removes card from list
+        //dataList.Remove(ultimateTopDeck); //removes card from list
         objectList.Add(tempCard.gameObject); //adds card to list
         tempCard.equipButton.SetActive(true); //enables button
         tempCard.name = tempCard.ultimateData.name.Replace("(Clone)", "").ToString();
@@ -446,57 +447,11 @@ public class GameController : MonoBehaviour {
         ArmourCard tempCard = Instantiate(armourCardTemplate); //instantiates an instance of the card prefab
         tempCard.transform.SetParent(spawnTransform, false); //moves card onto board
         tempCard.armourData = card; //assigns the instance of the scriptable object to the instance of the prefab
-        dataList.Remove(armourTopDeck); //removes card from list
+        //dataList.Remove(armourTopDeck); //removes card from list
         objectList.Add(tempCard.gameObject); //adds card to list
         tempCard.equipButton.SetActive(true); //enables button
         tempCard.name = tempCard.armourData.name.Replace("(Clone)", "").ToString();
     }
-
-    //public int rng;
-
-    //public void SpawnMixedLoot(Transform spawnTransform, List<BaseData> dataList, List<GameObject> objectList) //case switches for phase states
-    //{
-
-    //    if (dataList.Count > 0)
-    //    {
-    //        rng = UnityEngine.Random.Range(0, dataList.Count); //randomly select a card
-    //    }
-
-    //    switch (lootType)
-    //    {
-    //        case lootTy.Weapon:
-    //            weaponTopDeck = mixedLoot1[0];
-    //            WeaponData weaponCard = Instantiate(weaponTopDeck); //instantiates instance of scriptable object
-    //WeaponCard tempWeaponCard = Instantiate(weaponCardTemplate); //instantiates an instance of the card prefab
-    //tempWeaponCard.transform.SetParent(spawnTransform, false); //moves card onto board
-    //            tempWeaponCard.weaponData = weaponCard; //assigns the instance of the scriptable object to the instance of the prefab
-    //            dataList.Remove(tempWeaponCard.weaponData); //removes card from list
-    //            objectList.Add(tempWeaponCard.gameObject); //adds card to list
-    //            tempWeaponCard.equipButton.SetActive(true); //enables button
-    //            break;
-    //        case lootTy.Ultimate:
-    //            UltimateData ultimateCard = Instantiate(ultimateTopDeck); //instantiates instance of scriptable object
-    //UltimateCard tempUltimateCard = Instantiate(ultimateCardTemplate); //instantiates an instance of the card prefab
-    //tempUltimateCard.transform.SetParent(spawnTransform, false); //moves card onto board
-    //            tempUltimateCard.ultimateData = ultimateCard; //assigns the instance of the scriptable object to the instance of the prefab
-    //            dataList.Remove(tempUltimateCard.ultimateData); //removes card from list
-    //            objectList.Add(tempUltimateCard.gameObject); //adds card to list
-    //            tempUltimateCard.equipButton.SetActive(true); //enables button
-    //            break;
-    //        case lootTy.Armour:
-    //            ArmourData armourCard = Instantiate(armourTopDeck); //instantiates instance of scriptable object
-    //ArmourCard tempArmourCard = Instantiate(armourCardTemplate); //instantiates an instance of the card prefab
-    //tempArmourCard.transform.SetParent(spawnTransform, false); //moves card onto board
-    //            tempArmourCard.armourData = armourCard; //assigns the instance of the scriptable object to the instance of the prefab
-    //            dataList.Remove(tempArmourCard.armourData); //removes card from list
-    //            objectList.Add(tempArmourCard.gameObject); //adds card to list
-    //            tempArmourCard.equipButton.SetActive(true); //enables button
-    //            break;
-    //        default:
-    //            print("Default loot type");
-    //            break;
-    //    }
-    //}
 
     public void EquipWeapon(GameObject playedCard)
     {
@@ -820,23 +775,33 @@ public class GameController : MonoBehaviour {
 
     public void SaveBackpack()
     {
+        //saves backpack items to list of strings
+
         textBackpackWeapons.Clear(); //clears list before saving
         foreach (GameObject weapon in backPackWeapons) 
         {
+            WeaponCard tempWeapon = weapon.GetComponent<WeaponCard>();
+            weaponLoot1.Remove(tempWeapon.weaponData);
             textBackpackWeapons.Add(weapon.name.ToString()); //Converts data to string
         }
 
         textBackpackUltimate.Clear(); //clears list before saving
         foreach (GameObject ultimate in backPackUltimates) 
         {
+            UltimateCard tempUltimate = ultimate.GetComponent<UltimateCard>();
+            ultimateLoot1.Remove(tempUltimate.ultimateData);
             textBackpackUltimate.Add(ultimate.name.ToString()); //Converts data to string
         }
 
         textBackpackArmour.Clear(); //clears list before saving
         foreach (GameObject armour in backPackArmour)
         {
+            ArmourCard tempArmour = armour.GetComponent<ArmourCard>();
+            armourLoot1.Remove(tempArmour.armourData);
             textBackpackArmour.Add(armour.name.ToString()); //Converts data to string
         }
+
+        //saves lootlist to list of strings
 
         textRemainingWeapons.Clear(); //clears list before saving
         foreach (WeaponData weapon in weaponLoot1) 
@@ -855,6 +820,8 @@ public class GameController : MonoBehaviour {
         {
             textRemainingArmour.Add(armour.name.ToString()); //Converts ndata to string
         }
+
+        //serializes list of strings to .dat files
 
         FileStream weaponFile = new FileStream("BackpackWeapons.dat", FileMode.Create);
         var bf = new BinaryFormatter();
@@ -881,13 +848,17 @@ public class GameController : MonoBehaviour {
         bf.Serialize(armourLootRemainingFile, textRemainingArmour);
         armourFile.Close();
 
+        backpackToggle.backpackLoaded = false;
+
         print("saved");
 
-        //SceneManager.LoadScene("MenuScene");
+        SceneManager.LoadScene("MenuScene");
     }
 
     void LoadEquipment()
     {
+        //deserializes .data files to list of strings
+
         using (FileStream weaponFile = File.Open("EquippedWeapons.dat", FileMode.Open))
         {
             var bf = new BinaryFormatter();
@@ -917,7 +888,6 @@ public class GameController : MonoBehaviour {
             textEquippedArmour.Clear(); //clears list before loading
             for (int i = 0; i < tempArmour.Count; i++)
             {
-                //print(tempArmour[i]);
                 textEquippedArmour.Add(tempArmour[i]);
             }
         }
@@ -925,8 +895,10 @@ public class GameController : MonoBehaviour {
         using (FileStream weaponLootRemainingFile = File.Open("WeaponsLoot.dat", FileMode.Open))
         {
             var bf = new BinaryFormatter();
+            textRemainingWeapons.Clear();
             List<string> tempWeapons = (List<string>)bf.Deserialize(weaponLootRemainingFile);
             textRemainingWeapons.Clear(); //clears list before loading
+            //print(tempWeapons.Count);
             for (int i = 0; i < tempWeapons.Count; i++)
             {
                 textRemainingWeapons.Add(tempWeapons[i]);
@@ -936,6 +908,7 @@ public class GameController : MonoBehaviour {
         using (FileStream ultimateLootRemianingFile = File.Open("UltimatesLoot.dat", FileMode.Open))
         {
             var bf = new BinaryFormatter();
+            textRemainingUltimates.Clear();
             List<string> tempUltimate = (List<string>)bf.Deserialize(ultimateLootRemianingFile);
             textRemainingUltimates.Clear(); //clears list before loading
             for (int i = 0; i < tempUltimate.Count; i++)
@@ -947,14 +920,16 @@ public class GameController : MonoBehaviour {
         using (FileStream armourLootRemainingFile = File.Open("ArmourLoot.dat", FileMode.Open))
         {
             var bf = new BinaryFormatter();
+            textRemainingArmour.Clear();
             List<string> tempArmour = (List<string>)bf.Deserialize(armourLootRemainingFile);
             textRemainingArmour.Clear(); //clears list before loading
             for (int i = 0; i < tempArmour.Count; i++)
             {
-                //print(tempArmour[i]);
                 textRemainingArmour.Add(tempArmour[i]);
             }
         }
+
+        //uses dictionary to compare list of strings to data values and populates data lists
 
         equippedWeaponObj.Clear(); //clears list
         foreach (string weaponName in textEquippedWeapons)

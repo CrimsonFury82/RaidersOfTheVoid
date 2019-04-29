@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlasmaGrenade
   m_EditorClassIdentifier: 
   cardName: Plasma Grenade
-  ability1: DMG 20 - Explosive
+  ability1: DMG 20
   hp: 0
   artSprite: {fileID: 21300000, guid: 66052c174bacc554085b5ba901dd3636, type: 3}
   audio1: {fileID: 0}
