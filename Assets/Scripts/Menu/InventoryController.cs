@@ -11,8 +11,6 @@ public class InventoryController : MonoBehaviour
     //Board zones for each group of cards
     public Transform relicTransform, weaponTransform, armourTransform, ultimateInvTransform, weaponInvTransform, armourInvTransform;
 
-    public backpackToggle backpackToggle;
-
     //Inventory lists
     public List<WeaponData> allWeapons, startingWeapons;
     public List<UltimateData> allUltimates, startingUltimates;
@@ -38,7 +36,6 @@ public class InventoryController : MonoBehaviour
 
     void Start()
     {
-        print("backpackSavedToInv Inv.Start" + backpackToggle.backpackSavedToInventory);
         GameObject controller = GameObject.FindGameObjectWithTag("MenuMusic");
         if (controller != null)
         {
@@ -226,9 +223,6 @@ public class InventoryController : MonoBehaviour
         print("Saved inventory");
 
         ClearBackpack();
-
-        //backpackToggle.backpackSavedToInventory = true;
-        //print("backpackSavedToInv Inv.SaveInventory" + backpackToggle.backpackSavedToInventory);
     }
 
     public void SaveEquippedAndExit()
@@ -347,12 +341,6 @@ public class InventoryController : MonoBehaviour
         }
 
         LoadBackPack();
-
-        //if (backpackToggle.backpackSavedToInventory == false) //loads back pack if contents aren't already saved to inventory
-        //{
-        //    print("backpackSavedToInv Inv.LoadInventory()" + backpackToggle.backpackSavedToInventory);
-            
-        //}
 
         //uses dictionary to compare list of strings with data and populate lists of data
 

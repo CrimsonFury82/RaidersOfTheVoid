@@ -18,8 +18,6 @@ public class GameController : MonoBehaviour {
     //public enum lootTy {Weapon, Ultimate, Armour } //List of states
     //string dataType;
 
-    public backpackToggle backpackToggle;
-
     bool ultimateUsed;
 
     public Text apText, monstersText, turnText, gameoverText, ultimateText; //UI text
@@ -813,8 +811,6 @@ public class GameController : MonoBehaviour {
         bf.Serialize(armourFile, textBackpackArmour);
         armourFile.Close();
 
-        backpackToggle.backpackSavedToInventory = false;
-        print("backpackSavedToInv Gam.SaveBackpack" + backpackToggle.backpackSavedToInventory);
         print("saved backpack");
         SaveLootTable();
         SceneManager.LoadScene("MenuScene");

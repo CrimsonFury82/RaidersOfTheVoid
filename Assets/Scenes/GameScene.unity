@@ -2354,7 +2354,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &776772328
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3031,7 +3031,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53b48776f2e515e4bae807281c03398a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backpackLoaded: 0
+  backpackSavedToInventory: 0
 --- !u!4 &1029472909
 Transform:
   m_ObjectHideFlags: 0
@@ -4267,8 +4267,6 @@ MonoBehaviour:
   ultimateText: {fileID: 152137460}
   turnState: 0
   turnPhase: 0
-  lootTier: 0
-  lootType: 0
   gameoverBackground: {fileID: 776772327}
   lootDropObj: {fileID: 1181382643}
   buttonCanvas: {fileID: 2070231899}
@@ -5301,7 +5299,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2070231900
 RectTransform:
   m_ObjectHideFlags: 0
