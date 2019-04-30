@@ -14,9 +14,9 @@ public class GameController : MonoBehaviour {
 
     public enum turn {Player1, Player2}; //List of states
     public enum phase {MainPhase, CombatPhase}; //List of states
-    public enum lootNum {Tier1, Tier2, Tier3}; //List of states
-    public enum lootTy {Weapon, Ultimate, Armour } //List of states
-    string dataType;
+    //public enum lootNum {Tier1, Tier2, Tier3}; //List of states
+    //public enum lootTy {Weapon, Ultimate, Armour } //List of states
+    //string dataType;
 
     public backpackToggle backpackToggle;
 
@@ -28,9 +28,9 @@ public class GameController : MonoBehaviour {
 
     public phase turnPhase; //State for current game phase
 
-    public lootNum lootTier; //State for Loot drop tier
+    //public lootNum lootTier; //State for Loot drop tier
 
-    public lootTy lootType; //State for Loot drop type
+    //public lootTy lootType; //State for Loot drop type
 
     int AP, RelicMaxCooldown, heroMaxHP, lootCounter, lootDrop = 3;
 
@@ -173,28 +173,28 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    public void LootTier() //case switches for phase states
-    {
-        switch (lootTier)
-        {
-            case lootNum.Tier1:
-                break;
-            case lootNum.Tier2:
-                break;
-            case lootNum.Tier3:
-                break;
-            default:
-                print("Default loot tier");
-                break;
-        }
-    }
+    //public void LootTier() //case switches for phase states
+    //{
+    //    switch (lootTier)
+    //    {
+    //        case lootNum.Tier1:
+    //            break;
+    //        case lootNum.Tier2:
+    //            break;
+    //        case lootNum.Tier3:
+    //            break;
+    //        default:
+    //            print("Default loot tier");
+    //            break;
+    //    }
+    //}
 
     public void EndTurn() //function for end of turn
     {
         if (equippedCreaturesObj.Count == 0 && currentAiDeck.Count == 0) //checks if all enemies have been destroy for victory condition.
         {
             Victory();
-            //DropLoot();
+            DropLoot();
             return;
         }
 
@@ -366,7 +366,7 @@ public class GameController : MonoBehaviour {
         lootCounter--;
         if(lootCounter == 0)
         {
-            //DropLoot();   
+            DropLoot();   
         }
 
         int dealMonsters = 4; //number of monsters to deal
@@ -380,15 +380,15 @@ public class GameController : MonoBehaviour {
         MonstersUpdate();
     }
 
-    //public void DropLoot()
-    //{
-    //    lootDropObj.SetActive(true); //enables menu
-    //    menuToggle.isOn = !menuToggle.isOn; //toggles menu on
-    //    lootCounter = lootDrop; //resets lootdrop counter
-    //    DealWeaponLoot(lootChestTransform, weaponLoot1, lootChest); //deals card to lootdrop zone
-    //    DealUltimateLoot(lootChestTransform, ultimateLoot1, lootChest); //deals card to lootdrop zone
-    //    DealArmourLoot(lootChestTransform, armourLoot1, lootChest); //deals card to lootdrop zone
-    //}
+    public void DropLoot()
+    {
+        lootDropObj.SetActive(true); //enables menu
+        menuToggle.isOn = !menuToggle.isOn; //toggles menu on
+        lootCounter = lootDrop; //resets lootdrop counter
+        DealWeaponLoot(lootChestTransform, weaponLoot1, lootChest); //deals card to lootdrop zone
+        DealUltimateLoot(lootChestTransform, ultimateLoot1, lootChest); //deals card to lootdrop zone
+        DealArmourLoot(lootChestTransform, armourLoot1, lootChest); //deals card to lootdrop zone
+    }
 
     public void DealWeaponLoot(Transform spawnTransform, List<WeaponData> dataList, List<GameObject> objectList) //Deals one weapon card
     {
@@ -405,7 +405,6 @@ public class GameController : MonoBehaviour {
         WeaponCard tempCard = Instantiate(weaponCardTemplate); //instantiates an instance of the card prefab
         tempCard.transform.SetParent(spawnTransform, false); //moves card onto board
         tempCard.weaponData = card; //assigns the instance of the scriptable object to the instance of the prefab
-        //dataList.Remove(weaponTopDeck); //removes card from list
         objectList.Add(tempCard.gameObject); //adds card to list
         tempCard.equipButton.SetActive(true); //enables button
         tempCard.name = tempCard.weaponData.name.Replace("(Clone)", "").ToString();
@@ -426,7 +425,6 @@ public class GameController : MonoBehaviour {
         UltimateCard tempCard = Instantiate(ultimateCardTemplate); //instantiates an instance of the card prefab
         tempCard.transform.SetParent(spawnTransform, false); //moves card onto board
         tempCard.ultimateData = card; //assigns the instance of the scriptable object to the instance of the prefab
-        //dataList.Remove(ultimateTopDeck); //removes card from list
         objectList.Add(tempCard.gameObject); //adds card to list
         tempCard.equipButton.SetActive(true); //enables button
         tempCard.name = tempCard.ultimateData.name.Replace("(Clone)", "").ToString();
@@ -447,13 +445,12 @@ public class GameController : MonoBehaviour {
         ArmourCard tempCard = Instantiate(armourCardTemplate); //instantiates an instance of the card prefab
         tempCard.transform.SetParent(spawnTransform, false); //moves card onto board
         tempCard.armourData = card; //assigns the instance of the scriptable object to the instance of the prefab
-        //dataList.Remove(armourTopDeck); //removes card from list
         objectList.Add(tempCard.gameObject); //adds card to list
         tempCard.equipButton.SetActive(true); //enables button
         tempCard.name = tempCard.armourData.name.Replace("(Clone)", "").ToString();
     }
 
-    public void EquipWeapon(GameObject playedCard)
+    public void MoveWeaponBackpack(GameObject playedCard)
     {
         if (playedCard.transform.parent == lootChestTransform)
         {
@@ -476,7 +473,7 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    public void EquipUltimate(GameObject playedCard)
+    public void MoveUltimateBackpack(GameObject playedCard)
     {
         if (playedCard.transform.parent == lootChestTransform)
         {
@@ -499,7 +496,7 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    public void EquipArmour(GameObject playedCard)
+    public void MoveArmourBackpack(GameObject playedCard)
     {
         if (playedCard.transform.parent == lootChestTransform)
         {
@@ -522,7 +519,7 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    public void ClearLoot() //this function is called by the "Close" button on the loot drop menu
+    public void ClearLoot() //this function is called by the "Discard" button on the loot drop menu
     {
         foreach(GameObject item in lootChest)
         {
@@ -531,56 +528,56 @@ public class GameController : MonoBehaviour {
         lootChest.Clear();
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown("space"))
-        {
-            T3LootTable();
-        }
-    }
+    //void Update()
+    //{
+    //    if (Input.GetKeyDown("space"))
+    //    {
+    //        T3LootTable();
+    //    }
+    //}
 
-    public void T3LootTable()
-    {
-        int t1Start = 1, t1end = 50 , t2Start = 51, t2end = 80, t3Start = 81 , t3end = 100; //values for loot drop tables
-        int weaponStart = 1, relicStart = 2, armourStart = 3; //values for loot drop tables
-        int tierRNG = UnityEngine.Random.Range(1, 101); //selects a random number between 1 and 100
-        int typeRNG = UnityEngine.Random.Range(1, 4); //selects a random number between 1 and 100
+    //public void T3LootTable()
+    //{
+    //    int t1Start = 1, t1end = 50 , t2Start = 51, t2end = 80, t3Start = 81 , t3end = 100; //values for loot drop tables
+    //    int weaponStart = 1, relicStart = 2, armourStart = 3; //values for loot drop tables
+    //    int tierRNG = UnityEngine.Random.Range(1, 101); //selects a random number between 1 and 100
+    //    int typeRNG = UnityEngine.Random.Range(1, 4); //selects a random number between 1 and 100
 
-        if (tierRNG >= t1Start && tierRNG <= t1end) //checks if loot drop number is within tier 1 value range
-        {
-            lootTier = lootNum.Tier1;
-        }
-        else if (tierRNG >= t2Start && tierRNG <= t2end) //checks if loot drop number is within tier 2 value range
-        {
-            lootTier = lootNum.Tier2;
-        }
-        else if (tierRNG >= t3Start && tierRNG <= t3end) //checks if loot drop number is within tier 3 value range
-        {
-            lootTier = lootNum.Tier3;
-        }
-        else
-        {
-            print("Invalid loot tier");
-        }
+    //    if (tierRNG >= t1Start && tierRNG <= t1end) //checks if loot drop number is within tier 1 value range
+    //    {
+    //        lootTier = lootNum.Tier1;
+    //    }
+    //    else if (tierRNG >= t2Start && tierRNG <= t2end) //checks if loot drop number is within tier 2 value range
+    //    {
+    //        lootTier = lootNum.Tier2;
+    //    }
+    //    else if (tierRNG >= t3Start && tierRNG <= t3end) //checks if loot drop number is within tier 3 value range
+    //    {
+    //        lootTier = lootNum.Tier3;
+    //    }
+    //    else
+    //    {
+    //        print("Invalid loot tier");
+    //    }
 
-        if (typeRNG == weaponStart) //checks if loot drop number is within tier 1 value range
-        {
-            lootType = lootTy.Weapon;
-        }
-        else if (typeRNG == relicStart) //checks if loot drop number is within tier 2 value range
-        {
-            lootType = lootTy.Ultimate;
-        }
-        else if (typeRNG == armourStart) //checks if loot drop number is within tier 3 value range
-        {
-            lootType = lootTy.Armour;
-        }
-        else
-        {
-            print("Invalid loot type");
-        }
-        print(lootTier + " " + lootType);
-    }
+    //    if (typeRNG == weaponStart) //checks if loot drop number is within tier 1 value range
+    //    {
+    //        lootType = lootTy.Weapon;
+    //    }
+    //    else if (typeRNG == relicStart) //checks if loot drop number is within tier 2 value range
+    //    {
+    //        lootType = lootTy.Ultimate;
+    //    }
+    //    else if (typeRNG == armourStart) //checks if loot drop number is within tier 3 value range
+    //    {
+    //        lootType = lootTy.Armour;
+    //    }
+    //    else
+    //    {
+    //        print("Invalid loot type");
+    //    }
+    //    print(lootTier + " " + lootType);
+    //}
 
     public void DealCreature() //Deals one creature card
     {
@@ -773,7 +770,7 @@ public class GameController : MonoBehaviour {
     //    levelController.levelIncrement();
     //}
 
-    public void SaveBackpack()
+    public void SaveBackpack() //saves backpack lists and remaining lootdrop lists
     {
         //saves backpack items to list of strings
 
@@ -781,7 +778,7 @@ public class GameController : MonoBehaviour {
         foreach (GameObject weapon in backPackWeapons) 
         {
             WeaponCard tempWeapon = weapon.GetComponent<WeaponCard>();
-            weaponLoot1.Remove(tempWeapon.weaponData);
+            //weaponLoot1.Remove(tempWeapon.weaponData); //removes from loot drop list
             textBackpackWeapons.Add(weapon.name.ToString()); //Converts data to string
         }
 
@@ -789,7 +786,7 @@ public class GameController : MonoBehaviour {
         foreach (GameObject ultimate in backPackUltimates) 
         {
             UltimateCard tempUltimate = ultimate.GetComponent<UltimateCard>();
-            ultimateLoot1.Remove(tempUltimate.ultimateData);
+            //ultimateLoot1.Remove(tempUltimate.ultimateData); //removes from loot drop list
             textBackpackUltimate.Add(ultimate.name.ToString()); //Converts data to string
         }
 
@@ -797,28 +794,8 @@ public class GameController : MonoBehaviour {
         foreach (GameObject armour in backPackArmour)
         {
             ArmourCard tempArmour = armour.GetComponent<ArmourCard>();
-            armourLoot1.Remove(tempArmour.armourData);
+            //armourLoot1.Remove(tempArmour.armourData); //removes from loot drop list
             textBackpackArmour.Add(armour.name.ToString()); //Converts data to string
-        }
-
-        //saves lootlist to list of strings
-
-        textRemainingWeapons.Clear(); //clears list before saving
-        foreach (WeaponData weapon in weaponLoot1) 
-        {
-            textRemainingWeapons.Add(weapon.name.ToString()); //Converts data to string
-        }
-
-        textRemainingUltimates.Clear(); //clears list before saving
-        foreach (UltimateData ultimate in ultimateLoot1)
-        {
-            textRemainingUltimates.Add(ultimate.name.ToString()); //Converts data to string
-        }
-
-        textRemainingArmour.Clear(); //clears list before saving
-        foreach (ArmourData armour in armourLoot1) 
-        {
-            textRemainingArmour.Add(armour.name.ToString()); //Converts ndata to string
         }
 
         //serializes list of strings to .dat files
@@ -836,23 +813,49 @@ public class GameController : MonoBehaviour {
         bf.Serialize(armourFile, textBackpackArmour);
         armourFile.Close();
 
+        backpackToggle.backpackSavedToInventory = false;
+        print("backpackSavedToInv Gam.SaveBackpack" + backpackToggle.backpackSavedToInventory);
+        print("saved backpack");
+        SaveLootTable();
+        SceneManager.LoadScene("MenuScene");
+    }
+
+    void SaveLootTable()
+    {
+        //saves lootlist to list of strings
+
+        textRemainingWeapons.Clear(); //clears list before saving
+        foreach (WeaponData weapon in weaponLoot1)
+        {
+            textRemainingWeapons.Add(weapon.name.ToString()); //Converts data to string
+        }
+
+        textRemainingUltimates.Clear(); //clears list before saving
+        foreach (UltimateData ultimate in ultimateLoot1)
+        {
+            textRemainingUltimates.Add(ultimate.name.ToString()); //Converts data to string
+        }
+
+        textRemainingArmour.Clear(); //clears list before saving
+        foreach (ArmourData armour in armourLoot1)
+        {
+            textRemainingArmour.Add(armour.name.ToString()); //Converts ndata to string
+        }
+
         FileStream weaponLootRemainingFile = new FileStream("WeaponsLoot.dat", FileMode.Create);
+        var bf = new BinaryFormatter();
         bf.Serialize(weaponLootRemainingFile, textRemainingWeapons);
-        weaponFile.Close();
+        weaponLootRemainingFile.Close();
 
         FileStream ultimateLootRemianingFile = new FileStream("UltimatesLoot.dat", FileMode.Create);
         bf.Serialize(ultimateLootRemianingFile, textRemainingUltimates);
-        ultimateFile.Close();
+        ultimateLootRemianingFile.Close();
 
         FileStream armourLootRemainingFile = new FileStream("ArmourLoot.dat", FileMode.Create);
         bf.Serialize(armourLootRemainingFile, textRemainingArmour);
-        armourFile.Close();
+        armourLootRemainingFile.Close();
 
-        backpackToggle.backpackLoaded = false;
-
-        print("saved");
-
-        SceneManager.LoadScene("MenuScene");
+        print("Saved Loot Table");
     }
 
     void LoadEquipment()
@@ -892,44 +895,7 @@ public class GameController : MonoBehaviour {
             }
         }
 
-        using (FileStream weaponLootRemainingFile = File.Open("WeaponsLoot.dat", FileMode.Open))
-        {
-            var bf = new BinaryFormatter();
-            textRemainingWeapons.Clear();
-            List<string> tempWeapons = (List<string>)bf.Deserialize(weaponLootRemainingFile);
-            textRemainingWeapons.Clear(); //clears list before loading
-            //print(tempWeapons.Count);
-            for (int i = 0; i < tempWeapons.Count; i++)
-            {
-                textRemainingWeapons.Add(tempWeapons[i]);
-            }
-        }
-
-        using (FileStream ultimateLootRemianingFile = File.Open("UltimatesLoot.dat", FileMode.Open))
-        {
-            var bf = new BinaryFormatter();
-            textRemainingUltimates.Clear();
-            List<string> tempUltimate = (List<string>)bf.Deserialize(ultimateLootRemianingFile);
-            textRemainingUltimates.Clear(); //clears list before loading
-            for (int i = 0; i < tempUltimate.Count; i++)
-            {
-                textRemainingUltimates.Add(tempUltimate[i]);
-            }
-        }
-
-        using (FileStream armourLootRemainingFile = File.Open("ArmourLoot.dat", FileMode.Open))
-        {
-            var bf = new BinaryFormatter();
-            textRemainingArmour.Clear();
-            List<string> tempArmour = (List<string>)bf.Deserialize(armourLootRemainingFile);
-            textRemainingArmour.Clear(); //clears list before loading
-            for (int i = 0; i < tempArmour.Count; i++)
-            {
-                textRemainingArmour.Add(tempArmour[i]);
-            }
-        }
-
-        //uses dictionary to compare list of strings to data values and populates data lists
+        //uses dictionary to compare list of strings to data values and equips gear
 
         equippedWeaponObj.Clear(); //clears list
         foreach (string weaponName in textEquippedWeapons)
@@ -960,6 +926,47 @@ public class GameController : MonoBehaviour {
                 DealArmour(armourTransform, armourValue, equippedArmourObj);
             }
         }
+        print("Loaded Equipment");
+        LoadLootTable();
+    }
+
+    void LoadLootTable()
+    {
+        //deserializes .data files to list of strings
+        using (FileStream weaponLootRemainingFile = File.Open("WeaponsLoot.dat", FileMode.Open))
+        {
+            var bf = new BinaryFormatter();
+            List<string> tempWeapons = (List<string>)bf.Deserialize(weaponLootRemainingFile);
+            textRemainingWeapons.Clear(); //clears list before loading
+            for (int i = 0; i < tempWeapons.Count; i++)
+            {
+                textRemainingWeapons.Add(tempWeapons[i]);
+            }
+        }
+
+        using (FileStream ultimateLootRemianingFile = File.Open("UltimatesLoot.dat", FileMode.Open))
+        {
+            var bf = new BinaryFormatter();
+            List<string> tempUltimate = (List<string>)bf.Deserialize(ultimateLootRemianingFile);
+            textRemainingUltimates.Clear(); //clears list before loading
+            for (int i = 0; i < tempUltimate.Count; i++)
+            {
+                textRemainingUltimates.Add(tempUltimate[i]);
+            }
+        }
+
+        using (FileStream armourLootRemainingFile = File.Open("ArmourLoot.dat", FileMode.Open))
+        {
+            var bf = new BinaryFormatter();
+            List<string> tempArmour = (List<string>)bf.Deserialize(armourLootRemainingFile);
+            textRemainingArmour.Clear(); //clears list before loading
+            for (int i = 0; i < tempArmour.Count; i++)
+            {
+                textRemainingArmour.Add(tempArmour[i]);
+            }
+        }
+
+        //uses dictionary to compare list of strings to data values and fills loot lists with data
 
         weaponLoot1.Clear(); //clears list
         foreach (string weaponName in textRemainingWeapons)
@@ -970,7 +977,7 @@ public class GameController : MonoBehaviour {
                 weaponLoot1.Add(weaponValue);
             }
         }
-        
+
         ultimateLoot1.Clear(); //clears list
         foreach (string ultimateName in textRemainingUltimates)
         {
@@ -990,8 +997,7 @@ public class GameController : MonoBehaviour {
                 armourLoot1.Add(armourValue);
             }
         }
-
-        print("loaded");
+        print("Loaded Loot Table");
     }
 
     void CreateDictionaries()

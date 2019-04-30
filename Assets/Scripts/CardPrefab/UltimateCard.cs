@@ -46,7 +46,7 @@ public class UltimateCard : BaseCard
     {
         if (gameController != null)
         {
-            gameController.EquipUltimate(this.gameObject); //puts in backpack in game scene
+            gameController.MoveUltimateBackpack(this.gameObject); //puts in backpack in game scene
         }
         else
         {

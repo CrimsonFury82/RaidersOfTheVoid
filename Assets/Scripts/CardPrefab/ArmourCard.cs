@@ -32,7 +32,7 @@ public class ArmourCard : BaseCard
 
         if (gameController != null)
         {
-            gameController.EquipArmour(this.gameObject); //puts in backpack in game scene
+            gameController.MoveArmourBackpack(this.gameObject); //puts in backpack in game scene
         }
         else
         {

@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class backpackToggle : MonoBehaviour
 {
-    public bool backpackLoaded;
+    public bool backpackSavedToInventory;
 
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
-    }
-
-    public void ToggleBackpack()
-    {
-        backpackLoaded = !backpackLoaded;
+        backpackSavedToInventory = false;
     }
 }

@@ -44,7 +44,7 @@ public class WeaponCard : BaseCard
     {
         if (gameController != null)
         {
-            gameController.EquipWeapon(this.gameObject); //puts in backpack in game scene
+            gameController.MoveWeaponBackpack(this.gameObject); //puts in backpack in game scene
         }
         else
         {
