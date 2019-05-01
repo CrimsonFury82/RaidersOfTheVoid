@@ -3002,50 +3002,6 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: 'Action Points: 10'
---- !u!1 &1029472907
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1029472909}
-  - component: {fileID: 1029472908}
-  m_Layer: 0
-  m_Name: BackpackToggle
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1029472908
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1029472907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53b48776f2e515e4bae807281c03398a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  backpackSavedToInventory: 0
---- !u!4 &1029472909
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1029472907}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 33.633476, y: -175.595, z: 99.13802}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1071853968
 GameObject:
   m_ObjectHideFlags: 0
@@ -4259,7 +4215,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bd077a2df0996840bcb72056c8860ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backpackToggle: {fileID: 1029472908}
   apText: {fileID: 904324197}
   monstersText: {fileID: 1526827242}
   turnText: {fileID: 398838044}

@@ -33,9 +33,11 @@ public class InventoryController : MonoBehaviour
     public Dictionary<string, GameObject> ultimateObjDictionary = new Dictionary<string, GameObject>();
     public Dictionary<string, GameObject> armourObjDictionary = new Dictionary<string, GameObject>();
 
-
     void Start()
     {
+        //TextAsset dataAsset = (TextAsset)Resources.Load("WeaponLoot");
+        //byte[] data = dataAsset.bytes;
+
         GameObject controller = GameObject.FindGameObjectWithTag("MenuMusic");
         if (controller != null)
         {
@@ -269,6 +271,9 @@ public class InventoryController : MonoBehaviour
     public void LoadBackPack()
     {
         //deserializes backpack items from .dat files to list of strings
+
+        //TextAsset dataAsset = (TextAsset)Resources.Load("WeaponLoot");
+        //byte[] data = dataAsset.bytes;
 
         using (FileStream weaponFile = File.Open("BackpackWeapons.dat", FileMode.Open))
         {
