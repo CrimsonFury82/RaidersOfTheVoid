@@ -11,8 +11,11 @@ public class HeroCard : BaseCard
 
     public Text armourText;
 
+    AudioSource audioSource;
+
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         UIHeroCard(armourText);
     }
 
@@ -20,5 +23,12 @@ public class HeroCard : BaseCard
     {
        heroCardData.BaseCardUpdate(cardNameText, ability1Text, hpText, artImage);
        armourText.text = heroCardData.armour.ToString(); //updates prefab with values from scriptable object
+    }
+
+    public void PlaySound1() //plays audio clip once
+    {
+        audioSource = GetComponent<AudioSource>();
+        AudioClip attackSound = heroCardData.audio1;
+        audioSource.PlayOneShot(attackSound);
     }
 }

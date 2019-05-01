@@ -20,7 +20,7 @@ public class GameController : MonoBehaviour {
 
     bool ultimateUsed;
 
-    public Text apText, monstersText, turnText, gameoverText, ultimateText; //UI text
+    public Text apText, monstersText, turnText, gameoverText, ultimateText, warningText; //UI text
 
     public turn turnState; //State for current player turn
 
@@ -30,9 +30,9 @@ public class GameController : MonoBehaviour {
 
     //public lootTy lootType; //State for Loot drop type
 
-    int AP, RelicMaxCooldown, heroMaxHP, lootCounter, lootDrop = 3;
+    int AP, UltimateMaxCooldown, heroMaxHP, lootCounter, lootDrop = 3;
 
-    public GameObject gameoverBackground, lootDropObj, buttonCanvas; //menu objects that will be toggled off and on
+    public GameObject gameoverBackground, lootDropObj, buttonCanvas, warningObj; //menu objects that will be toggled off and on
 
     public Toggle menuToggle;
 
@@ -50,10 +50,12 @@ public class GameController : MonoBehaviour {
     public List<ArmourData> equippedArmour;
     public List<HeroData> equippedHero;
     public List<CreatureData> aiDeck1, currentAiDeck; //, aiDeck2, aiDeck3;
-
+     
     public List<WeaponData> allWeapons;
     public List<UltimateData> allUltimates;
     public List<ArmourData> allArmour;
+
+    public List<int> Loottable;
 
     public List<string> textEquippedWeapons, textEquippedUltimate, textEquippedArmour, textBackpackWeapons, textBackpackUltimate, textBackpackArmour, textRemainingWeapons, textRemainingUltimates, textRemainingArmour;
 
@@ -81,7 +83,8 @@ public class GameController : MonoBehaviour {
 
     public LevelController levelController;
 
-    WeaponData tempWeapon; //currently selected weapon
+    public WeaponData tempWeaponData; //currently selected weapon data
+    public WeaponCard tempWeaponCard; //currently selected weapon card
     UltimateData tempUltimate = null; //currently selected ultimate
 
     float endTurnDelay = 1.75f;
@@ -171,22 +174,6 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    //public void LootTier() //case switches for phase states
-    //{
-    //    switch (lootTier)
-    //    {
-    //        case lootNum.Tier1:
-    //            break;
-    //        case lootNum.Tier2:
-    //            break;
-    //        case lootNum.Tier3:
-    //            break;
-    //        default:
-    //            print("Default loot tier");
-    //            break;
-    //    }
-    //}
-
     public void EndTurn() //function for end of turn
     {
         if (equippedCreaturesObj.Count == 0 && currentAiDeck.Count == 0) //checks if all enemies have been destroy for victory condition.
@@ -219,7 +206,7 @@ public class GameController : MonoBehaviour {
 
         if (ultimateUsed == true)
         {
-            currentUltimate.ultimateData.cooldown = RelicMaxCooldown;
+            currentUltimate.ultimateData.cooldown = UltimateMaxCooldown;
             ultimateUsed = false;
             ultimateText.text = "Ultimate charging"; //updates card UI text
             RelicUpdate();
@@ -346,7 +333,7 @@ public class GameController : MonoBehaviour {
         tempCard.ultimateData = card; //assigns the instance of the scriptable object to the instance of the prefab
         objectList.Add(tempCard.gameObject); //adds card to live list
         currentUltimate = tempCard.GetComponent<UltimateCard>();
-        RelicMaxCooldown = currentUltimate.ultimateData.cooldown; //assigns cooldown for resetting ultimate after use
+        UltimateMaxCooldown = currentUltimate.ultimateData.cooldown; //assigns cooldown for resetting ultimate after use
     }
 
     public void DealWeapon(Transform spawnTransform, WeaponData data, List<GameObject> objectList) //Deals one weapon card
@@ -378,14 +365,55 @@ public class GameController : MonoBehaviour {
         MonstersUpdate();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown("l"))
+        {
+            DropLoot();
+        }
+    }
+
     public void DropLoot()
     {
         lootDropObj.SetActive(true); //enables menu
-        menuToggle.isOn = !menuToggle.isOn; //toggles menu on
         lootCounter = lootDrop; //resets lootdrop counter
-        DealWeaponLoot(lootChestTransform, weaponLoot1, lootChest); //deals card to lootdrop zone
-        DealUltimateLoot(lootChestTransform, ultimateLoot1, lootChest); //deals card to lootdrop zone
-        DealArmourLoot(lootChestTransform, armourLoot1, lootChest); //deals card to lootdrop zone
+
+        Loottable.Clear();
+        if (weaponLoot1.Count > 0)
+        {
+            Loottable.Add(0); //0 is the loot table index for Weapons
+        }
+        if (ultimateLoot1.Count > 0)
+        {
+            Loottable.Add(1); //1 is the loot table index for Ultimates
+        }
+        if (armourLoot1.Count > 0)
+        {
+            Loottable.Add(2); //2 is the loot table index for Armour
+        }
+
+        if(Loottable.Count == 0)
+        {
+            return;
+        }
+        else
+        {
+            int rng = UnityEngine.Random.Range(0, Loottable.Count); //randomly select a card
+            int rng2 = Loottable[rng]; //picks a random number from the loottable
+
+            if (rng2 == 0)
+            {
+                DealWeaponLoot(lootChestTransform, weaponLoot1, lootChest); //deals card to lootdrop zone
+            }
+            else if (rng2 == 1)
+            {
+                DealUltimateLoot(lootChestTransform, ultimateLoot1, lootChest); //deals card to lootdrop zone
+            }
+            else if (rng2 == 2)
+            {
+                DealArmourLoot(lootChestTransform, armourLoot1, lootChest); //deals card to lootdrop zone
+            }
+        }
     }
 
     public void DealWeaponLoot(Transform spawnTransform, List<WeaponData> dataList, List<GameObject> objectList) //Deals one weapon card
@@ -403,6 +431,7 @@ public class GameController : MonoBehaviour {
         WeaponCard tempCard = Instantiate(weaponCardTemplate); //instantiates an instance of the card prefab
         tempCard.transform.SetParent(spawnTransform, false); //moves card onto board
         tempCard.weaponData = card; //assigns the instance of the scriptable object to the instance of the prefab
+        weaponLoot1.Remove(weaponTopDeck); //removes from list
         objectList.Add(tempCard.gameObject); //adds card to list
         tempCard.equipButton.SetActive(true); //enables button
         tempCard.name = tempCard.weaponData.name.Replace("(Clone)", "").ToString();
@@ -423,6 +452,7 @@ public class GameController : MonoBehaviour {
         UltimateCard tempCard = Instantiate(ultimateCardTemplate); //instantiates an instance of the card prefab
         tempCard.transform.SetParent(spawnTransform, false); //moves card onto board
         tempCard.ultimateData = card; //assigns the instance of the scriptable object to the instance of the prefab
+        ultimateLoot1.Remove(ultimateTopDeck); //removes from list
         objectList.Add(tempCard.gameObject); //adds card to list
         tempCard.equipButton.SetActive(true); //enables button
         tempCard.name = tempCard.ultimateData.name.Replace("(Clone)", "").ToString();
@@ -443,6 +473,7 @@ public class GameController : MonoBehaviour {
         ArmourCard tempCard = Instantiate(armourCardTemplate); //instantiates an instance of the card prefab
         tempCard.transform.SetParent(spawnTransform, false); //moves card onto board
         tempCard.armourData = card; //assigns the instance of the scriptable object to the instance of the prefab
+        armourLoot1.Remove(armourTopDeck); //removes from list
         objectList.Add(tempCard.gameObject); //adds card to list
         tempCard.equipButton.SetActive(true); //enables button
         tempCard.name = tempCard.armourData.name.Replace("(Clone)", "").ToString();
@@ -454,7 +485,7 @@ public class GameController : MonoBehaviour {
         {
             if ((backPackWeapons.Count + backPackUltimates.Count + backPackArmour.Count) >= 2)
             {
-                print("Backpack full");
+                WarningPopup("Backpack menu full");
             }
             else
             {
@@ -477,7 +508,7 @@ public class GameController : MonoBehaviour {
         {
             if ((backPackWeapons.Count + backPackUltimates.Count + backPackArmour.Count) >= 2)
             {
-                print("Backpack full");
+                WarningPopup("Backpack menu full");
             }
             else
             {
@@ -500,7 +531,7 @@ public class GameController : MonoBehaviour {
         {
             if ((backPackWeapons.Count + backPackUltimates.Count + backPackArmour.Count) >= 2)
             {
-                print("Backpack full");
+                WarningPopup("Backpack menu full");
             }
             else
             {
@@ -526,57 +557,6 @@ public class GameController : MonoBehaviour {
         lootChest.Clear();
     }
 
-    //void Update()
-    //{
-    //    if (Input.GetKeyDown("space"))
-    //    {
-    //        T3LootTable();
-    //    }
-    //}
-
-    //public void T3LootTable()
-    //{
-    //    int t1Start = 1, t1end = 50 , t2Start = 51, t2end = 80, t3Start = 81 , t3end = 100; //values for loot drop tables
-    //    int weaponStart = 1, relicStart = 2, armourStart = 3; //values for loot drop tables
-    //    int tierRNG = UnityEngine.Random.Range(1, 101); //selects a random number between 1 and 100
-    //    int typeRNG = UnityEngine.Random.Range(1, 4); //selects a random number between 1 and 100
-
-    //    if (tierRNG >= t1Start && tierRNG <= t1end) //checks if loot drop number is within tier 1 value range
-    //    {
-    //        lootTier = lootNum.Tier1;
-    //    }
-    //    else if (tierRNG >= t2Start && tierRNG <= t2end) //checks if loot drop number is within tier 2 value range
-    //    {
-    //        lootTier = lootNum.Tier2;
-    //    }
-    //    else if (tierRNG >= t3Start && tierRNG <= t3end) //checks if loot drop number is within tier 3 value range
-    //    {
-    //        lootTier = lootNum.Tier3;
-    //    }
-    //    else
-    //    {
-    //        print("Invalid loot tier");
-    //    }
-
-    //    if (typeRNG == weaponStart) //checks if loot drop number is within tier 1 value range
-    //    {
-    //        lootType = lootTy.Weapon;
-    //    }
-    //    else if (typeRNG == relicStart) //checks if loot drop number is within tier 2 value range
-    //    {
-    //        lootType = lootTy.Ultimate;
-    //    }
-    //    else if (typeRNG == armourStart) //checks if loot drop number is within tier 3 value range
-    //    {
-    //        lootType = lootTy.Armour;
-    //    }
-    //    else
-    //    {
-    //        print("Invalid loot type");
-    //    }
-    //    print(lootTier + " " + lootType);
-    //}
-
     public void DealCreature() //Deals one creature card
     {
         if (currentAiDeck.Count > 0)
@@ -596,7 +576,7 @@ public class GameController : MonoBehaviour {
         equippedCreaturesObj.Add(dealtCard.gameObject);
     }
 
-    public void ActivateRelic(UltimateData relicCardData)
+    public void ActivateRelic(UltimateData relicCardData, UltimateCard ultimateCard)
     {
         if(relicCardData.heal > 0)
         {
@@ -612,6 +592,7 @@ public class GameController : MonoBehaviour {
             APRelic(relicCardData);
         }
         RelicAttacked();
+        ultimateCard.PlaySound1();
     }
 
     void HealRelic(UltimateData ultimateData)
@@ -633,22 +614,30 @@ public class GameController : MonoBehaviour {
         APUpdate(); //updates UI text
     }
 
-    public void WeaponTarget(WeaponData weaponData) //function for selecting weapon target
+    public void WarningPopup(string passedText)
+    {
+        warningText.text = passedText;
+        warningObj.SetActive(true);
+    }
+
+    public void WeaponTarget(WeaponData weaponData, WeaponCard weaponCard) //function for selecting weapon target
     {
         //print("standard targeting");
         if (AP - weaponData.ap < 0)
         {
-            print("Not enough AP");
+            WarningPopup("Not enough Action Points");
         }
         else
         {
+            weaponCard.PlaySound2();
             for (int i = 0; i < equippedCreaturesObj.Count; i++) //loop repeats for each creature on the board
             {
                 CreatureCard attacker = equippedCreaturesObj[i].GetComponent<CreatureCard>();
                 attacker.buttonObject.SetActive(false); //disables buttons on all creature card, so if the player changes target, it will disable out of range options.
             }
 
-            tempWeapon = weaponData; //assigns the weapon clicked as the tempweapon
+            tempWeaponData = weaponData; //assigns the weapon clicked as the tempweapon
+            tempWeaponCard = weaponCard; //assigns the weapon clicked as the tempweapon
             int tempRange = weaponData.range;
 
             if (equippedCreaturesObj.Count < weaponData.range)
@@ -674,13 +663,14 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    public void WeaponAttack(GameObject creature, CreatureData creatureCard)
+    public void WeaponAttack(GameObject creature, CreatureData creatureCard, WeaponCard weaponCard)
     {
         if(tempUltimate == null)
         {
-            AP -= tempWeapon.ap; //updates AP remaining
+            AP -= tempWeaponData.ap; //updates AP remaining
             APUpdate(); //updates UI text
-            creatureCard.hp -= tempWeapon.dmg; //weapon deals dmg to creature
+            creatureCard.hp -= tempWeaponData.dmg; //weapon deals dmg to creature
+            weaponCard.PlaySound1();
             //print("temp ultimate = null");
         }
         else
@@ -709,9 +699,12 @@ public class GameController : MonoBehaviour {
 
     public IEnumerator DealerAnimation()
     {
-        float animationDelay = 2.5f;
+        float firstAnimationDelay = 0.7f;
+        float secondAnimationDelay = 0.7f;
         GameObject.Find("MillerDealer").GetComponent<Animator>().SetBool("DealSequence", true); //Starts dealer animation
-        yield return new WaitForSeconds(animationDelay);
+        yield return new WaitForSeconds(firstAnimationDelay); //waits for specified time delay
+        defHero.PlaySound1(); //plays sound
+        yield return new WaitForSeconds(secondAnimationDelay); //waits for specified time delay
         GameObject.Find("MillerDealer").GetComponent<Animator>().SetBool("DealSequence", false); //Stops dealer animation
     }
 
@@ -776,7 +769,7 @@ public class GameController : MonoBehaviour {
         foreach (GameObject weapon in backPackWeapons) 
         {
             WeaponCard tempWeapon = weapon.GetComponent<WeaponCard>();
-            //weaponLoot1.Remove(tempWeapon.weaponData); //removes from loot drop list
+            weaponLoot1.Remove(tempWeapon.weaponData); //removes from loot drop list
             textBackpackWeapons.Add(weapon.name.ToString()); //Converts data to string
         }
 
@@ -784,7 +777,7 @@ public class GameController : MonoBehaviour {
         foreach (GameObject ultimate in backPackUltimates) 
         {
             UltimateCard tempUltimate = ultimate.GetComponent<UltimateCard>();
-            //ultimateLoot1.Remove(tempUltimate.ultimateData); //removes from loot drop list
+            ultimateLoot1.Remove(tempUltimate.ultimateData); //removes from loot drop list
             textBackpackUltimate.Add(ultimate.name.ToString()); //Converts data to string
         }
 
@@ -792,7 +785,7 @@ public class GameController : MonoBehaviour {
         foreach (GameObject armour in backPackArmour)
         {
             ArmourCard tempArmour = armour.GetComponent<ArmourCard>();
-            //armourLoot1.Remove(tempArmour.armourData); //removes from loot drop list
+            armourLoot1.Remove(tempArmour.armourData); //removes from loot drop list
             textBackpackArmour.Add(armour.name.ToString()); //Converts data to string
         }
 

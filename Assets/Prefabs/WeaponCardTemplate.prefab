@@ -415,7 +415,8 @@ MonoBehaviour:
   hpText: {fileID: 114011278843464534}
   gameController: {fileID: 0}
   inventoryController: {fileID: 0}
-  weaponCardData: {fileID: 0}
+  weaponData: {fileID: 0}
+  weaponCard: {fileID: 114392435368565454}
   useButton: {fileID: 1917522202405050}
   equipButton: {fileID: 1001928661480012783}
   dmgText: {fileID: 114026932162898624}
@@ -433,7 +434,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0

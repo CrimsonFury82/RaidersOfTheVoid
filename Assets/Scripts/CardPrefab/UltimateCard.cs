@@ -13,12 +13,18 @@ public class UltimateCard : BaseCard
 
     public UltimateData ultimateData;
 
+    public UltimateCard ultimateCard;
+
+    AudioSource audioSource;
+
     public GameObject useButton, equipButton;
 
     public Text dmgText, healText, cooldownText;
 
     private void Start()
     {
+        ultimateCard = GetComponent<UltimateCard>();
+        audioSource = GetComponent<AudioSource>();
         gameController = (GameController)FindObjectOfType(typeof(GameController)); //finds the gamecontroller
         inventoryController = (InventoryController)FindObjectOfType(typeof(InventoryController)); //finds the inventorycontroller
         UIRelicCard(dmgText, healText, cooldownText);
@@ -39,7 +45,7 @@ public class UltimateCard : BaseCard
 
     public void UsedClickedGear() //calls function in gamecontroller
     {
-        gameController.ActivateRelic(ultimateData);
+        gameController.ActivateRelic(ultimateData, ultimateCard);
     }
 
     public void EquipClickedGear() //calls function in inventorycontroller
@@ -52,5 +58,12 @@ public class UltimateCard : BaseCard
         {
             inventoryController.EquipUltimate(this.gameObject); //equips in inventory scene
         }
+    }
+
+    public void PlaySound1() //plays audio clip once
+    {
+        audioSource = GetComponent<AudioSource>();
+        AudioClip attackSound = ultimateData.audio1;
+        audioSource.PlayOneShot(attackSound);
     }
 }

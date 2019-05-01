@@ -3,6 +3,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 //Script written by Aston Olsen
 
@@ -17,8 +18,12 @@ public class InventoryController : MonoBehaviour
     public List<ArmourData> allArmour, StartingArmour;
     public List<string> textEquippedWeapons, textEquippedUltimate, textEquippedArmour, textInventoryWeapons, textInventoryUltimates, textInventoryArmour, emptyList;
 
+    public Text warningText;
+
     //Equipped items lists
     public List<GameObject> equippedWeaponObj, equippedUltimateObj, equippedArmourObj, invWeapons, invUltimates, invArmour;
+
+    public GameObject warningObj;
 
     //Card prefabs
     public ArmourCard armourCardTemplate;
@@ -52,6 +57,12 @@ public class InventoryController : MonoBehaviour
         LoadEquipped();
     }
 
+    public void WarningPopup(string passedText)
+    {
+        warningText.text = passedText;
+        warningObj.SetActive(true);
+    }
+
     public void DealArmourInv() //Deals all cards in inventory
     {
         foreach (ArmourData armour in StartingArmour)
@@ -77,7 +88,7 @@ public class InventoryController : MonoBehaviour
         {
             if (equippedArmourObj.Count >= 1)
             {
-                print("Armour slot full");
+                WarningPopup("Armour slot full");
             }
             else
             {
@@ -119,7 +130,7 @@ public class InventoryController : MonoBehaviour
         {
             if (equippedUltimateObj.Count >= 1)
             {
-                print("Ultimate slot full");
+                WarningPopup("Ultimate slot full");
             }
             else
             {
@@ -161,7 +172,7 @@ public class InventoryController : MonoBehaviour
         {
             if (equippedWeaponObj.Count >= 3)
             {
-                print("Weapon slots full");
+                WarningPopup("Weapon slots full");
             }
             else
             {
@@ -178,13 +189,13 @@ public class InventoryController : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown("s"))
-        {
-            SaveInventory();
-        }
-    }
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown("s"))
+    //    {
+    //        SaveInventory();
+    //    }
+    //}
 
     public void ClearBackpack() //saves empty string to .dat files to clear them
     {
@@ -201,8 +212,7 @@ public class InventoryController : MonoBehaviour
         FileStream armourFile = new FileStream("BackpackArmour.dat", FileMode.Create);
         bf.Serialize(armourFile, emptyList);
         armourFile.Close();
-
-        print("Backpack cleared");
+        //print("Backpack cleared");
     }
 
     public void SaveInventory()
@@ -221,59 +231,62 @@ public class InventoryController : MonoBehaviour
         FileStream invArmourFile = new FileStream("InvArmour.dat", FileMode.Create);
         bf.Serialize(invArmourFile, textInventoryArmour);
         invArmourFile.Close();
-
-        print("Saved inventory");
-
+        //print("Saved inventory");
         ClearBackpack();
     }
 
     public void SaveEquippedAndExit()
     {
-        //saves list of gameobject names as a list of strings
-
-        textEquippedWeapons.Clear(); //clears list before saving
-        foreach (GameObject weapon in equippedWeaponObj) //loops through equipped weapons
+        if ((equippedWeaponObj.Count + equippedArmourObj.Count + equippedUltimateObj.Count) != 5)
         {
-            textEquippedWeapons.Add(weapon.name.ToString()); //Converts weapondata to string
+            WarningPopup("Fill all slots before saving");
+            return;
         }
-
-        textEquippedUltimate.Clear(); //clears list before saving
-        foreach (GameObject ultimate in equippedUltimateObj) //loops through equipped weapons
+        else
         {
-            textEquippedUltimate.Add(ultimate.name.ToString()); //Converts weapondata to string
+            //saves list of gameobject names as a list of strings
+
+            textEquippedWeapons.Clear(); //clears list before saving
+            foreach (GameObject weapon in equippedWeaponObj) //loops through equipped weapons
+            {
+                textEquippedWeapons.Add(weapon.name.ToString()); //Converts weapondata to string
+            }
+
+            textEquippedUltimate.Clear(); //clears list before saving
+            foreach (GameObject ultimate in equippedUltimateObj) //loops through equipped weapons
+            {
+                textEquippedUltimate.Add(ultimate.name.ToString()); //Converts weapondata to string
+            }
+
+            textEquippedArmour.Clear(); //clears list before saving
+            foreach (GameObject armour in equippedArmourObj) //loops through equipped weapons
+            {
+                textEquippedArmour.Add(armour.name.ToString()); //Converts weapondata to string
+            }
+
+            //serializes list of strings to .dat files
+
+            FileStream weaponFile = new FileStream("EquippedWeapons.dat", FileMode.Create);
+            var bf = new BinaryFormatter();
+            bf.Serialize(weaponFile, textEquippedWeapons);
+            weaponFile.Close();
+
+            FileStream ultimateFile = new FileStream("EquippedUltimate.dat", FileMode.Create);
+            bf.Serialize(ultimateFile, textEquippedUltimate);
+            ultimateFile.Close();
+
+            FileStream armourFile = new FileStream("EquippedArmour.dat", FileMode.Create);
+            bf.Serialize(armourFile, textEquippedArmour);
+            armourFile.Close();
+
+            //print("saved equipped");
+            SceneManager.LoadScene("MenuScene");
         }
-
-        textEquippedArmour.Clear(); //clears list before saving
-        foreach (GameObject armour in equippedArmourObj) //loops through equipped weapons
-        {
-            textEquippedArmour.Add(armour.name.ToString()); //Converts weapondata to string
-        }
-
-        //serializes list of strings to .dat files
-
-        FileStream weaponFile = new FileStream("EquippedWeapons.dat", FileMode.Create);
-        var bf = new BinaryFormatter();
-        bf.Serialize(weaponFile, textEquippedWeapons);
-        weaponFile.Close();
-
-        FileStream ultimateFile = new FileStream("EquippedUltimate.dat", FileMode.Create);
-        bf.Serialize(ultimateFile, textEquippedUltimate);
-        ultimateFile.Close();
-
-        FileStream armourFile = new FileStream("EquippedArmour.dat", FileMode.Create);
-        bf.Serialize(armourFile, textEquippedArmour);
-        armourFile.Close();
-
-        print("saved equipped");
-        SceneManager.LoadScene("MenuScene");
     }
 
     public void LoadBackPack()
     {
         //deserializes backpack items from .dat files to list of strings
-
-        //TextAsset dataAsset = (TextAsset)Resources.Load("WeaponLoot");
-        //byte[] data = dataAsset.bytes;
 
         using (FileStream weaponFile = File.Open("BackpackWeapons.dat", FileMode.Open))
         {
@@ -304,7 +317,7 @@ public class InventoryController : MonoBehaviour
                 textInventoryArmour.Add(tempArmour[i]);
             }
         }
-        print("loaded backpack");
+        //print("loaded backpack");
         SaveInventory();
     }
 
@@ -344,7 +357,7 @@ public class InventoryController : MonoBehaviour
                 textInventoryArmour.Add(tempArmour[i]);
             }
         }
-
+        
         LoadBackPack();
 
         //uses dictionary to compare list of strings with data and populate lists of data
@@ -375,7 +388,7 @@ public class InventoryController : MonoBehaviour
                 DealArmour(armourInvTransform, invArmour, armourValue);
             }
         }
-        print("Loaded inventory");
+        //print("Loaded inventory");
     }
 
     public void LoadEquipped()
@@ -439,7 +452,7 @@ public class InventoryController : MonoBehaviour
                 EquipArmour(armourValue);
             }
         }
-        print("Loaded Equipped");
+        //print("Loaded Equipped");
     }
 
     void CreateDataDictionaries()

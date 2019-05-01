@@ -35,7 +35,7 @@ public class CreatureCard : BaseCard
 
     public void AttackClickedCreature() //the previously selected weapon attacks the clicked creature
     {
-        gameController.WeaponAttack(this.gameObject, creatureCardData);
+        gameController.WeaponAttack(this.gameObject, creatureCardData, gameController.tempWeaponCard);
     }
 
     public void PlaySound() //plays audio clip once
