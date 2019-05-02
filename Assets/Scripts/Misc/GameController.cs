@@ -32,7 +32,7 @@ public class GameController : MonoBehaviour {
 
     int AP, UltimateMaxCooldown, heroMaxHP, lootCounter, lootDrop = 3;
 
-    public GameObject gameoverBackground, lootDropObj, buttonCanvas, warningObj; //menu objects that will be toggled off and on
+    public GameObject gameoverBackground, lootDropObj, buttonCanvas, warningObj, continueButtonObj; //menu objects that will be toggled off and on
 
     public Toggle menuToggle;
 
@@ -49,7 +49,7 @@ public class GameController : MonoBehaviour {
     public List<UltimateData> equippedUltimate;
     public List<ArmourData> equippedArmour;
     public List<HeroData> equippedHero;
-    public List<CreatureData> aiDeck1, currentAiDeck; //, aiDeck2, aiDeck3;
+    public List<CreatureData> currentAiDeck, aiDeck1, aiDeck2, aiDeck3;
      
     public List<WeaponData> allWeapons;
     public List<UltimateData> allUltimates;
@@ -110,7 +110,22 @@ public class GameController : MonoBehaviour {
             controller.GetComponent<MenuMusicController>().StopMusic();
         }
         ultimateUsed = false;
-        currentAiDeck = aiDeck1;
+        if(LevelController.levelCounter == 0)
+        {
+            currentAiDeck = aiDeck1;
+        }
+        else if (LevelController.levelCounter == 1)
+        {
+            currentAiDeck = aiDeck2;
+        }
+        else if (LevelController.levelCounter == 2)
+        {
+            currentAiDeck = aiDeck3;
+        }
+        else
+        {
+            print("Level counter error");
+        }
         CreatureShuffle(currentAiDeck);
         CreateDictionaries();
         LoadEquipment();
@@ -118,7 +133,6 @@ public class GameController : MonoBehaviour {
         DealCreatureHand();
         lootCounter = lootDrop;
         turnState = turn.Player1;
-        
         if (turnState == turn.Player1) //checks if it is the Players's turn
         {
             for (int i = 0; i < equippedWeaponObj.Count; i++) //loop repeats for each weapon on the board
@@ -752,14 +766,22 @@ public class GameController : MonoBehaviour {
         gameoverText.text = "You win";
         gameoverBackground.SetActive(true);
         buttonCanvas.SetActive(true);
+        if(LevelController.levelCounter >= 2)
+        {
+            continueButtonObj.SetActive(false);
+        }
     }
 
-    //public void NextLevel()
-    //{
-    //    currentAiDeck = aiDeck2;
-    //    SceneManager.LoadScene("GameScene");
-    //    levelController.levelIncrement();
-    //}
+    public void NextLevel()
+    {
+        levelController.LoadNextLevel();
+    }
+
+    public void RestartGame()
+    {
+        LevelController.levelCounter = 0;
+        SceneManager.LoadScene("GameScene");
+    }
 
     public void SaveBackpack() //saves backpack lists and remaining lootdrop lists
     {
@@ -804,7 +826,7 @@ public class GameController : MonoBehaviour {
         bf.Serialize(armourFile, textBackpackArmour);
         armourFile.Close();
 
-        print("saved backpack");
+        //print("saved backpack");
         SaveLootTable();
         SceneManager.LoadScene("MenuScene");
     }
@@ -844,7 +866,7 @@ public class GameController : MonoBehaviour {
         bf.Serialize(armourLootRemainingFile, textRemainingArmour);
         armourLootRemainingFile.Close();
 
-        print("Saved Loot Table");
+        //print("Saved Loot Table");
     }
 
     void LoadEquipment()
@@ -915,7 +937,7 @@ public class GameController : MonoBehaviour {
                 DealArmour(armourTransform, armourValue, equippedArmourObj);
             }
         }
-        print("Loaded Equipment");
+        //print("Loaded Equipment");
         LoadLootTable();
     }
 
@@ -986,7 +1008,7 @@ public class GameController : MonoBehaviour {
                 armourLoot1.Add(armourValue);
             }
         }
-        print("Loaded Loot Table");
+        //print("Loaded Loot Table");
     }
 
     void CreateDictionaries()

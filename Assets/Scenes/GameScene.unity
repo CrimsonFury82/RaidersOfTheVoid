@@ -1275,9 +1275,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1201063327}
-        m_MethodName: LoadScene
-        m_Mode: 5
+      - m_Target: {fileID: 1623185360}
+        m_MethodName: RestartGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3095,7 +3095,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ecbce8ea33cffd4baf86be36173798b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelCounter: 0
+  gameController: {fileID: 0}
 --- !u!1 &904324194
 GameObject:
   m_ObjectHideFlags: 0
@@ -3256,9 +3256,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1201063327}
-        m_MethodName: LoadScene
-        m_Mode: 5
+      - m_Target: {fileID: 1623185360}
+        m_MethodName: NextLevel
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4511,6 +4511,7 @@ MonoBehaviour:
   lootDropObj: {fileID: 1181382643}
   buttonCanvas: {fileID: 2070231899}
   warningObj: {fileID: 1228428263}
+  continueButtonObj: {fileID: 1071853968}
   menuToggle: {fileID: 461351152}
   enemyTransform: {fileID: 141712104}
   heroTransform: {fileID: 44294895}
@@ -4551,6 +4552,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4f8a7b06402e3bb4fb667f180baa143c, type: 2}
   equippedHero:
   - {fileID: 11400000, guid: a3f4e053182bf5f409e7842f5de99399, type: 2}
+  currentAiDeck: []
   aiDeck1:
   - {fileID: 11400000, guid: 975fde177003a6a48b1987a092f7a5f9, type: 2}
   - {fileID: 11400000, guid: 975fde177003a6a48b1987a092f7a5f9, type: 2}
@@ -4588,7 +4590,43 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 42deae3532d541042a6d701d6d8a8123, type: 2}
   - {fileID: 11400000, guid: 42deae3532d541042a6d701d6d8a8123, type: 2}
   - {fileID: 11400000, guid: 42deae3532d541042a6d701d6d8a8123, type: 2}
-  currentAiDeck: []
+  aiDeck2:
+  - {fileID: 11400000, guid: 8e3cdd41a77cbd5478b191d911c281dc, type: 2}
+  - {fileID: 11400000, guid: 8e3cdd41a77cbd5478b191d911c281dc, type: 2}
+  - {fileID: 11400000, guid: 8e3cdd41a77cbd5478b191d911c281dc, type: 2}
+  - {fileID: 11400000, guid: 75e0c01c4bfd9634ba59572c4275e537, type: 2}
+  - {fileID: 11400000, guid: 75e0c01c4bfd9634ba59572c4275e537, type: 2}
+  - {fileID: 11400000, guid: 75e0c01c4bfd9634ba59572c4275e537, type: 2}
+  - {fileID: 11400000, guid: 5d717fc0bcb4a6f4bb086afe9eb766ec, type: 2}
+  - {fileID: 11400000, guid: 5d717fc0bcb4a6f4bb086afe9eb766ec, type: 2}
+  - {fileID: 11400000, guid: 5d717fc0bcb4a6f4bb086afe9eb766ec, type: 2}
+  - {fileID: 11400000, guid: e0fc1e163f79d8c4196a5c6f960bd71e, type: 2}
+  - {fileID: 11400000, guid: e0fc1e163f79d8c4196a5c6f960bd71e, type: 2}
+  - {fileID: 11400000, guid: e0fc1e163f79d8c4196a5c6f960bd71e, type: 2}
+  - {fileID: 11400000, guid: 1ae17220d5df7bf4b95f605996541b96, type: 2}
+  - {fileID: 11400000, guid: 1ae17220d5df7bf4b95f605996541b96, type: 2}
+  - {fileID: 11400000, guid: 1ae17220d5df7bf4b95f605996541b96, type: 2}
+  - {fileID: 11400000, guid: c7c26108effcf4449bb8d6061bc4f29e, type: 2}
+  - {fileID: 11400000, guid: c7c26108effcf4449bb8d6061bc4f29e, type: 2}
+  - {fileID: 11400000, guid: c7c26108effcf4449bb8d6061bc4f29e, type: 2}
+  - {fileID: 11400000, guid: 9db9b333f6c638942ac65be404a2eb4f, type: 2}
+  - {fileID: 11400000, guid: 9db9b333f6c638942ac65be404a2eb4f, type: 2}
+  - {fileID: 11400000, guid: 9db9b333f6c638942ac65be404a2eb4f, type: 2}
+  - {fileID: 11400000, guid: 86d6928c9bd8aef40bf0100109fe2bb2, type: 2}
+  - {fileID: 11400000, guid: 86d6928c9bd8aef40bf0100109fe2bb2, type: 2}
+  - {fileID: 11400000, guid: 86d6928c9bd8aef40bf0100109fe2bb2, type: 2}
+  - {fileID: 11400000, guid: 0f689965235a75248b59df9720296df8, type: 2}
+  - {fileID: 11400000, guid: 0f689965235a75248b59df9720296df8, type: 2}
+  - {fileID: 11400000, guid: 0f689965235a75248b59df9720296df8, type: 2}
+  - {fileID: 11400000, guid: 6ca277191f3a354439228fc994e5b964, type: 2}
+  - {fileID: 11400000, guid: 6ca277191f3a354439228fc994e5b964, type: 2}
+  - {fileID: 11400000, guid: 6ca277191f3a354439228fc994e5b964, type: 2}
+  - {fileID: 11400000, guid: 9db9b333f6c638942ac65be404a2eb4f, type: 2}
+  - {fileID: 11400000, guid: 9db9b333f6c638942ac65be404a2eb4f, type: 2}
+  aiDeck3:
+  - {fileID: 11400000, guid: 9175caad2213e6b4bab03983838e78f9, type: 2}
+  - {fileID: 11400000, guid: 9175caad2213e6b4bab03983838e78f9, type: 2}
+  - {fileID: 11400000, guid: 9175caad2213e6b4bab03983838e78f9, type: 2}
   allWeapons:
   - {fileID: 11400000, guid: 99ca836159ce48248893373982cd461a, type: 2}
   - {fileID: 11400000, guid: 3c8a4dff5be63fb4bb3516164285914a, type: 2}
