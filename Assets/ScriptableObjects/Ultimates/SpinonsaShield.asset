@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: SpinonsaShield
   m_EditorClassIdentifier: 
   cardName: 'Spinonsa Shield '
-  ability1: Heal 15
+  ability1: Heal 20
   hp: 0
   artSprite: {fileID: 21300000, guid: 9be604eea3b6f2b4aa8e06e037b9f1a7, type: 3}
   audio1: {fileID: 0}
+  audio2: {fileID: 0}
   dmg: 0
-  heal: 15
+  heal: 20
   cooldown: 3
   apBonus: 0

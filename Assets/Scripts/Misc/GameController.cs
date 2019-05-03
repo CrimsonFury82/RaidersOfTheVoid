@@ -14,9 +14,6 @@ public class GameController : MonoBehaviour {
 
     public enum turn {Player1, Player2}; //List of states
     public enum phase {MainPhase, CombatPhase}; //List of states
-    //public enum lootNum {Tier1, Tier2, Tier3}; //List of states
-    //public enum lootTy {Weapon, Ultimate, Armour } //List of states
-    //string dataType;
 
     bool ultimateUsed;
 
@@ -25,10 +22,6 @@ public class GameController : MonoBehaviour {
     public turn turnState; //State for current player turn
 
     public phase turnPhase; //State for current game phase
-
-    //public lootNum lootTier; //State for Loot drop tier
-
-    //public lootTy lootType; //State for Loot drop type
 
     int AP, UltimateMaxCooldown, heroMaxHP, lootCounter, lootDrop = 3;
 
@@ -50,7 +43,6 @@ public class GameController : MonoBehaviour {
     public List<ArmourData> equippedArmour;
     public List<HeroData> equippedHero;
     public List<CreatureData> currentAiDeck, aiDeck1, aiDeck2, aiDeck3;
-     
     public List<WeaponData> allWeapons;
     public List<UltimateData> allUltimates;
     public List<ArmourData> allArmour;
@@ -381,9 +373,9 @@ public class GameController : MonoBehaviour {
 
     private void Update()
     {
-        if (Input.GetKeyDown("l"))
+        if (Input.GetKeyDown("s"))
         {
-            DropLoot();
+            SaveLootTable();
         }
     }
 
@@ -596,11 +588,6 @@ public class GameController : MonoBehaviour {
         {
             HealRelic(relicCardData);
         }
-        if (relicCardData.dmg > 0)
-        {
-            tempUltimate = relicCardData;
-            WeaponTarget(relicCardData);
-        }
         if (relicCardData.apBonus > 0)
         {
             APRelic(relicCardData);
@@ -667,16 +654,6 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    public void WeaponTarget(UltimateData relicCardData) //function for selecting weapon target
-    {
-        //print("ultimate targeting");
-        for (int i = 0; i < equippedCreaturesObj.Count; i++) //loop repeats for each creature on the board
-        {
-            CreatureCard attacker = equippedCreaturesObj[i].GetComponent<CreatureCard>();
-            attacker.buttonObject.SetActive(true); //enables buttons on creature cards in range
-        }
-    }
-
     public void WeaponAttack(GameObject creature, CreatureData creatureCard, WeaponCard weaponCard)
     {
         if(tempUltimate == null)
@@ -685,12 +662,10 @@ public class GameController : MonoBehaviour {
             APUpdate(); //updates UI text
             creatureCard.hp -= tempWeaponData.dmg; //weapon deals dmg to creature
             weaponCard.PlaySound1();
-            //print("temp ultimate = null");
         }
         else
         {
             creatureCard.hp -= tempUltimate.dmg; //ultimate deals dmg to creature
-            //print("temp ultiamte = not null");
             tempUltimate = null;
         }
         CreatureCard defCreature = creature.GetComponent<CreatureCard>(); //creatures a reference to the creature

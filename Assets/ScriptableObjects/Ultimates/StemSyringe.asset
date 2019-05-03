@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: StemSyringe
   m_EditorClassIdentifier: 
   cardName: Stem Syringe
-  ability1: AP +2
+  ability1: AP +3
   hp: 0
   artSprite: {fileID: 21300000, guid: 56067e19acc7af749a904c54520fd714, type: 3}
   audio1: {fileID: 0}
+  audio2: {fileID: 0}
   dmg: 0
   heal: 0
   cooldown: 1
-  apBonus: 2
+  apBonus: 3

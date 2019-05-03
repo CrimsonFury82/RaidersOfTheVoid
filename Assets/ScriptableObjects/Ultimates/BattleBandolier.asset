@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: BattleBandolier
   m_EditorClassIdentifier: 
   cardName: Battle Bandolier
-  ability1: AP +5
+  ability1: AP +6
   hp: 0
   artSprite: {fileID: 21300000, guid: fe5f3052fe26d104093235b810eec310, type: 3}
   audio1: {fileID: 0}
+  audio2: {fileID: 0}
   dmg: 0
   heal: 0
-  cooldown: 0
-  apBonus: 5
+  cooldown: 2
+  apBonus: 6

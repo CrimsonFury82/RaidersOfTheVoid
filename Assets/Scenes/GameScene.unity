@@ -4528,13 +4528,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 67062e3df4a2a2042a9221d25c805c90, type: 2}
   - {fileID: 11400000, guid: c26d1f1cd167b4c48b529baeebe0bb08, type: 2}
   - {fileID: 11400000, guid: ca0dd02dced648e42920c9f645d2ca22, type: 2}
+  - {fileID: 11400000, guid: 6a578a7545cf3e541a7dae87fb0a9426, type: 2}
+  - {fileID: 11400000, guid: 650d3295ab599c848a3ee2022eaaf151, type: 2}
   ultimateLoot1:
   - {fileID: 11400000, guid: 2423b70f0e6af7842b157d0fc28e5032, type: 2}
   - {fileID: 11400000, guid: 784a8a186e722b04f9621a25500585d6, type: 2}
   - {fileID: 11400000, guid: 7f3e900d8a6d27546b3cc23e4c3e3e9e, type: 2}
   - {fileID: 11400000, guid: fd8bbaf899aac274a8b75a7ae4d2b5e9, type: 2}
-  - {fileID: 11400000, guid: 0635f874fcb5c524cbb6b033314f4e19, type: 2}
-  - {fileID: 11400000, guid: 88eadd8a85349b74a87969e4c618d0ba, type: 2}
   - {fileID: 11400000, guid: b8edf7f1b2d0e8c4cbd5d2cacb6867c5, type: 2}
   - {fileID: 11400000, guid: 4f007907e71c4f342b81e139da1c05d8, type: 2}
   - {fileID: 11400000, guid: 14cef655bd517424892679b338ebc51f, type: 2}
@@ -4602,29 +4602,26 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5d717fc0bcb4a6f4bb086afe9eb766ec, type: 2}
   - {fileID: 11400000, guid: e0fc1e163f79d8c4196a5c6f960bd71e, type: 2}
   - {fileID: 11400000, guid: e0fc1e163f79d8c4196a5c6f960bd71e, type: 2}
-  - {fileID: 11400000, guid: e0fc1e163f79d8c4196a5c6f960bd71e, type: 2}
+  - {fileID: 11400000, guid: 0f689965235a75248b59df9720296df8, type: 2}
   - {fileID: 11400000, guid: 1ae17220d5df7bf4b95f605996541b96, type: 2}
   - {fileID: 11400000, guid: 1ae17220d5df7bf4b95f605996541b96, type: 2}
   - {fileID: 11400000, guid: 1ae17220d5df7bf4b95f605996541b96, type: 2}
-  - {fileID: 11400000, guid: c7c26108effcf4449bb8d6061bc4f29e, type: 2}
-  - {fileID: 11400000, guid: c7c26108effcf4449bb8d6061bc4f29e, type: 2}
-  - {fileID: 11400000, guid: c7c26108effcf4449bb8d6061bc4f29e, type: 2}
+  - {fileID: 11400000, guid: 6ca277191f3a354439228fc994e5b964, type: 2}
+  - {fileID: 11400000, guid: 6ca277191f3a354439228fc994e5b964, type: 2}
+  - {fileID: 11400000, guid: 6ca277191f3a354439228fc994e5b964, type: 2}
   - {fileID: 11400000, guid: 9db9b333f6c638942ac65be404a2eb4f, type: 2}
   - {fileID: 11400000, guid: 9db9b333f6c638942ac65be404a2eb4f, type: 2}
   - {fileID: 11400000, guid: 9db9b333f6c638942ac65be404a2eb4f, type: 2}
   - {fileID: 11400000, guid: 86d6928c9bd8aef40bf0100109fe2bb2, type: 2}
   - {fileID: 11400000, guid: 86d6928c9bd8aef40bf0100109fe2bb2, type: 2}
   - {fileID: 11400000, guid: 86d6928c9bd8aef40bf0100109fe2bb2, type: 2}
-  - {fileID: 11400000, guid: 0f689965235a75248b59df9720296df8, type: 2}
-  - {fileID: 11400000, guid: 0f689965235a75248b59df9720296df8, type: 2}
-  - {fileID: 11400000, guid: 0f689965235a75248b59df9720296df8, type: 2}
-  - {fileID: 11400000, guid: 6ca277191f3a354439228fc994e5b964, type: 2}
-  - {fileID: 11400000, guid: 6ca277191f3a354439228fc994e5b964, type: 2}
-  - {fileID: 11400000, guid: 6ca277191f3a354439228fc994e5b964, type: 2}
-  - {fileID: 11400000, guid: 9db9b333f6c638942ac65be404a2eb4f, type: 2}
-  - {fileID: 11400000, guid: 9db9b333f6c638942ac65be404a2eb4f, type: 2}
   aiDeck3:
-  - {fileID: 11400000, guid: 9175caad2213e6b4bab03983838e78f9, type: 2}
+  - {fileID: 11400000, guid: c7c26108effcf4449bb8d6061bc4f29e, type: 2}
+  - {fileID: 11400000, guid: c7c26108effcf4449bb8d6061bc4f29e, type: 2}
+  - {fileID: 11400000, guid: c7c26108effcf4449bb8d6061bc4f29e, type: 2}
+  - {fileID: 11400000, guid: c7c26108effcf4449bb8d6061bc4f29e, type: 2}
+  - {fileID: 11400000, guid: c7c26108effcf4449bb8d6061bc4f29e, type: 2}
+  - {fileID: 11400000, guid: c7c26108effcf4449bb8d6061bc4f29e, type: 2}
   - {fileID: 11400000, guid: 9175caad2213e6b4bab03983838e78f9, type: 2}
   - {fileID: 11400000, guid: 9175caad2213e6b4bab03983838e78f9, type: 2}
   allWeapons:
@@ -4638,17 +4635,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 67062e3df4a2a2042a9221d25c805c90, type: 2}
   - {fileID: 11400000, guid: c26d1f1cd167b4c48b529baeebe0bb08, type: 2}
   - {fileID: 11400000, guid: ca0dd02dced648e42920c9f645d2ca22, type: 2}
+  - {fileID: 11400000, guid: 6a578a7545cf3e541a7dae87fb0a9426, type: 2}
+  - {fileID: 11400000, guid: 650d3295ab599c848a3ee2022eaaf151, type: 2}
   allUltimates:
   - {fileID: 11400000, guid: 181c747c49fb38549a536d9942c5f2f8, type: 2}
   - {fileID: 11400000, guid: 2423b70f0e6af7842b157d0fc28e5032, type: 2}
   - {fileID: 11400000, guid: 784a8a186e722b04f9621a25500585d6, type: 2}
   - {fileID: 11400000, guid: 7f3e900d8a6d27546b3cc23e4c3e3e9e, type: 2}
   - {fileID: 11400000, guid: fd8bbaf899aac274a8b75a7ae4d2b5e9, type: 2}
-  - {fileID: 11400000, guid: 0635f874fcb5c524cbb6b033314f4e19, type: 2}
-  - {fileID: 11400000, guid: 88eadd8a85349b74a87969e4c618d0ba, type: 2}
-  - {fileID: 11400000, guid: b8edf7f1b2d0e8c4cbd5d2cacb6867c5, type: 2}
-  - {fileID: 11400000, guid: 4f007907e71c4f342b81e139da1c05d8, type: 2}
   - {fileID: 11400000, guid: 14cef655bd517424892679b338ebc51f, type: 2}
+  - {fileID: 11400000, guid: 4f007907e71c4f342b81e139da1c05d8, type: 2}
+  - {fileID: 11400000, guid: b8edf7f1b2d0e8c4cbd5d2cacb6867c5, type: 2}
   allArmour:
   - {fileID: 11400000, guid: 2bba0fcc49769324cb1192213cd414b8, type: 2}
   - {fileID: 11400000, guid: 4f8a7b06402e3bb4fb667f180baa143c, type: 2}
@@ -5298,7 +5295,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Continue onwards at your peril
+  m_Text: Risk your loot to face a tougher challenge
 --- !u!222 &2046454961
 CanvasRenderer:
   m_ObjectHideFlags: 0

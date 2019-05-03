@@ -17,6 +17,7 @@ MonoBehaviour:
   hp: 0
   artSprite: {fileID: 21300000, guid: 72d8c33ba252cca4f9e8a122632fe941, type: 3}
   audio1: {fileID: 0}
-  dmg: 8
+  audio2: {fileID: 0}
+  dmg: 6
   ap: 3
-  range: 2
+  range: 3

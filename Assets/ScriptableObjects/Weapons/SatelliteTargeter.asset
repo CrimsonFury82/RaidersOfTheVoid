@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75aa2fc28ed0f974e9c07f361172986a, type: 3}
+  m_Name: SatelliteTargeter
+  m_EditorClassIdentifier: 
+  cardName: Satellite Targeter
+  ability1: 
+  hp: 0
+  artSprite: {fileID: 21300000, guid: 3adb57c8579321049ab70a774a8eaeed, type: 3}
+  audio1: {fileID: 0}
+  audio2: {fileID: 0}
+  dmg: 30
+  ap: 12
+  range: 4

@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: SypherShot
   m_EditorClassIdentifier: 
   cardName: Sypher Shot
-  ability1: DMG 9 - Heal 5
+  ability1: AP +1
   hp: 0
   artSprite: {fileID: 21300000, guid: 51b8e83f94c37ec4abcb755d327fc893, type: 3}
   audio1: {fileID: 0}
-  dmg: 9
-  heal: 5
-  cooldown: 2
-  apBonus: 0
+  audio2: {fileID: 0}
+  dmg: 0
+  heal: 0
+  cooldown: 0
+  apBonus: 1

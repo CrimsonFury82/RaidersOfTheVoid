@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: CrystalAmplifier
   m_EditorClassIdentifier: 
   cardName: Crystal Amplifier
-  ability1: DMG 10
+  ability1: Heal 2
   hp: 0
   artSprite: {fileID: 21300000, guid: 336378c4c1b7e7345bc95f7cf7c46ed7, type: 3}
   audio1: {fileID: 0}
-  dmg: 10
-  heal: 0
-  cooldown: 2
+  audio2: {fileID: 0}
+  dmg: 0
+  heal: 2
+  cooldown: 0
   apBonus: 0

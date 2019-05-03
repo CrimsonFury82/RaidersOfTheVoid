@@ -189,13 +189,13 @@ public class InventoryController : MonoBehaviour
         }
     }
 
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown("s"))
-    //    {
-    //        SaveInventory();
-    //    }
-    //}
+    private void Update()
+    {
+        if (Input.GetKeyDown("s"))
+        {
+            SaveInventory();
+        }
+    }
 
     public void ClearBackpack() //saves empty string to .dat files to clear them
     {

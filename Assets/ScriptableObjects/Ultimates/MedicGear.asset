@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: MedicGear
   m_EditorClassIdentifier: 
   cardName: Medic Gear
-  ability1: Heal 7
+  ability1: Heal 12
   hp: 0
   artSprite: {fileID: 21300000, guid: 616e57bb34fa3cc45b29b93fc26b3830, type: 3}
   audio1: {fileID: 0}
+  audio2: {fileID: 0}
   dmg: 0
-  heal: 7
+  heal: 12
   cooldown: 2
   apBonus: 0
