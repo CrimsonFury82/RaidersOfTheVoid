@@ -8,7 +8,7 @@ using UnityEngine.UI;
 [ExecuteInEditMode]
 public class CreatureCard : BaseCard
 {
-    public CreatureData creatureCardData;
+    public CreatureData creatureData;
 
     GameController gameController;
 
@@ -29,19 +29,19 @@ public class CreatureCard : BaseCard
 
     public void UICreatureCard(Text dmg)
     {
-        creatureCardData.BaseCardUpdate(cardNameText, ability1Text, hpText, artImage); //updates card UI text
-        dmg.text = creatureCardData.dmg.ToString(); //updates card UI text
+        creatureData.BaseCardUpdate(cardNameText, ability1Text, hpText, artImage); //updates card UI text
+        dmg.text = creatureData.dmg.ToString(); //updates card UI text
     }
 
     public void AttackClickedCreature() //the previously selected weapon attacks the clicked creature
     {
-        gameController.WeaponAttack(this.gameObject, creatureCardData, gameController.tempWeaponCard);
+        gameController.WeaponAttack(this.gameObject, creatureData, gameController.tempWeaponCard);
     }
 
     public void PlaySound() //plays audio clip once
     {
         audioSource = GetComponent<AudioSource>();
-        AudioClip attackSound = creatureCardData.audio1;
+        AudioClip attackSound = creatureData.audio1;
         audioSource.PlayOneShot(attackSound);
     }
 }

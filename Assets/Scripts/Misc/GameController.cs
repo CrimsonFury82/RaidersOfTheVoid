@@ -17,15 +17,15 @@ public class GameController : MonoBehaviour {
 
     bool ultimateUsed;
 
-    public Text apText, monstersText, turnText, gameoverText, ultimateText, warningText; //UI text
+    public Text ammoText, monstersText, turnText, gameoverText, ultimateText, warningText; //UI text
 
     public turn turnState; //State for current player turn
 
     public phase turnPhase; //State for current game phase
 
-    int AP, UltimateMaxCooldown, heroMaxHP, lootCounter, lootDrop = 3;
+    int ammo, UltimateMaxCooldown, heroMaxHP, lootCounter, lootDrop = 3, tempRange;
 
-    public GameObject gameoverBackground, lootDropObj, buttonCanvas, warningObj, continueButtonObj; //menu objects that will be toggled off and on
+    public GameObject gameoverBackground, lootDropObj, winButtonCanvas, loseButtonCanvas, endTurnButtonObj, warningObj, continueButtonObj, tempRangeIndicator; //menu objects that will be toggled off and on
 
     public Toggle menuToggle;
 
@@ -52,7 +52,7 @@ public class GameController : MonoBehaviour {
     public List<string> textEquippedWeapons, textEquippedUltimate, textEquippedArmour, textBackpackWeapons, textBackpackUltimate, textBackpackArmour, textRemainingWeapons, textRemainingUltimates, textRemainingArmour;
 
     //Lists of card prefabs on the board
-    public List<GameObject> equippedWeaponObj, equippedUltimateObj, equippedArmourObj, equippedCreaturesObj, equippedHeroObj, lootChest, backPackWeapons, backPackUltimates, backPackArmour;
+    public List<GameObject> equippedWeaponObj, equippedUltimateObj, equippedArmourObj, equippedCreaturesObj, equippedHeroObj, lootChest, backPackWeapons, backPackUltimates, backPackArmour, rangeIndicators;
 
     //card prefabs
     public CreatureCard creatureCardTemplate;
@@ -77,7 +77,6 @@ public class GameController : MonoBehaviour {
 
     public WeaponData tempWeaponData; //currently selected weapon data
     public WeaponCard tempWeaponCard; //currently selected weapon card
-    UltimateData tempUltimate = null; //currently selected ultimate
 
     float endTurnDelay = 1.75f;
 
@@ -208,7 +207,7 @@ public class GameController : MonoBehaviour {
     {
         turnState = turn.Player1;
         turnText.color = Color.green;
-        turnText.text = "Go - Your turn";
+        turnText.text = "Your turn";
 
         if (ultimateUsed == true)
         {
@@ -240,20 +239,20 @@ public class GameController : MonoBehaviour {
         ultimateText.text = "Ultimate Used"; //updates card UI text
     }
     
-    void APReset() //resets action points at start of turn
+    void APReset() //resets ammo at start of turn
     {
-        AP = 10;
-        APUpdate();
+        ammo = 10;
+        AmmoUpdate();
     }
 
-    void APUpdate() //updates UI text
+    void AmmoUpdate() //updates UI text
     {
-        apText.text = "Action Points: " + AP.ToString();
+        ammoText.text = "Ammo: " + ammo.ToString();
     }
 
     void HeroHPUpdate() //updates UI text
     {
-        defHero.hpText.text = defHero.heroCardData.hp.ToString();
+        defHero.hpText.text = defHero.heroData.hp.ToString();
     }
 
     void RelicUpdate() //updates UI text
@@ -312,13 +311,13 @@ public class GameController : MonoBehaviour {
         HeroData card = Instantiate(heroTopDeck); //instantiates instance of scriptable object
         HeroCard tempCard = Instantiate(heroCardTemplate); //instantiates an instance of the card prefab
         tempCard.transform.SetParent(heroTransform.transform, false); //moves card onto board
-        tempCard.heroCardData = card; //assigns the instance of the scriptable object to the instance of the prefab
+        tempCard.heroData = card; //assigns the instance of the scriptable object to the instance of the prefab
         equippedHero.Remove(heroTopDeck);
         equippedHeroObj.Add(tempCard.gameObject); //adds card to live list
         defHero = equippedHeroObj[0].GetComponent<HeroCard>();
-        defHero.heroCardData.armour = currentArmour.armourData.hp;
-        heroMaxHP = defHero.heroCardData.hp;
-        defHero.heroCardData.artSprite = currentArmour.armourData.artSprite;
+        defHero.heroData.armour = currentArmour.armourData.hp;
+        heroMaxHP = defHero.heroData.hp;
+        defHero.heroData.artSprite = currentArmour.armourData.artSprite;
     }
 
     public void DealArmour(Transform spawnTransform, ArmourData data, List<GameObject> objectList) //Deals hero cards at start of game
@@ -577,7 +576,7 @@ public class GameController : MonoBehaviour {
         CreatureData card = Instantiate(creatureTopDeck); //instantiates an instance of the carddata scriptable object
         CreatureCard dealtCard = Instantiate(creatureCardTemplate); //instantiates an instance of the card prefab
         dealtCard.transform.SetParent(enemyTransform.transform, false); //moves card to handzone
-        dealtCard.creatureCardData = card; //sets the cards data to the card dealt
+        dealtCard.creatureData = card; //sets the cards data to the card dealt
         currentAiDeck.Remove(creatureTopDeck); //removes card from deck list
         equippedCreaturesObj.Add(dealtCard.gameObject);
     }
@@ -598,21 +597,21 @@ public class GameController : MonoBehaviour {
 
     void HealRelic(UltimateData ultimateData)
     {
-        if(defHero.heroCardData.hp + ultimateData.heal > heroMaxHP) //checks if healing will take hero past max HP
+        if(defHero.heroData.hp + ultimateData.heal > heroMaxHP) //checks if healing will take hero past max HP
         {
-            defHero.heroCardData.hp = heroMaxHP; //heals to max HP
+            defHero.heroData.hp = heroMaxHP; //heals to max HP
         }
         else
         {
-            defHero.heroCardData.hp += ultimateData.heal; //heals for heal amount on ultimate
+            defHero.heroData.hp += ultimateData.heal; //heals for heal amount on ultimate
         }
         HeroHPUpdate(); //updates card UI text
     }
 
     void APRelic(UltimateData relicCardData)
     {
-        AP += relicCardData.apBonus; //updates action points
-        APUpdate(); //updates UI text
+        ammo += relicCardData.apBonus; //updates ammo
+        AmmoUpdate(); //updates UI text
     }
 
     public void WarningPopup(string passedText)
@@ -623,66 +622,86 @@ public class GameController : MonoBehaviour {
 
     public void WeaponTarget(WeaponData weaponData, WeaponCard weaponCard) //function for selecting weapon target
     {
-        //print("standard targeting");
-        if (AP - weaponData.ap < 0)
+        if (ammo - weaponData.ap < 0)
         {
-            WarningPopup("Not enough Action Points");
+            WarningPopup("Not enough Ammo");
         }
         else
         {
-            weaponCard.PlaySound2();
-            for (int i = 0; i < equippedCreaturesObj.Count; i++) //loop repeats for each creature on the board
+            weaponCard.PlaySound2(); //plays sound
+            tempWeaponData = weaponData; //assigns the data of clicked weapon as the tempWeaponData
+            tempWeaponCard = weaponCard; //assigns the weaponCard of clicked as the tempWeaponCard
+            tempRange = weaponData.range; //sets range of current weapon
+
+            for (int i = 0; i < equippedCreaturesObj.Count; i++) //loop repeats for each creature in range
             {
                 CreatureCard attacker = equippedCreaturesObj[i].GetComponent<CreatureCard>();
-                attacker.buttonObject.SetActive(false); //disables buttons on all creature card, so if the player changes target, it will disable out of range options.
+                attacker.buttonObject.SetActive(true); //enables buttons on all creature cards
             }
 
-            tempWeaponData = weaponData; //assigns the weapon clicked as the tempweapon
-            tempWeaponCard = weaponCard; //assigns the weapon clicked as the tempweapon
-            int tempRange = weaponData.range;
-
-            if (equippedCreaturesObj.Count < weaponData.range)
+            foreach(GameObject item in rangeIndicators)
             {
-                tempRange = equippedCreaturesObj.Count;
+                item.SetActive(false); //disables range indicators (this is so if a player changes weapons, they don't get multiple icons active)
             }
 
-            for (int i = 0; i < tempRange; i++) //loop repeats for each creature on the board
+            //actives the range indicator appropriate to the weapons range
+
+            if (tempRange == 1)
             {
-                CreatureCard attacker = equippedCreaturesObj[i].GetComponent<CreatureCard>();
-                attacker.buttonObject.SetActive(true); //enables buttons on creature cards in range
+                tempRangeIndicator = rangeIndicators[0];
+                tempRangeIndicator.SetActive(true);
+            }
+            else if (tempRange == 2)
+            {
+                tempRangeIndicator = rangeIndicators[1];
+                tempRangeIndicator.SetActive(true);
+            }
+            else if (tempRange == 3)
+            {
+                tempRangeIndicator = rangeIndicators[2];
+                tempRangeIndicator.SetActive(true);
+            }
+            else if (tempRange == 4)
+            {
+                tempRangeIndicator = rangeIndicators[3];
+                tempRangeIndicator.SetActive(true);
+            }
+            else
+            {
+                print("Range Error");
             }
         }
     }
 
-    public void WeaponAttack(GameObject creature, CreatureData creatureCard, WeaponCard weaponCard)
+    public void WeaponAttack(GameObject creature, CreatureData creatureData, WeaponCard weaponCard)
     {
-        if(tempUltimate == null)
+        if((equippedCreaturesObj.IndexOf(creature) +1) > tempRange) //checks if clicked creature is in range
         {
-            AP -= tempWeaponData.ap; //updates AP remaining
-            APUpdate(); //updates UI text
-            creatureCard.hp -= tempWeaponData.dmg; //weapon deals dmg to creature
-            weaponCard.PlaySound1();
+            WarningPopup("Target out of range");
         }
         else
         {
-            creatureCard.hp -= tempUltimate.dmg; //ultimate deals dmg to creature
-            tempUltimate = null;
-        }
-        CreatureCard defCreature = creature.GetComponent<CreatureCard>(); //creatures a reference to the creature
-        defCreature.hpText.text = defCreature.creatureCardData.hp.ToString(); //updates UI text
+            ammo -= tempWeaponData.ap; //updates AP remaining
+            AmmoUpdate(); //updates UI text
+            creatureData.hp -= tempWeaponData.dmg; //weapon deals dmg to creature
+            weaponCard.PlaySound1();  //plays sound
+            CreatureCard defCreature = creature.GetComponent<CreatureCard>(); //creatures a reference to the creature
+            defCreature.hpText.text = defCreature.creatureData.hp.ToString(); //updates UI text
 
-        if (creatureCard.hp <= 0) //checks if creature is dead
-        {
-            CreatureCard deadCreature = creature.GetComponent<CreatureCard>();
-            Destroy(deadCreature.gameObject); //destroys the creature
-            equippedCreaturesObj.Remove(deadCreature.gameObject); //removes destroyed creature from attackers list
-            MonstersUpdate(); //updates UI text
-        }
+            if (creatureData.hp <= 0) //checks if creature is dead
+            {
+                CreatureCard deadCreature = creature.GetComponent<CreatureCard>();
+                Destroy(deadCreature.gameObject); //destroys the creature
+                equippedCreaturesObj.Remove(deadCreature.gameObject); //removes destroyed creature from attackers list
+                MonstersUpdate(); //updates UI text
+            }
 
-        for (int i = 0; i < equippedCreaturesObj.Count; i++) //loop repeats for each creature on the board
-        {
-            CreatureCard attacker = equippedCreaturesObj[i].GetComponent<CreatureCard>();
-            attacker.buttonObject.SetActive(false); //disables buttons on all creature cards
+            for (int i = 0; i < equippedCreaturesObj.Count; i++) //loop repeats for each creature on the board
+            {
+                CreatureCard attacker = equippedCreaturesObj[i].GetComponent<CreatureCard>();
+                attacker.buttonObject.SetActive(false); //disables buttons on all creature cards
+            }
+            tempRangeIndicator.SetActive(false); //disables range indicator
         }
     }
 
@@ -705,24 +724,26 @@ public class GameController : MonoBehaviour {
             CreatureCard attackCreature = equippedCreaturesObj[i].GetComponent<CreatureCard>();
             StartCoroutine(animationController.AttackMove(equippedCreaturesObj[i], equippedHeroObj[0])); //starts coroutine for moving attacking card
             attackCreature.PlaySound(); //plays sound effect
-            if (attackCreature.creatureCardData.dmg > currentArmour.armourData.hp) //checks if creature attack is strong enough to pierce armour
+            if (attackCreature.creatureData.dmg > currentArmour.armourData.hp) //checks if creature attack is strong enough to pierce armour
             {
-                defHero.heroCardData.hp -= attackCreature.creatureCardData.dmg - currentArmour.armourData.hp; //creature deals damage
+                defHero.heroData.hp -= attackCreature.creatureData.dmg - currentArmour.armourData.hp; //creature deals damage
             }
             HeroHPUpdate(); //updates UI text
             float combatDelay = 1.3f;
 
-            if (i!=equippedCreaturesObj.Count-1)
-            {
-                yield return new WaitForSeconds(combatDelay);
-            }
-            else if (i == equippedCreaturesObj.Count - 1)
-            {
-                yield return null;
-            }
+            yield return new WaitForSeconds(combatDelay);
+
+            //if (i!=equippedCreaturesObj.Count-1)
+            //{
+            //    yield return new WaitForSeconds(combatDelay);
+            //}
+            //else if (i == equippedCreaturesObj.Count - 1)
+            //{
+            //    yield return null;
+            //}
         }
 
-        if (defHero.heroCardData.hp <= 0) //checks if hero is dead
+        if (defHero.heroData.hp <= 0) //checks if hero is dead
         {
             GameOver();
             CancelInvoke();
@@ -730,17 +751,19 @@ public class GameController : MonoBehaviour {
         Invoke("EndTurn", endTurnDelay);
     }
 
-    public void GameOver() //function for losing the game
+    public void GameOver() //popup for losing the game
     {
         gameoverText.text = "You lose";
         gameoverBackground.SetActive(true);
+        loseButtonCanvas.SetActive(true);
+        endTurnButtonObj.SetActive(false);
     }
 
-    public void Victory() //function for winning the game
+    public void Victory() //popup for winning the game
     {
         gameoverText.text = "You win";
         gameoverBackground.SetActive(true);
-        buttonCanvas.SetActive(true);
+        winButtonCanvas.SetActive(true);
         if(LevelController.levelCounter >= 2)
         {
             continueButtonObj.SetActive(false);

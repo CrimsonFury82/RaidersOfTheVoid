@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 222159570452668240}
   - component: {fileID: 114011278843464534}
   m_Layer: 8
-  m_Name: APText
+  m_Name: AmmoText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -420,7 +420,7 @@ MonoBehaviour:
   useButton: {fileID: 1917522202405050}
   equipButton: {fileID: 1001928661480012783}
   dmgText: {fileID: 114026932162898624}
-  apText: {fileID: 114011278843464534}
+  ammoText: {fileID: 114011278843464534}
   rangeText: {fileID: 114763637068909888}
 --- !u!82 &5277439403386823827
 AudioSource:
@@ -683,7 +683,7 @@ GameObject:
   - component: {fileID: 222207218562521240}
   - component: {fileID: 114894016022094840}
   m_Layer: 5
-  m_Name: APBorder
+  m_Name: AmmoBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

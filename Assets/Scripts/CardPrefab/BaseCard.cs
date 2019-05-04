@@ -8,7 +8,7 @@ using UnityEngine.UI;
 [ExecuteInEditMode]
 public abstract class BaseCard : MonoBehaviour
 {
-    BaseData baseCardData;
+    BaseData baseData;
     
     public Image artImage;
 
@@ -16,6 +16,6 @@ public abstract class BaseCard : MonoBehaviour
 
     void Start()
     {
-        baseCardData.BaseCardUpdate(cardNameText, ability1Text, hpText, artImage); //updates prefab UI text with values from scriptable object
+        baseData.BaseCardUpdate(cardNameText, ability1Text, hpText, artImage); //updates prefab UI text with values from scriptable object
     }
 }

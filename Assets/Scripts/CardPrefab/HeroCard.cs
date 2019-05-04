@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class HeroCard : BaseCard
 {
-    public HeroData heroCardData;
+    public HeroData heroData;
 
     public Text armourText;
 
@@ -21,14 +21,14 @@ public class HeroCard : BaseCard
 
     public void UIHeroCard(Text armour)
     {
-       heroCardData.BaseCardUpdate(cardNameText, ability1Text, hpText, artImage);
-       armourText.text = heroCardData.armour.ToString(); //updates prefab with values from scriptable object
+       heroData.BaseCardUpdate(cardNameText, ability1Text, hpText, artImage);
+       armourText.text = heroData.armour.ToString(); //updates prefab with values from scriptable object
     }
 
     public void PlaySound1() //plays audio clip once
     {
         audioSource = GetComponent<AudioSource>();
-        AudioClip attackSound = heroCardData.audio1;
+        AudioClip attackSound = heroData.audio1;
         audioSource.PlayOneShot(attackSound);
     }
 }
